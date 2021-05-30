@@ -19,8 +19,11 @@ db.once("open", function () {
 });
 
 app.get("/", (req, res) => res.send("Home Page!"));
+
 app.use("/auction", auctionRoute);
 app.use("/user", userRoute);
 app.use("/notification", notificationRoute);
 
-app.listen(port, () => console.log(`Server running at http://localhost:3000`));
+app.listen(port, () =>
+  console.log(`Server running at http://localhost:${port}`)
+);

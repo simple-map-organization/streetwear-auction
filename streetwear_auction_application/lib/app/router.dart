@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 Route<dynamic> createRoute(settings) {
   switch (settings.name) {
-    // case homeRoute:
+    case '/':
   }
   return null;
 }

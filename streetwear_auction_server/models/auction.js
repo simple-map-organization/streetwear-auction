@@ -7,7 +7,7 @@ const auctionSchema = mongoose.Schema({
   condition: String,
   startingPrice: Number,
   minIncrement: Number,
-  BIN: Number,
+  bin: Number,
   deliveryFee: Number,
   endTime: Date,
   photos: [String],
@@ -20,6 +20,7 @@ const auctionSchema = mongoose.Schema({
   status: String,
   trackingLink: String,
   rating: Number,
+  seller:{ type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const Auction = mongoose.model("Auction", auctionSchema);

@@ -5,10 +5,20 @@ class Viewmodel with ChangeNotifier {
 
   get busy => _busy;
 
-  void turnBusy() => _busy = true;
+  void turnBusy() {
+    _busy = true;
+    notifyListeners();
+  }
 
   void turnIdle() {
     _busy = false;
     notifyListeners();
+  }
+
+  // A convenient method, to implicitly write the turnBusy()... turnIdle()
+  void update(AsyncCallback fn) async {
+    turnBusy();
+    if (fn != null) await fn();
+    turnIdle();
   }
 }
