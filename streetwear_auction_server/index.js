@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
@@ -19,7 +20,7 @@ db.once("open", function () {
 });
 
 app.get("/", (req, res) => res.send("Home Page!"));
-
+app.use(cors());
 app.use("/auction", auctionRoute);
 app.use("/user", userRoute);
 app.use("/notification", notificationRoute);
