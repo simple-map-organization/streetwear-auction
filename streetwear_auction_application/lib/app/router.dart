@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
-// const String homeRoute = '/login';
+import '../nav_bar_wrapper.dart';
 
 Route<dynamic> createRoute(settings) {
   switch (settings.name) {
     case '/':
+      return NavBarWrapper.createRoute();
   }
   return null;
 }
