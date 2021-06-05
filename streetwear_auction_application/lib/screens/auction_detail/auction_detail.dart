@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import 'widgets/image_carousel.dart';
+import '../auction_checkout/auction_checkout_view.dart';
+import '../auction_detail/widgets/image_carousel.dart';
 import '../../models/auction.dart';
 
 class AuctionDetailScreen extends StatelessWidget {
@@ -59,6 +61,7 @@ class AuctionDetailScreen extends StatelessWidget {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.pushNamed(context, AuctionCheckoutScreen.routeName);
             },
             child: Text('Confirm'),
           ),
@@ -67,7 +70,9 @@ class AuctionDetailScreen extends StatelessWidget {
     );
   }
 
-  void _buyItNow(context) {}
+  void _buyItNow(context) {
+    Navigator.pushNamed(context, AuctionCheckoutScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,20 +85,21 @@ class AuctionDetailScreen extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ImageCarouselWidget(auction.photos),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 8.0),
-              child: Center(child: Text(auction.productName)),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ImageCarouselWidget(auction.photos),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.0),
+            child: Center(child: Text(auction.productName)),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
@@ -104,28 +110,26 @@ class AuctionDetailScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 4.0),
                         Text("seller name"),
-                        Expanded(child: SizedBox()),
-                        MaterialButton(
-                          onPressed: () => _openSellerProfile(context),
-                          child: Text('View Profile'),
-                          textColor: Theme.of(context).primaryColor,
-                          shape:
-                              Border.all(color: Theme.of(context).primaryColor),
-                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: 16.0,
+                    MaterialButton(
+                      onPressed: () => _openSellerProfile(context),
+                      child: Text('View Profile'),
+                      textColor: Theme.of(context).primaryColor,
+                      shape: Border.all(color: Theme.of(context).primaryColor),
                     ),
-                    Text('Condition: ${auction.condition}\nSize: ${auction.size}\n' +
-                        'Min inc: ${auction.minIncrement}\nDelivery fee: ${auction.deliveryFee}\n' +
-                        'End time: ${auction.endTime.toIso8601String()}'),
                   ],
                 ),
-              ),
+                SizedBox(
+                  height: 16.0,
+                ),
+                Text('Condition: ${auction.condition}\nSize: ${auction.size}\n' +
+                    'Min inc: ${auction.minIncrement}\nDelivery fee: ${auction.deliveryFee}\n' +
+                    'End time: ${DateFormat.yMd().add_jm().format(auction.endTime)}'),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,

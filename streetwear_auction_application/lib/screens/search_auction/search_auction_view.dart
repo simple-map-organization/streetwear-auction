@@ -19,7 +19,7 @@ class SearchAuctionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
-      viewmodel: dependency<SearchAuctionViewModel>()..getList(),
+      viewmodel: dependency<SearchAuctionViewModel>()..init(category),
       builder: (context, viewmodel, _) => Scaffold(
         appBar: AppBar(
           titleSpacing: 0,
@@ -50,7 +50,7 @@ class SearchAuctionScreen extends StatelessWidget {
                   Icons.filter_alt_sharp,
                   size: 28.0,
                 ),
-                onPressed: () {}),
+                onPressed: () async {}),
             IconButton(
                 icon: Icon(
                   Icons.notifications,

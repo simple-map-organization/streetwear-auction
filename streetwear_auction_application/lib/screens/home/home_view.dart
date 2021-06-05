@@ -20,19 +20,25 @@ class HomeScreen extends StatelessWidget {
             color: Colors.grey[200],
             child: Column(
               children: [
-                SearchBar(),
+                SearchBar(
+                  onPressSearchBar: viewmodel.onPressSearchBar,
+                ),
                 Expanded(
-                  child: ListView(
+                  child: SingleChildScrollView(
                     padding: EdgeInsets.all(0.0),
-                    children: [
-                      Categories(),
-                      SizedBox(
-                        height: 12.0,
-                      ),
-                      AuctionGrid(
-                        auctions: viewmodel.auctions,
-                      ),
-                    ],
+                    child: Column(
+                      children: [
+                        Categories(
+                          onSelectCategory: viewmodel.onSelectCategory,
+                        ),
+                        SizedBox(
+                          height: 12.0,
+                        ),
+                        AuctionGrid(
+                          auctions: viewmodel.auctions,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

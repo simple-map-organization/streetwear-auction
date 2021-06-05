@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../nav_bar_wrapper.dart';
-import '../screens/auction-checkout/auction_checkout_view.dart';
+import '../screens/auction_checkout/auction_checkout_view.dart';
 import '../screens/search_auction/search_auction_view.dart';
-import '../screens/auction-detail/auction_detail.dart';
+import '../screens/auction_detail/auction_detail.dart';
 import '../screens/image_carousel/image_carousel.dart';
 
 Route<dynamic> createRoute(settings) {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../search_auction/search_auction_view.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
-    Key key,
-  }) : super(key: key);
+  final Function(BuildContext) onPressSearchBar;
+
+  const SearchBar({Key key, this.onPressSearchBar}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +28,7 @@ class SearchBar extends StatelessWidget {
                     style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),
-                onPressed: () => Navigator.of(context).pushNamed(
-                  SearchAuctionScreen.routeName,
-                ),
+                onPressed: () => onPressSearchBar(context),
               ),
             ),
             Padding(

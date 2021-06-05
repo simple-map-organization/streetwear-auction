@@ -5,7 +5,7 @@ import '../../services/auction/auction_service.dart';
 
 class SearchAuctionViewModel extends Viewmodel {
   //const here
-  List<String> categories = const ['All', 'Sneaker', 'Shirt'];
+  List<String> categories = const ['All', 'Sneaker', 'Cap', 'Shirt'];
 
   AuctionService get dataService => dependency();
 
@@ -16,6 +16,17 @@ class SearchAuctionViewModel extends Viewmodel {
 
   Map<String, String> queryMap = {};
 
+  void init(category) async {
+    if (category == null) return getList();
+    selectedCategory =
+        categories.indexWhere((_category) => _category == category);
+
+    queryMap['category'] = categories[selectedCategory];
+    turnBusy();
+    auctions = await dataService.getAuctionList(queryMap);
+    turnIdle();
+  }
+
   Future<void> getList() async {
     turnBusy();
     auctions = await dataService.getAuctionList();
@@ -24,19 +35,21 @@ class SearchAuctionViewModel extends Viewmodel {
 
   void onSearchProductName(String productName) async {
     if (productName == searchProductName) return;
-    turnBusy();
+
     searchProductName = productName;
     queryMap['productName'] = productName;
+    turnBusy();
     auctions = await dataService.getAuctionList(queryMap);
     turnIdle();
   }
 
   void onCategoryChange(int index) async {
     if (index == selectedCategory) return;
-    turnBusy();
+
     selectedCategory = index;
     queryMap['category'] = categories[index];
     if ((index == 0)) queryMap['category'] = '';
+    turnBusy();
     auctions = await dataService.getAuctionList(queryMap);
     turnIdle();
   }

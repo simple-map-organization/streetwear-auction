@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/auction-detail/auction_detail.dart';
+import 'package:intl/intl.dart';
+import '../screens/auction_detail/auction_detail.dart';
 import '../models/auction.dart';
 
 class AuctionCard extends StatelessWidget {
@@ -100,7 +101,8 @@ class AuctionCard extends StatelessWidget {
                     Text('Condition: ${auction.condition}'),
                     Text('Size: ${auction.size}'),
                     SizedBox(height: 8.0),
-                    Text('End time: ${auction.endTime.toIso8601String()}'),
+                    Text(
+                        'End time: ${DateFormat.yMd().add_jm().format(auction.endTime)}'),
                     SizedBox(height: 12.0),
                   ],
                 ),
