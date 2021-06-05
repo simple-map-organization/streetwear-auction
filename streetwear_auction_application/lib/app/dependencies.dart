@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:streetwear_auction_application/screens/home/home_viewmodel.dart';
 
+import '../screens/home/home_viewmodel.dart';
 import '../services/rest.dart';
 import '../services/auction/auction_service.dart';
 import '../services/auction/auction_service_rest.dart';

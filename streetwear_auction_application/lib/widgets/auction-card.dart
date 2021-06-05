@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:streetwear_auction_application/screens/auction-detail/auction_detail.dart';
+import 'package:streetwear_auction_application/screens/auction-detail/auction_detail.dart';
 import '../models/auction.dart';
 
 class AuctionCard extends StatelessWidget {
@@ -10,8 +10,8 @@ class AuctionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
-        //     arguments: {'auction': auction});
+        Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
+            arguments: {'auction': auction});
       },
       child: Container(
         decoration: BoxDecoration(
