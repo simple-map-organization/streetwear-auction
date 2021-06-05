@@ -5,6 +5,7 @@ const auctionSchema = mongoose.Schema({
   productSKU: String,
   shortProductName: String,
   condition: String,
+  size: String,
   startingPrice: Number,
   minIncrement: Number,
   bin: Number,
@@ -20,7 +21,8 @@ const auctionSchema = mongoose.Schema({
   status: String,
   trackingLink: String,
   rating: Number,
-  seller:{ type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  seller: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  category: String, //sneaker, shirt, cap, etc..
 });
 
 const Auction = mongoose.model("Auction", auctionSchema);

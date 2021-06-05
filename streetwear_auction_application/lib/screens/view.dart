@@ -42,7 +42,7 @@ class View extends StatelessWidget {
 // The ConsumerView class is an alias of View. Only for consistency
 //----------------------------------------------------------------------------
 class ConsumerView extends View {
-  ConsumerView({@required builder, @required viewmodel})
+  ConsumerView({@required builder, @required Viewmodel viewmodel})
       : super(builder: builder, viewmodel: viewmodel);
 }
 
