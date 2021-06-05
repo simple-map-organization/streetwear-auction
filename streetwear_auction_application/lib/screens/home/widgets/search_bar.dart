@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import '../../search_auction/search_auction_view.dart';
+import '../../search_auction/search_auction_view.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
@@ -29,10 +29,9 @@ class SearchBar extends StatelessWidget {
                     style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),
-                onPressed: null,
-                // onPressed: () => Navigator.of(context).pushNamed(
-                //       SearchAuctionScreen.routeName,
-                //     ),
+                onPressed: () => Navigator.of(context).pushNamed(
+                  SearchAuctionScreen.routeName,
+                ),
               ),
             ),
             Padding(

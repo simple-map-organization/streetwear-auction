@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 
 import '../screens/home/home_viewmodel.dart';
+import '../screens/search_auction/search_auction_viewmodel.dart';
+
 import '../services/rest.dart';
 import '../services/auction/auction_service.dart';
 import '../services/auction/auction_service_rest.dart';
@@ -20,4 +22,5 @@ void init() {
 
   // Viewmodels
   dependency.registerLazySingleton(() => HomeViewModel());
+  dependency.registerLazySingleton(() => SearchAuctionViewModel());
 }

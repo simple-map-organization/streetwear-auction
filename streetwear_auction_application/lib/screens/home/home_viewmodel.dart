@@ -1,8 +1,6 @@
 import '../../app/dependencies.dart';
-
 import '../../models/auction.dart';
 import '../viewmodel.dart';
-
 import '../../services/auction/auction_service.dart';
 
 class HomeViewModel extends Viewmodel {
