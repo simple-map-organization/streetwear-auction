@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const userController = require("../controllers/userController");
+// const userController = require("../controllers/userController");
 
 router.get("/", (req, res) => {
   // let user = new User();
@@ -31,7 +31,6 @@ router.get("/", (req, res) => {
   res.send("user home");
 });
 
-router.get("/:username/:password",userController.checkCredential)
 
 module.exports = router;
 

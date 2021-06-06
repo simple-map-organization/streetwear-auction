@@ -66,9 +66,9 @@ class LoginScreen extends StatelessWidget {
                               text: 'Login',
                               onPressed: () async {
                                 if (viewmodel.formKey.currentState.validate()) {
-                                  String id = await viewmodel.checkCredential();
-                                  if (id != '-1') {
-                                    userID = id;
+                                  bool isValid =
+                                      await viewmodel.checkCredential();
+                                  if (isValid) {
                                     Navigator.popAndPushNamed(context, '/');
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(

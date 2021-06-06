@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:streetwear_auction_application/screens/login/login_viewmodel.dart';
-import 'package:streetwear_auction_application/services/user/user_service.dart';
-import 'package:streetwear_auction_application/services/user/user_service_rest.dart';
+import 'package:streetwear_auction_application/services/user/login_service.dart';
+import 'package:streetwear_auction_application/services/user/login_service_rest.dart';
 
 import '../screens/home/home_viewmodel.dart';
 import '../screens/search_auction/search_auction_viewmodel.dart';
