@@ -173,13 +173,165 @@ class SellerProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConsumerView(
-      viewmodel: dependency<SellerProductViewModel>()..getList(),
-      builder: (context, viewmodel, _) {
-        return Container();
-      },
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+            toolbarHeight: 100,
+            backgroundColor: Colors.white,
+            bottom: TabBar(
+              indicator: UnderlineTabIndicator(
+                borderSide: BorderSide(
+                    width: 4.0, color: Theme.of(context).primaryColor),
+              ),
+              tabs: [
+                Tab(
+                    child: Text('All',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('Ongoing Bid',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('Payment Pending',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('To Ship',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
+              ],
+            ),
+            title: ConsumerView(
+              viewmodel: dependency<SellerProductViewModel>(),
+              builder: (context, viewmodel, _) => Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: TextField(
+                            style: TextStyle(fontSize: 12),
+                            decoration: InputDecoration(
+                                isDense: true,
+                                contentPadding: EdgeInsets.all(12.0),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color.fromRGBO(235, 235, 235, 1),
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1.0,
+                                    style: BorderStyle.solid,
+                                    color: Color.fromRGBO(235, 235, 235, 1),
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.0),
+                                  ),
+                                ),
+                                hintText: 'Product Name',
+                                fillColor: Color.fromRGBO(235, 235, 235, 1),
+                                filled: true)),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.filter_alt,
+                          color: Color.fromRGBO(235, 235, 235, 1),
+                          size: 33,
+                        ),
+                        // onPressed: () => Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (_) => SellerProductFilter()),
+                        // ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.notifications,
+                            color: Color.fromRGBO(235, 235, 235, 1),
+                            size: 33,
+                          ),
+                          onPressed: () {}),
+                    )
+                  ],
+                ),
+              ),
+            )),
+        body: ConsumerView(
+          viewmodel: dependency<SellerProductViewModel>()..getList(),
+          builder: (context, viewmodel, _) => TabBarView(
+            children: [
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView(
+                  children: [
+                    SellerProductCard(),
+                  ],
+                ),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView(
+                  children: [
+                    OngoingSellerProductCard(),
+                  ],
+                ),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView(
+                  children: [
+                    SellerProductCard(),
+                  ],
+                ),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView(
+                  children: [
+                    SellerProductCard(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          // onPressed: () => Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (_) => StartAuction()),
+          // ),
+          onPressed: () {},
+          child: Icon(
+            Icons.add,
+            size: 50,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.grey,
+        ),
+      ),
     );
-    /* return DefaultTabController(
+  }
+}
+/* return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
@@ -329,8 +481,8 @@ class SellerProduct extends StatelessWidget {
         ),
       ),
     ); */
-  }
-}
+//   }
+// }
 
 class SellerProductCard extends StatelessWidget {
   @override

@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-
-//import '../search_auction/search_auction_view.dart';
 import '../../app/dependencies.dart';
 import '../../models/auction.dart';
 import '../viewmodel.dart';
