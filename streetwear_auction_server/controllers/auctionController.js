@@ -18,7 +18,24 @@ module.exports.getAuctionList = async (req, res) => {
 
 module.exports.getAuction = (req, res) => {
   const id = req.params["id"];
-  res.send(`get auction of id ${id}`);
+  Auction.findById(id)
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+};
+
+module.exports.getUserAuctionList = (req, res) => {
+  const userid = req.params["userid"];
+  Auction.find({ seller: userid })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 };
 
 module.exports.createAuction = (req, res) => {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/screens/home/home_view.dart';
+import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
 
 class NavBarWrapper extends StatefulWidget {
   static MaterialPageRoute createRoute() =>
@@ -20,7 +21,7 @@ class _NavBarWrapperState extends State<NavBarWrapper> {
     {
       'icon': Icons.shopping_bag_rounded,
       'label': 'My Product',
-      'Widget': HomeScreen()
+      'Widget': SellerProduct()
     },
     {
       'icon': Icons.shopping_basket,
