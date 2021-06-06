@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/app/dependencies.dart';
 import 'package:streetwear_auction_application/screens/home/home_view.dart';
 
 class NavBarWrapper extends StatefulWidget {
