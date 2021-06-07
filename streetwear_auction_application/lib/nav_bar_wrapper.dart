@@ -21,7 +21,7 @@ class _NavBarWrapperState extends State<NavBarWrapper> {
     {
       'icon': Icons.shopping_bag_rounded,
       'label': 'My Product',
-      'Widget': SellerProduct()
+      'Widget': SellerProductScreen()
     },
     {
       'icon': Icons.shopping_basket,

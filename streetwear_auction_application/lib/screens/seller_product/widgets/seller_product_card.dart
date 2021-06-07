@@ -2,6 +2,7 @@ import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
+import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
 
 class SellerProductCard extends StatelessWidget {
   final Auction auction;
@@ -23,11 +24,11 @@ class SellerProductCard extends StatelessWidget {
                 style: TextStyle(color: Colors.black))),
         children: <Widget>[
           InkWell(
-            // onTap: () => Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (_) => AuctionDetail()),
-            // ),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                  SellerProductDetailScreen.routeName,
+                  arguments: {'auction': auction});
+            },
             child: Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(

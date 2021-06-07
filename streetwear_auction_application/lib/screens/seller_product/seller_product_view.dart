@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'seller_product_viewmodel.dart';
 import 'widgets/seller_product_card.dart';
 
-class SellerProduct extends StatelessWidget {
+class SellerProductScreen extends StatelessWidget {
   static Route<dynamic> route() =>
-      MaterialPageRoute(builder: (_) => SellerProduct());
-  List<Auction> _shippedAuctions;
+      MaterialPageRoute(builder: (_) => SellerProductScreen());
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -180,70 +178,6 @@ class SellerProduct extends StatelessWidget {
           ),
           backgroundColor: Colors.grey,
         ),
-      ),
-    );
-  }
-}
-
-class OngoingSellerProductCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 8, left: 8, right: 8),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'AJ1 UNC',
-              style: TextStyle(fontSize: 18),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Center(
-                      child: Image.network(
-                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvZXN8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
-                    width: 200,
-                    height: 200,
-                  )),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        '#00034202\n' +
-                            'Date: 4th Mar 2021\n\n' +
-                            'SKU: 555088-134\n' +
-                            'Condition: BNIB\n' +
-                            'Size: US10\n\n' +
-                            'BIN: RM 1800\n' +
-                            'Current Bid: RM 90\n' +
-                            'Payment Date: 5th Mar 2021 11:00PM\n',
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -13,7 +13,7 @@ module.exports.getAuctionList = async (req, res) => {
   category && (filterQuery.category = { $regex: category, $options: "i" });
   status && (filterQuery.status = { $regex: status, $options: "i" });
   seller && (filterQuery.seller = new mongoose.Types.ObjectId(seller));
-  console.log(filterQuery);
+
   let auctions = await Auction.find(filterQuery).populate(
     "bids.userId, seller"
   );
