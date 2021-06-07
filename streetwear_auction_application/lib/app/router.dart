@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
+import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
 
 import '../nav_bar_wrapper.dart';
 import '../screens/auction_checkout/auction_checkout_view.dart';
@@ -25,6 +26,9 @@ Route<dynamic> createRoute(settings) {
 
     case SellerProductDetailScreen.routeName:
       return SellerProductDetailScreen.createRoute(settings.arguments);
+
+    case SearchSellerProductScreen.routeName:
+      return SearchSellerProductScreen.createRoute(settings.arguments);
   }
   return null;
 }

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
+
 import '../../app/dependencies.dart';
 import '../../models/auction.dart';
 import '../viewmodel.dart';
@@ -28,5 +31,11 @@ class SellerProductViewModel extends Viewmodel {
     toShipAuctions = auctions.where((i) => i.status == "to ship").toList();
     shippedAuctions = auctions.where((i) => i.status == "shipped").toList();
     turnIdle();
+  }
+
+  void onPressSearchBar(context) {
+    Navigator.of(context).pushNamed(
+      SearchSellerProductScreen.routeName,
+    );
   }
 }
