@@ -19,4 +19,13 @@ class AuctionServiceRest implements AuctionService {
 
     return auctionList;
   }
+
+  Future<List<Auction>> getUserAuctionList({String sellerId}) async {
+    var jsonList = await rest.get('auction/seller/$sellerId');
+
+    List<Auction> auctionList =
+        (jsonList as List).map((json) => Auction.fromJson(json)).toList();
+
+    return auctionList;
+  }
 }

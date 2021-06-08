@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const auctionSchema = mongoose.Schema({
+  id: String,
   productName: String,
   productSKU: String,
   shortProductName: String,
