@@ -9,7 +9,7 @@ import 'widgets/seller_product_search_bar.dart';
 
 class SellerProductScreen extends StatelessWidget {
   static const routeName = '/sellerProduct';
-  static Route<dynamic> createRoute() =>
+  static Route<dynamic> route() =>
       MaterialPageRoute(builder: (_) => SellerProductScreen());
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,9 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.ongoingAuctions.length,
-                  itemBuilder: (context, index) =>
-                      OngoingBidCard(viewmodel.ongoingAuctions[index], viewmodel.onPressStatusButton),
+                  itemBuilder: (context, index) => OngoingBidCard(
+                      viewmodel.ongoingAuctions[index],
+                      viewmodel.onPressStatusButton),
                 ),
               ),
               Container(

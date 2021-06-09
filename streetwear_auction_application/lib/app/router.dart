@@ -30,8 +30,8 @@ Route<dynamic> createRoute(settings) {
     case SearchSellerProductScreen.routeName:
       return SearchSellerProductScreen.createRoute(settings.arguments);
 
-      case SellerProductScreen.routeName:
-      return SellerProductScreen.createRoute();
+    case SellerProductScreen.routeName:
+      return SellerProductScreen.route();
   }
   return null;
 }

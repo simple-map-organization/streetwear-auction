@@ -42,8 +42,8 @@ class SellerProductViewModel extends Viewmodel {
   void onPressStatusButton(context, String auctionID, String status) {
     turnBusy();
     dataService.updateAuctionStatus(auctionID: auctionID, status: status);
-    turnIdle();
     Navigator.of(context).pop();
     Navigator.pushNamed(context, SellerProductScreen.routeName);
+    turnIdle();
   }
 }
