@@ -39,6 +39,12 @@ class SellerProductViewModel extends Viewmodel {
     );
   }
 
+  void onPressFloatButton(context) {
+    Navigator.of(context).pushNamed(
+      SearchSellerProductScreen.routeName,
+    );
+  }
+
   void onPressStatusButton(context, String auctionID, String status) {
     turnBusy();
     dataService.updateAuctionStatus(auctionID: auctionID, status: status);

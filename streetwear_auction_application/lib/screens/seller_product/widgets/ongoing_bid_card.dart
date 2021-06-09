@@ -4,8 +4,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
 
-import '../seller_product_view.dart';
-
 class OngoingBidCard extends StatelessWidget {
   final Auction auction;
   final Function onPressStatusButton;
@@ -119,7 +117,7 @@ class OngoingBidCard extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () => _changeStatus(context),
-                    child: const Text('Receive'),
+                    child: const Text('Change Status'),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Theme.of(context).primaryColor),
