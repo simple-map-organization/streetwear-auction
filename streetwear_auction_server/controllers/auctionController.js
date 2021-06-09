@@ -73,7 +73,18 @@ module.exports.createAuction = (req, res) => {
 
 module.exports.updateAuction = (req, res) => {
   const id = req.params["id"];
-  res.send(`update auction of id ${id}`);
+  const status = req.query.status;
+  const productName = req.query.productName;
+  let filterQuery = {};
+  productName &&
+    (filterQuery.productName = productName);
+  status && (filterQuery.status = status);
+  Auction.findByIdAndUpdate(id, filterQuery, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    res.send(doc);
+  });
 };
 
 module.exports.deleteAuction = (req, res) => {

@@ -28,4 +28,8 @@ class AuctionServiceRest implements AuctionService {
 
     return auctionList;
   }
+
+  void updateAuctionStatus({String auctionID, String status}){
+    rest.put('auction/$auctionID?status=$status');
+  }
 }

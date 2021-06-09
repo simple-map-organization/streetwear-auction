@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
+import 'package:streetwear_auction_application/screens/seller_product/widgets/ongoing_bid_card.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'seller_product_viewmodel.dart';
@@ -7,7 +8,8 @@ import 'widgets/seller_product_card.dart';
 import 'widgets/seller_product_search_bar.dart';
 
 class SellerProductScreen extends StatelessWidget {
-  static Route<dynamic> route() =>
+  static const routeName = '/sellerProduct';
+  static Route<dynamic> createRoute() =>
       MaterialPageRoute(builder: (_) => SellerProductScreen());
   @override
   Widget build(BuildContext context) {
@@ -69,7 +71,7 @@ class SellerProductScreen extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: viewmodel.ongoingAuctions.length,
                   itemBuilder: (context, index) =>
-                      SellerProductCard(viewmodel.ongoingAuctions[index]),
+                      OngoingBidCard(viewmodel.ongoingAuctions[index], viewmodel.onPressStatusButton),
                 ),
               ),
               Container(

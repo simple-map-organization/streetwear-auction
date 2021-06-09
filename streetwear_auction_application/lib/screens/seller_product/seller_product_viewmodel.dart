@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
-
 import '../../app/dependencies.dart';
+import 'seller_product_view.dart';
 import '../../models/auction.dart';
 import '../viewmodel.dart';
 import '../../services/auction/auction_service.dart';
@@ -37,5 +37,13 @@ class SellerProductViewModel extends Viewmodel {
     Navigator.of(context).pushNamed(
       SearchSellerProductScreen.routeName,
     );
+  }
+
+  void onPressStatusButton(context, String auctionID, String status) {
+    turnBusy();
+    dataService.updateAuctionStatus(auctionID: auctionID, status: status);
+    turnIdle();
+    Navigator.of(context).pop();
+    Navigator.pushNamed(context, SellerProductScreen.routeName);
   }
 }

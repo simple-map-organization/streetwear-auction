@@ -4,9 +4,43 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
 
-class SellerProductCard extends StatelessWidget {
+import '../seller_product_view.dart';
+
+class OngoingBidCard extends StatelessWidget {
   final Auction auction;
-  SellerProductCard(this.auction);
+  final Function onPressStatusButton;
+  OngoingBidCard(this.auction, this.onPressStatusButton);
+
+  void _changeStatus(context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        content: Container(
+          child: Text('Are you sure to change status?'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+          TextButton(
+            // onPressed: () {
+            //   Navigator.of(context).pop();
+            //   Navigator.pushNamed(context, SellerProductScreen.routeName);
+            // },
+            onPressed: () => onPressStatusButton(
+                context, auction.auctionId, 'payment pending'),
+            child: Text('Confirm'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +117,14 @@ class SellerProductCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  ElevatedButton(
+                    onPressed: () => _changeStatus(context),
+                    child: const Text('Receive'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          Theme.of(context).primaryColor),
+                    ),
+                  )
                 ],
               ),
             ),
