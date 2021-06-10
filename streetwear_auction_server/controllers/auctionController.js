@@ -46,40 +46,38 @@ module.exports.getUserAuctionList = (req, res) => {
 };
 
 module.exports.createAuction = (req, res) => {
+  const {seller, productName, productSKU, shortProductName, condition, size, category} = req.body;
   let auction = new Auction();
-  auction.productName = req.query.productName;
-  auction.productSKU = req.query.productSKU;
-  auction.shortProductName = req.query.shortProductName;
-  auction.condition = req.query.condition;
-  auction.size = req.query.size;
-  auction.startingPrice = 100;
-  auction.minIncrement = 10;
-  auction.bin = 200;
-  auction.deliveryFee = 5;
+  auction.productName = productName;
+  auction.productSKU = productSKU;
+  auction.shortProductName = shortProductName;
+  auction.condition = condition;
+  auction.size = size;
+  auction.startingPrice = null;
+  auction.minIncrement = null;
+  auction.bin = null;
+  auction.deliveryFee = null;
   auction.endTime = new Date();
-  auction.photos = [
-    "https://image.goat.com/crop/500/attachments/product_template_additional_pictures/images/012/219/525/original/335047_01.jpg.jpeg?1527188497",
-    "https://image.goat.com/crop/500/attachments/product_template_additional_pictures/images/012/219/510/original/335047_06.jpg.jpeg?1527188481",
-  ];
+  auction.photos = [];
   auction.status = "ongoing";
-  auction.bids = [{ userId: "60afa472cdec953fc4d5e8ce", price: 123 }];
-  auction.trackingLink = "abc";
-  auction.rating = 3;
-  auction.seller = req.query.seller;
-  auction.category = "shirt";
-  auction.save();
-  res.send(`create auction`);
+  auction.bids = [];
+  auction.trackingLink = null;
+  auction.rating = null;
+  auction.seller = seller;
+  auction.category = category;
+  auction.save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 };
 
 module.exports.updateAuction = (req, res) => {
   const id = req.params["id"];
-  const status = req.query.status;
-  const productName = req.query.productName;
-  let filterQuery = {};
-  productName &&
-    (filterQuery.productName = productName);
-  status && (filterQuery.status = status);
-  Auction.findByIdAndUpdate(id, filterQuery, function (err, doc) {
+  const status = req.body;
+  Auction.findByIdAndUpdate(id, status, function (err, doc) {
     if (err) {
       console.log(err);
     }

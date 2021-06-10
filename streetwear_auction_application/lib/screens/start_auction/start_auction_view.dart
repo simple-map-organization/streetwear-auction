@@ -41,32 +41,30 @@ class StartAuctionScreen extends StatelessWidget {
               key: viewmodel.formKey,
               child: Column(
                 children: <Widget>[
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: DropdownButton<String>(
-                  //     isExpanded: true,
-                  //     isDense: true,
-                  //     value: dropdownValue,
-                  //     iconSize: 24,
-                  //     elevation: 16,
-                  //     underline: Container(
-                  //       height: 0,
-                  //     ),
-                  //     onChanged: (String newValue) {
-                  //       // setState(() {
-                  //       //   dropdownValue = newValue;
-                  //       // });
-                  //     },
-                  //     items:
-                  //         selection.map<DropdownMenuItem<String>>((String value) {
-                  //       return DropdownMenuItem<String>(
-                  //         value: value,
-                  //         child: Text(value),
-                  //       );
-                  //     }).toList(),
-                  //   ),
-                  // ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(right: 10, left: 10),
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      isDense: true,
+                      value: viewmodel.dropdownValue,
+                      iconSize: 24,
+                      elevation: 16,
+                      underline: Container(
+                        height: 0,
+                      ),
+                      onChanged: (String newValue) {
+                        viewmodel.changeCategory(newValue);
+                      },
+                      items: viewmodel.categories
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ),
                   Container(
                     padding: EdgeInsets.all(5),
                     margin: EdgeInsets.only(right: 10, left: 10),
@@ -254,7 +252,12 @@ class StartAuctionScreen extends StatelessWidget {
                   SizedBox(
                     width: 100,
                     child: ElevatedButton(
-                      onPressed: () => viewmodel.createAuction(context),
+                      onPressed: () {
+                        print(viewmodel.dropdownValue);
+                        if (viewmodel.formKey.currentState.validate()) {
+                          viewmodel.createAuction(context);
+                        }
+                      },
                       child: const Text('Submit'),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(

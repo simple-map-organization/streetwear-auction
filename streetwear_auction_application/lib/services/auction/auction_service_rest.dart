@@ -16,7 +16,6 @@ class AuctionServiceRest implements AuctionService {
 
     List<Auction> auctionList =
         (jsonList as List).map((json) => Auction.fromJson(json)).toList();
-
     return auctionList;
   }
 
@@ -29,18 +28,28 @@ class AuctionServiceRest implements AuctionService {
     return auctionList;
   }
 
-  void updateAuctionStatus({String auctionID, String status}) {
-    rest.put('auction/$auctionID?status=$status');
+  Future<void> updateAuctionStatus({String auctionID, String status}) async {
+    await rest.put('auction/$auctionID?', data: {'status': status});
   }
 
-  void startAuction(
+  Future<void> startAuction(
       {String sellerId,
       String productName,
       String productSKU,
       String shortProductName,
       String condition,
-      String size}) {
-    rest.post(
-        'auction/?productName=$productName&productSKU=$productSKU&shortProductName=$shortProductName&condition=$condition&size=$size&seller=$sellerId');
+      String size,
+      String category}) async {
+    await rest.post('auction/', data: {
+      'seller': sellerId,
+      'productName': productName,
+      'productSKU': productSKU,
+      'shortProductName': shortProductName,
+      'condition': condition,
+      'size': size,
+      // 'status': 'ongoing',
+      // 'endTime': DateTime.now().toIso8601String(),
+      'category': category
+    });
   }
 }

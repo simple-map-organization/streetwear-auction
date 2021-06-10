@@ -71,9 +71,8 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.ongoingAuctions.length,
-                  itemBuilder: (context, index) => OngoingBidCard(
-                      viewmodel.ongoingAuctions[index],
-                      viewmodel.onPressStatusButton),
+                  itemBuilder: (context, index) =>
+                      SellerProductCard(viewmodel.ongoingAuctions[index]),
                 ),
               ),
               Container(
@@ -90,8 +89,9 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.toShipAuctions.length,
-                  itemBuilder: (context, index) =>
-                      SellerProductCard(viewmodel.toShipAuctions[index]),
+                  itemBuilder: (context, index) => OngoingBidCard(
+                      viewmodel.toShipAuctions[index],
+                      viewmodel.onPressStatusButton),
                 ),
               ),
               Container(

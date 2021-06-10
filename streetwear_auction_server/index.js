@@ -21,6 +21,7 @@ db.once("open", function () {
 
 app.get("/", (req, res) => res.send("Home Page!"));
 app.use(cors());
+app.use(express.json());
 app.use("/auction", auctionRoute);
 app.use("/user", userRoute);
 app.use("/notification", notificationRoute);

@@ -9,37 +9,6 @@ class OngoingBidCard extends StatelessWidget {
   final Function onPressStatusButton;
   OngoingBidCard(this.auction, this.onPressStatusButton);
 
-  void _changeStatus(context) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        content: Container(
-          child: Text('Are you sure to change status?'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'Cancel',
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-          TextButton(
-            // onPressed: () {
-            //   Navigator.of(context).pop();
-            //   Navigator.pushNamed(context, SellerProductScreen.routeName);
-            // },
-            onPressed: () => onPressStatusButton(
-                context, auction.auctionId, 'payment pending'),
-            child: Text('Confirm'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,8 +85,10 @@ class OngoingBidCard extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () => _changeStatus(context),
-                    child: const Text('Change Status'),
+                    onPressed: () async {
+                      await onPressStatusButton(auction.auctionId, 'shipped');
+                    },
+                    child: const Text('Ship Product'),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Theme.of(context).primaryColor),

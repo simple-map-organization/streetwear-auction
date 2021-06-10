@@ -17,6 +17,10 @@ class StartAuctionViewModel extends Viewmodel {
 
   StartAuctionViewModel();
 
+  List<String> categories = const ['Sneaker', 'Cap', 'Shirt'];
+  String dropdownValue = 'Sneaker';
+  String category = '';
+
   void init() async {
     turnBusy();
     productNameController = TextEditingController();
@@ -28,17 +32,26 @@ class StartAuctionViewModel extends Viewmodel {
     turnIdle();
   }
 
-  void createAuction(context) {
+  Future<void> createAuction(context) async {
     turnBusy();
-    dataService.startAuction(
+    await dataService.startAuction(
         sellerId: sellerId,
         productName: productNameController.text,
         productSKU: productSKUController.text,
         shortProductName: shortProductNameController.text,
         condition: conditionController.text,
-        size: sizeController.text);
+        size: sizeController.text,
+        category: dropdownValue);
     Navigator.of(context).pop();
-    Navigator.pushNamed(context, SellerProductScreen.routeName);
+
+    //Navigator.pushNamed(context, SellerProductScreen.routeName);
     turnIdle();
+  }
+
+  void changeCategory(String data) {
+    turnBusy();
+    dropdownValue = data;
+    turnIdle();
+    print(dropdownValue);
   }
 }

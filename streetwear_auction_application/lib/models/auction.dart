@@ -77,6 +77,7 @@ class Auction {
                 json['bids']?.map((x) => x)), //need use class User
             status: json['status'],
             trackingLink: json['trackingLink'],
-            rating: json['rating'] + .0, //TODO: seller
+            rating:
+                json['rating'] == null ? 0 : json['rating'] + .0, //TODO: seller
             category: json['category']);
 }

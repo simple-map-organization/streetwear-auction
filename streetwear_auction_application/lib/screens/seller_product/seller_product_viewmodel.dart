@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
 import '../../app/dependencies.dart';
-import 'seller_product_view.dart';
 import '../../models/auction.dart';
 import '../viewmodel.dart';
 import '../../services/auction/auction_service.dart';
@@ -14,8 +13,6 @@ class SellerProductViewModel extends Viewmodel {
   List<Auction> toShipAuctions;
   String sellerId = '60afa472cdec953fc4d5e8ce';
   Map<String, String> queryMap = {};
-  Map<String, String> userMap = {};
-  Map<String, String> statusMap = {};
 
   SellerProductViewModel();
   AuctionService get dataService => dependency();
@@ -45,11 +42,18 @@ class SellerProductViewModel extends Viewmodel {
     );
   }
 
-  void onPressStatusButton(context, String auctionID, String status) {
+  Future<void> onPressStatusButton(String auctionID, String status) async {
     turnBusy();
-    dataService.updateAuctionStatus(auctionID: auctionID, status: status);
-    Navigator.of(context).pop();
-    Navigator.pushNamed(context, SellerProductScreen.routeName);
+    await dataService.updateAuctionStatus(auctionID: auctionID, status: status);
+    auctions
+        .where((element) => element.auctionId == auctionID)
+        .toList()[0]
+        .status = status;
+    ongoingAuctions = auctions.where((i) => i.status == "ongoing").toList();
+    paymentPendingAuctions =
+        auctions.where((i) => i.status == "payment pending").toList();
+    toShipAuctions = auctions.where((i) => i.status == "to ship").toList();
+    shippedAuctions = auctions.where((i) => i.status == "shipped").toList();
     turnIdle();
   }
 }

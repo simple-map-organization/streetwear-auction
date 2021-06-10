@@ -5,12 +5,14 @@ abstract class AuctionService {
 
   Future<List<Auction>> getUserAuctionList({String sellerId});
 
-  void updateAuctionStatus({String auctionID, String status});
+  Future<void> updateAuctionStatus({String auctionID, String status});
 
-  void startAuction({String sellerId,
+ Future<void> startAuction(
+      {String sellerId,
       String productName,
       String productSKU,
       String shortProductName,
       String condition,
-      String size});
+      String size,
+      String category});
 }
