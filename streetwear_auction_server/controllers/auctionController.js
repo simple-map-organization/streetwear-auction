@@ -47,11 +47,11 @@ module.exports.getUserAuctionList = (req, res) => {
 
 module.exports.createAuction = (req, res) => {
   let auction = new Auction();
-  auction.productName = "sneaker 3";
-  auction.productSKU = "abc1231";
-  auction.shortProductName = "s3";
-  auction.condition = "Good";
-  auction.size = "US10";
+  auction.productName = req.query.productName;
+  auction.productSKU = req.query.productSKU;
+  auction.shortProductName = req.query.shortProductName;
+  auction.condition = req.query.condition;
+  auction.size = req.query.size;
   auction.startingPrice = 100;
   auction.minIncrement = 10;
   auction.bin = 200;
@@ -61,11 +61,11 @@ module.exports.createAuction = (req, res) => {
     "https://image.goat.com/crop/500/attachments/product_template_additional_pictures/images/012/219/525/original/335047_01.jpg.jpeg?1527188497",
     "https://image.goat.com/crop/500/attachments/product_template_additional_pictures/images/012/219/510/original/335047_06.jpg.jpeg?1527188481",
   ];
-  auction.status = "to ship";
+  auction.status = "ongoing";
   auction.bids = [{ userId: "60afa472cdec953fc4d5e8ce", price: 123 }];
   auction.trackingLink = "abc";
   auction.rating = 3;
-  auction.seller = "60b2f0c8b7fc053dc8d27e02";
+  auction.seller = req.query.seller;
   auction.category = "shirt";
   auction.save();
   res.send(`create auction`);

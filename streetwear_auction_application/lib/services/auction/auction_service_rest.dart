@@ -29,7 +29,18 @@ class AuctionServiceRest implements AuctionService {
     return auctionList;
   }
 
-  void updateAuctionStatus({String auctionID, String status}){
+  void updateAuctionStatus({String auctionID, String status}) {
     rest.put('auction/$auctionID?status=$status');
+  }
+
+  void startAuction(
+      {String sellerId,
+      String productName,
+      String productSKU,
+      String shortProductName,
+      String condition,
+      String size}) {
+    rest.post(
+        'auction/?productName=$productName&productSKU=$productSKU&shortProductName=$shortProductName&condition=$condition&size=$size&seller=$sellerId');
   }
 }
