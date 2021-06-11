@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class Auction {
+  String auctionId;
   String productName;
   String productSKU;
   String shortProductName;
@@ -19,6 +20,7 @@ class Auction {
   String category;
 
   Auction({
+    @required this.auctionId,
     @required this.productName,
     @required this.productSKU,
     @required this.shortProductName,
@@ -38,6 +40,7 @@ class Auction {
   });
 
   Map<String, dynamic> toJson() => {
+        '_id': auctionId,
         'productName': productName,
         'productSKU': productSKU,
         'shortProductName': shortProductName,
@@ -58,6 +61,7 @@ class Auction {
 
   Auction.fromJson(Map<String, dynamic> json)
       : this(
+            auctionId: json['_id'],
             productName: json['productName'],
             productSKU: json['productSKU'],
             shortProductName: json['shortProductName'],

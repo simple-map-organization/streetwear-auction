@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:streetwear_auction_application/screens/login/login_viewmodel.dart';
+
 import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service_rest.dart';
@@ -35,4 +36,6 @@ void init() {
   dependency.registerLazySingleton(() => LoginViewModel());
   dependency.registerLazySingleton(() => RegistrationViewModel());
   dependency.registerLazySingleton(() => SearchAuctionViewModel());
+  dependency.registerLazySingleton(() => SellerProductViewModel());
+  dependency.registerLazySingleton(() => SearchSellerProductViewModel());
 }
