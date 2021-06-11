@@ -1,7 +1,9 @@
 import 'package:get_it/get_it.dart';
 import 'package:streetwear_auction_application/screens/login/login_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/seller_product/seller_product_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_viewmodel.dart';
+
+import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
+import 'package:streetwear_auction_application/services/registration/registration_service.dart';
+import 'package:streetwear_auction_application/services/registration/registration_service_rest.dart';
 import 'package:streetwear_auction_application/services/user/login_service.dart';
 import 'package:streetwear_auction_application/services/user/login_service_rest.dart';
 
@@ -23,6 +25,8 @@ void init() {
 
   dependency.registerLazySingleton<AuctionService>(() => AuctionServiceRest());
   dependency.registerLazySingleton<LoginService>(() => LoginServiceRest());
+  dependency.registerLazySingleton<RegistrationService>(
+      () => RegistrationServiceRest());
   // dependency.registerLazySingleton<AuthService>(() => AuthServiceRest());
   // dependency.registerLazySingleton<CounterService>(() => CounterServiceMock());
   // dependency.registerLazySingleton<AuthService>(() => AuthServiceMock());
@@ -30,6 +34,7 @@ void init() {
   // Viewmodels
   dependency.registerLazySingleton(() => HomeViewModel());
   dependency.registerLazySingleton(() => LoginViewModel());
+  dependency.registerLazySingleton(() => RegistrationViewModel());
   dependency.registerLazySingleton(() => SearchAuctionViewModel());
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => SearchSellerProductViewModel());
