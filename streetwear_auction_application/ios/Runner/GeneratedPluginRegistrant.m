@@ -4,23 +4,16 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<camera/CameraPlugin.h>)
-#import <camera/CameraPlugin.h>
+#if __has_include(<image_picker/FLTImagePickerPlugin.h>)
+#import <image_picker/FLTImagePickerPlugin.h>
 #else
-@import camera;
-#endif
-
-#if __has_include(<path_provider/FLTPathProviderPlugin.h>)
-#import <path_provider/FLTPathProviderPlugin.h>
-#else
-@import path_provider;
+@import image_picker;
 #endif
 
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [CameraPlugin registerWithRegistrar:[registry registrarForPlugin:@"CameraPlugin"]];
-  [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+  [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
 }
 
 @end

@@ -17,8 +17,11 @@ class VerificationScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left: 40, right: 40),
-              child: Image.asset(
-                'assets/img/logo-01.png',
+              child: Container(
+                height: 150,
+                child: Image.asset(
+                  'assets/img/logo-01.png',
+                ),
               ),
             ),
             Text(

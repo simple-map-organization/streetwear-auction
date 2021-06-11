@@ -7,7 +7,6 @@ module.exports.checkUsername = async (req, res) => {
   await User.findOne(
     { $or: [{ username: username }, { email: email }] },
     function (err, user) {
-      console.log(user);
       if (err) {
         res.send(err);
       }

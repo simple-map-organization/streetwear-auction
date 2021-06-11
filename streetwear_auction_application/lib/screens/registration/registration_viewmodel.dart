@@ -1,7 +1,6 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/main.dart';
 import 'package:streetwear_auction_application/screens/viewmodel.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service.dart';
 
@@ -17,9 +16,7 @@ class RegistrationViewModel extends Viewmodel {
   TextEditingController emailController;
   TextEditingController verificationNoController;
   GlobalKey<FormState> formKey;
-  CameraDescription camera;
-  CameraController controller;
-  Future<void> initializeControllerFuture;
+  PickedFile pickedFile;
   bool isSent;
   bool isChecked;
 
@@ -36,18 +33,6 @@ class RegistrationViewModel extends Viewmodel {
     verificationNoController = TextEditingController();
     formKey = GlobalKey<FormState>();
     isSent = false;
-    turnIdle();
-  }
-
-  void initCamera() async {
-    turnBusy();
-    controller = CameraController(
-      // Get a specific camera from the list of available cameras.
-      camera = firstCamera,
-      // Define the resolution to use.
-      ResolutionPreset.medium,
-    );
-    initializeControllerFuture = controller.initialize();
     turnIdle();
   }
 
@@ -96,12 +81,9 @@ class RegistrationViewModel extends Viewmodel {
     turnIdle();
   }
 
-  Future<void> useCamera() async {
-    try {
-      await initializeControllerFuture;
-      await controller.takePicture();
-    } catch (e) {
-      print(e);
-    }
+  Future<PickedFile> chooseImage() async {
+    final _picker = ImagePicker();
+    pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    return pickedFile;
   }
 }
