@@ -256,7 +256,7 @@ class EditProfileScreen extends StatelessWidget {
                                     isNumber: true,
                                     controller: viewmodel.cardController,
                                     maxLength: 16,
-                                    hintText: "Card number (without - )",
+                                    hintText: "Card number",
                                   ),
                                 ),
                               ),
