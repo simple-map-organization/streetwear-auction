@@ -4,11 +4,27 @@ import 'package:streetwear_auction_application/screens/start_auction/start_aucti
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'widgets/start_auction_textfield.dart';
+import 'dart:async';
+import 'package:multi_image_picker/multi_image_picker.dart';
 
 class StartAuctionScreen extends StatelessWidget {
   static const routeName = '/startAuction';
   static MaterialPageRoute createRoute(args) =>
       MaterialPageRoute(builder: (_) => StartAuctionScreen());
+
+  // Widget buildGridView(List<Asset> images) {
+  //   return GridView.count(
+  //     crossAxisCount: 3,
+  //     children: List.generate(images.length, (index) {
+  //       Asset asset = images[index];
+  //       return AssetThumb(
+  //         asset: asset,
+  //         width: 300,
+  //         height: 300,
+  //       );
+  //     }),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -178,151 +194,104 @@ class StartAuctionScreen extends StatelessWidget {
                     child: StartAuctionTextField(
                         hintText: 'BIN', controller: viewmodel.binController),
                   ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(right: 10, left: 10),
+                    child: StartAuctionTextField(
+                        hintText: 'Starting Price',
+                        controller: viewmodel.startingPriceController),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(right: 10, left: 10),
+                    child: StartAuctionTextField(
+                        hintText: 'Min Increment',
+                        controller: viewmodel.minIncrementController),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    margin: EdgeInsets.only(right: 10, left: 10),
+                    child: StartAuctionTextField(
+                        hintText: 'Delivery Fee',
+                        controller: viewmodel.deliveryFeeController),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+                    child: Row(children: <Widget>[
+                      Expanded(
+                        flex: 9,
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                            color: Color.fromRGBO(235, 235, 235, 1),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              (viewmodel.selectedDate == null)
+                                  ? 'End Time'
+                                  : '${viewmodel.selectedDate}',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: IconButton(
+                              icon: Icon(Icons.calendar_today),
+                              onPressed: () async {
+                                final DateTime picked = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2015, 8),
+                                    lastDate: DateTime(2101));
+                                if (picked != null &&
+                                    picked != viewmodel.selectedDate) {
+                                  viewmodel.changeDate(picked);
+                                }
+                              }))
+                    ]),
+                  ),
                   // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'Starting price',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
-                  // ),
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'Min. increment',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
-                  // ),
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'BIN',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
-                  // ),
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'Delivery fee',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
-                  // ),
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'COD',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
-                  // ),
-                  // Row(children: <Widget>[
-                  //   Expanded(
-                  //     flex: 9,
-                  //     child: Container(
-                  //       padding: EdgeInsets.all(5),
-                  //       margin: EdgeInsets.only(right: 10, left: 10),
-                  //       child: TextFormField(
-                  //           style: TextStyle(fontSize: 13),
-                  //           decoration: InputDecoration(
-                  //               isDense: true,
-                  //               contentPadding: EdgeInsets.all(15.0),
-                  //               border: OutlineInputBorder(
-                  //                 borderRadius: BorderRadius.all(
-                  //                   Radius.circular(10.0),
-                  //                 ),
-                  //               ),
-                  //               hintText: 'End Time',
-                  //               fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //               filled: true)),
+                  //   //padding: EdgeInsets.only(top: 10),
+                  //   child: SizedBox(
+                  //     width: 150,
+                  //     child: ElevatedButton(
+                  //       onPressed: () async {
+                  //         await viewmodel.loadAssets(viewmodel.images);
+                  //       },
+                  //       child: const Text('Pick images'),
+                  //       style: ButtonStyle(
+                  //         backgroundColor: MaterialStateProperty.all<Color>(
+                  //             Theme.of(context).primaryColor),
+                  //       ),
                   //     ),
                   //   ),
-                  //   Expanded(
-                  //       flex: 1,
-                  //       child: IconButton(
-                  //         icon: Icon(Icons.calendar_today),
-                  //         //onPressed: () => _selectDate(context),
-                  //         onPressed: () {},
-                  //       ))
-                  // ]),
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       keyboardType: TextInputType.multiline,
-                  //       maxLines: 5,
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'Description',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
                   // ),
-                  SizedBox(
-                    width: 100,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (viewmodel.formKey.currentState.validate()) {
-                          viewmodel.createAuction(context);
-                        }
-                      },
-                      child: const Text('Submit'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Theme.of(context).primaryColor),
+                  // Container(
+                  //   child: buildGridView(viewmodel.images),
+                  // ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    child: SizedBox(
+                      width: 100,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (viewmodel.formKey.currentState.validate()) {
+                            viewmodel.createAuction(context);
+                          }
+                        },
+                        child: const Text('Submit'),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).primaryColor),
+                        ),
                       ),
                     ),
                   ),

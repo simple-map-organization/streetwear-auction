@@ -7,12 +7,17 @@ abstract class AuctionService {
 
   Future<void> updateAuctionStatus({String auctionID, String status});
 
- Future<Auction> startAuction(
+  Future<Auction> startAuction(
       {String sellerId,
       String productName,
       String productSKU,
       String shortProductName,
       String condition,
       String size,
-      String category});
+      String category,
+      int bin,
+      int startingPrice,
+      int minIncrement,
+      int deliveryFee,
+      DateTime endTime});
 }

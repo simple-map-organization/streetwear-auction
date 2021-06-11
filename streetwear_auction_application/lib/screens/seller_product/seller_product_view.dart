@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
 import 'package:streetwear_auction_application/screens/seller_product/widgets/to_ship_card.dart';
-import 'package:streetwear_auction_application/screens/start_auction/start_auction_view.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'seller_product_viewmodel.dart';
@@ -106,17 +105,13 @@ class SellerProductScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            // onPressed: () => Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (_) => StartAuctionScreen()),
-            // ),
             onPressed: () => viewmodel.onPressFloatButton(context),
             child: Icon(
               Icons.add,
               size: 50,
               color: Colors.white,
             ),
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.grey.withOpacity(0.5),
           ),
         ),
       ),

@@ -39,7 +39,12 @@ class AuctionServiceRest implements AuctionService {
       String shortProductName,
       String condition,
       String size,
-      String category}) async {
+      String category,
+      int bin,
+      int startingPrice,
+      int minIncrement,
+      int deliveryFee,
+      DateTime endTime}) async {
     final json = await rest.post('auction/', data: {
       'seller': sellerId,
       'productName': productName,
@@ -48,8 +53,12 @@ class AuctionServiceRest implements AuctionService {
       'condition': condition,
       'size': size,
       // 'status': 'ongoing',
-      // 'endTime': DateTime.now().toIso8601String(),
-      'category': category
+      'endTime': endTime.toIso8601String(),
+      'category': category,
+      'bin': bin,
+      'startingPrice': startingPrice,
+      'minIncrement': minIncrement,
+      'deliveryFee': deliveryFee
     });
     return Auction.fromJson(json);
   }

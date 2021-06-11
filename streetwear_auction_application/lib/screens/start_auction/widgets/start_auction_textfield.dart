@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class StartAuctionTextField extends StatelessWidget {
   final String hintText;
@@ -11,6 +12,20 @@ class StartAuctionTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        keyboardType: (hintText == 'BIN' ||
+                hintText == 'Starting Price' ||
+                hintText == 'Min Increment' ||
+                hintText == 'Delivery Fee')
+            ? TextInputType.numberWithOptions(decimal: true)
+            : TextInputType.name,
+        inputFormatters: [
+          (hintText == 'BIN' ||
+                  hintText == 'Starting Price' ||
+                  hintText == 'Min Increment' ||
+                  hintText == 'Delivery Fee')
+              ? FilteringTextInputFormatter.digitsOnly
+              : FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9]+$'))
+        ],
         validator: (value) => (value == null || value.isEmpty)
             ? 'Please fill in this field.'
             : null,

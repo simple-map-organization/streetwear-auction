@@ -60,27 +60,27 @@ class SellerProductDetailScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '#${auction.auctionId}\n' +
-                      'Date: 4th Mar 2021\n' +
-                      'Winning Bid: RM1600\n\n' +
+                  '#${auction.auctionId}\n\n' +
                       'SKU: ${auction.productSKU}\n' +
                       'Condition: ${auction.condition}\n' +
                       'Size: ${auction.size}\n\n' +
-                      'Payment Date: 5th Mar 2021 11:00PM\n' +
-                      'Receive Date: 8th Mar 2021 01:00PM\n\n',
+                      'End Date: ${auction.endTime}\n' +
+                      'Status: ${auction.status}\n\n',
                 ),
               ),
             ),
-            Container(
-                padding: EdgeInsets.only(left: 20),
-                alignment: Alignment.centerLeft,
-                child: RatingBar.builder(
-                    initialRating: auction.rating,
-                    allowHalfRating: true,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                    itemBuilder: (context, _) =>
-                        Icon(Icons.star, color: Colors.amber),
-                    onRatingUpdate: null)),
+            (auction.rating != 0)
+                ? Container(
+                    padding: EdgeInsets.only(left: 20),
+                    alignment: Alignment.centerLeft,
+                    child: RatingBar.builder(
+                        initialRating: auction.rating,
+                        allowHalfRating: true,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
+                        itemBuilder: (context, _) =>
+                            Icon(Icons.star, color: Colors.amber),
+                        onRatingUpdate: null))
+                : SizedBox(),
             Container(
               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: Row(
