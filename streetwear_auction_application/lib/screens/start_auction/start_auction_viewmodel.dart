@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
+import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
 import 'package:streetwear_auction_application/screens/viewmodel.dart';
 import 'package:streetwear_auction_application/services/auction/auction_service.dart';
@@ -8,8 +9,8 @@ class StartAuctionViewModel extends Viewmodel {
   TextEditingController productNameController;
   TextEditingController productSKUController;
   TextEditingController shortProductNameController;
-  TextEditingController conditionController;
-  TextEditingController sizeController;
+  TextEditingController binController;
+  //TextEditingController sizeController;
   GlobalKey<FormState> formKey;
 
   String sellerId = '60afa472cdec953fc4d5e8ce';
@@ -17,34 +18,40 @@ class StartAuctionViewModel extends Viewmodel {
 
   StartAuctionViewModel();
 
-  List<String> categories = const ['Sneaker', 'Cap', 'Shirt'];
-  String dropdownValue;
-  String category = '';
+  List<String> categories = const ['Sneakers', 'Cap', 'Shirt'];
+  String category;
+
+  List<String> sizes = const ['US7', 'US8', 'US9'];
+  String size;
+
+  List<String> conditions = const ['Average', 'Good', 'Very Good', 'New'];
+  String condition;
 
   void init() async {
     turnBusy();
     productNameController = TextEditingController();
     productSKUController = TextEditingController();
     shortProductNameController = TextEditingController();
-    conditionController = TextEditingController();
-    sizeController = TextEditingController();
+    condition = 'Average';
+    size = 'US7';
     formKey = GlobalKey<FormState>();
-    dropdownValue = 'Sneaker';
+    category = 'Sneakers';
+    binController = TextEditingController();
     turnIdle();
   }
 
   Future<void> createAuction(context) async {
     turnBusy();
-    //final Auction _auction=
-    await dataService.startAuction(
+    final Auction _auction = await dataService.startAuction(
         sellerId: sellerId,
         productName: productNameController.text,
         productSKU: productSKUController.text,
         shortProductName: shortProductNameController.text,
-        condition: conditionController.text,
-        size: sizeController.text,
-        category: dropdownValue);
-    Navigator.of(context).pop();
+        condition: condition,
+        size: size,
+        category: category);
+    //print(_auction.auctionId);
+    Navigator.of(context).pop(_auction);
 
     //Navigator.pushNamed(context, SellerProductScreen.routeName);
     turnIdle();
@@ -52,7 +59,19 @@ class StartAuctionViewModel extends Viewmodel {
 
   void changeCategory(String data) {
     turnBusy();
-    dropdownValue = data;
+    category = data;
+    turnIdle();
+  }
+
+  void changeSize(String data) {
+    turnBusy();
+    size = data;
+    turnIdle();
+  }
+
+  void changeCondition(String data) {
+    turnBusy();
+    condition = data;
     turnIdle();
   }
 }

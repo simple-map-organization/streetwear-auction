@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
-import 'package:streetwear_auction_application/screens/seller_product/seller_product_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/start_auction/start_auction_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'widgets/start_auction_textfield.dart';
-//import 'seller_product_screen.dart';
 
 class StartAuctionScreen extends StatelessWidget {
   static const routeName = '/startAuction';
   static MaterialPageRoute createRoute(args) =>
       MaterialPageRoute(builder: (_) => StartAuctionScreen());
-
-  // String dropdownValue = 'Sneakers';
-  // var selection = [
-  //   'Sneakers',
-  //   'Clothings',
-  //   'Accessories',
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +38,7 @@ class StartAuctionScreen extends StatelessWidget {
                     child: DropdownButton<String>(
                       isExpanded: true,
                       isDense: true,
-                      value: viewmodel.dropdownValue,
+                      value: viewmodel.category,
                       iconSize: 24,
                       elevation: 16,
                       underline: Container(
@@ -80,23 +70,6 @@ class StartAuctionScreen extends StatelessWidget {
                         hintText: 'Product SKU',
                         controller: viewmodel.productSKUController),
                   ),
-                  // Container(
-                  //   padding: EdgeInsets.all(5),
-                  //   margin: EdgeInsets.only(right: 10, left: 10),
-                  //   child: TextFormField(
-                  //       style: TextStyle(fontSize: 13),
-                  //       decoration: InputDecoration(
-                  //           isDense: true,
-                  //           contentPadding: EdgeInsets.all(15.0),
-                  //           border: OutlineInputBorder(
-                  //             borderRadius: BorderRadius.all(
-                  //               Radius.circular(10.0),
-                  //             ),
-                  //           ),
-                  //           hintText: 'Brand',
-                  //           fillColor: Color.fromRGBO(235, 235, 235, 1),
-                  //           filled: true)),
-                  // ),
                   Container(
                     padding: EdgeInsets.all(5),
                     margin: EdgeInsets.only(right: 10, left: 10),
@@ -105,17 +78,105 @@ class StartAuctionScreen extends StatelessWidget {
                         controller: viewmodel.shortProductNameController),
                   ),
                   Container(
-                    padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.only(right: 10, left: 10),
-                    child: StartAuctionTextField(
-                        hintText: 'Condition',
-                        controller: viewmodel.conditionController),
+                    margin:
+                        EdgeInsets.only(right: 15, left: 15, top: 5, bottom: 5),
+                    child: Row(children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5),
+                          child: Text('Condition: ',
+                              style: TextStyle(fontSize: 13)),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                            color: Color.fromRGBO(235, 235, 235, 1),
+                          ),
+                          child: Center(
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              value: viewmodel.condition,
+                              iconSize: 24,
+                              elevation: 16,
+                              underline: Container(
+                                height: 0,
+                              ),
+                              onChanged: (String newValue) {
+                                viewmodel.changeCondition(newValue);
+                              },
+                              items: viewmodel.conditions
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,
+                                      style: TextStyle(fontSize: 13)),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.all(5),
+                          child: Text('Size: ', style: TextStyle(fontSize: 13)),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ),
+                            color: Color.fromRGBO(235, 235, 235, 1),
+                          ),
+                          child: Center(
+                            child: DropdownButton<String>(
+                              isDense: true,
+                              value: viewmodel.size,
+                              iconSize: 24,
+                              elevation: 16,
+                              underline: Container(
+                                height: 0,
+                              ),
+                              onChanged: (String newValue) {
+                                viewmodel.changeSize(newValue);
+                              },
+                              items: viewmodel.sizes
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,
+                                      style: TextStyle(fontSize: 13)),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
                   ),
                   Container(
                     padding: EdgeInsets.all(5),
                     margin: EdgeInsets.only(right: 10, left: 10),
                     child: StartAuctionTextField(
-                        hintText: 'Size', controller: viewmodel.sizeController),
+                        hintText: 'BIN', controller: viewmodel.binController),
                   ),
                   // Container(
                   //   padding: EdgeInsets.all(5),
@@ -254,7 +315,6 @@ class StartAuctionScreen extends StatelessWidget {
                     width: 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        print(viewmodel.dropdownValue);
                         if (viewmodel.formKey.currentState.validate()) {
                           viewmodel.createAuction(context);
                         }

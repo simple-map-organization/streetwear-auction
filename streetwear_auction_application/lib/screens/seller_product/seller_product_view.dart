@@ -106,11 +106,11 @@ class SellerProductScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => StartAuctionScreen()),
-            ),
-            //onPressed: () {},
+            // onPressed: () => Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (_) => StartAuctionScreen()),
+            // ),
+            onPressed: () => viewmodel.onPressFloatButton(context),
             child: Icon(
               Icons.add,
               size: 50,

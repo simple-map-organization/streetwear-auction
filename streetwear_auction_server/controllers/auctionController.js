@@ -46,23 +46,23 @@ module.exports.getUserAuctionList = (req, res) => {
 };
 
 module.exports.createAuction = (req, res) => {
-  const {seller, productName, productSKU, shortProductName, condition, size, category} = req.body;
+  const { seller, productName, productSKU, shortProductName, condition, size, category } = req.body;
   let auction = new Auction();
   auction.productName = productName;
   auction.productSKU = productSKU;
   auction.shortProductName = shortProductName;
   auction.condition = condition;
   auction.size = size;
-  auction.startingPrice = null;
-  auction.minIncrement = null;
-  auction.bin = null;
-  auction.deliveryFee = null;
+  auction.startingPrice = 90;
+  auction.minIncrement = 50;
+  auction.bin = 2500;
+  auction.deliveryFee = 13;
   auction.endTime = new Date();
-  auction.photos = [];
+  auction.photos = ['https://image.goat.com/crop/500/attachments/product_template_additional_pictures/images/012/219/525/original/335047_01.jpg.jpeg?1527188497'];
   auction.status = "ongoing";
   auction.bids = [];
-  auction.trackingLink = null;
-  auction.rating = null;
+  auction.trackingLink = 'dsds';
+  auction.rating = 0;
   auction.seller = seller;
   auction.category = category;
   auction.save()
