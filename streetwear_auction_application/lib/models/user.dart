@@ -8,12 +8,12 @@ class User {
   String phoneNum;
   String profilePhoto;
   String bio;
-  double totalDeal;
+  int totalDeal;
   double rating;
   String address1;
   String address2;
   String address3;
-  int postcode;
+  String postcode;
   String state;
   String country;
   String card;
@@ -46,4 +46,53 @@ class User {
     @required this.igLink,
     @required this.lcLink,
   });
+
+  User.fromJson(Map<String, dynamic> json)
+      : this(
+          userId: json['userId'],
+          username: json['username'],
+          email: json['email'],
+          password: json['password'],
+          phoneNum: json['phoneNum'],
+          profilePhoto: json['profilePhoto'],
+          bio: json['bio'],
+          totalDeal: json['totalDeal'],
+          rating: json['rating'],
+          address1: json['address']['address1'],
+          address2: json['address']['address2'],
+          address3: json['address']['address3'],
+          postcode: json['address']['postcode'],
+          state: json['address']['state'],
+          country: json['address']['country'],
+          card: json['payment']['card'],
+          expiryDate: json['payment']['expiryDate'],
+          cvv: json['payment']['cvv'],
+          fbLink: json['fbLink'],
+          igLink: json['igLink'],
+          lcLink: json['lcLink'],
+        );
+
+  Map<String, dynamic> toJson() => {
+        'userId': userId,
+        'username': username,
+        'email': email,
+        'password': password,
+        'phoneNum': phoneNum,
+        'profilePhoto': profilePhoto,
+        'bio': bio,
+        'totalDeal': totalDeal,
+        'rating': rating,
+        'address.address1': address1,
+        'address.address2': address2,
+        'address.address3': address3,
+        'address.postcode': postcode,
+        'address.state': state,
+        'address.country': country,
+        'payment.card': card,
+        'payment.expiryDate': expiryDate,
+        'payment.cvv': cvv,
+        'fbLink': fbLink,
+        'igLink': igLink,
+        'lcLink': lcLink,
+      };
 }
