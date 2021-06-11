@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema({
     address1: String,
     address2: String,
     address3: String,
-    postcode: Number,
+    postcode: String,
     state: String,
     country: String,
   },

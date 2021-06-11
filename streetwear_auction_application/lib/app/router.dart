@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/screens/home/home_view.dart';
 import 'package:streetwear_auction_application/screens/login/login_view.dart';
+import 'package:streetwear_auction_application/screens/profile/edit_profile_view.dart';
 
 import '../nav_bar_wrapper.dart';
 import '../screens/auction_checkout/auction_checkout_view.dart';
@@ -27,6 +28,9 @@ Route<dynamic> createRoute(settings) {
 
     case SearchAuctionScreen.routeName:
       return SearchAuctionScreen.createRoute(settings.arguments);
+
+    case EditProfileScreen.routeName:
+      return EditProfileScreen.createRoute(settings.arguments);
   }
   return null;
 }
