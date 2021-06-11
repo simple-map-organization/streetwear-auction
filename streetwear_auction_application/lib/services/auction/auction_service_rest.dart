@@ -32,7 +32,7 @@ class AuctionServiceRest implements AuctionService {
     await rest.put('auction/$auctionID?', data: {'status': status});
   }
 
-  Future<void> startAuction(
+  Future<Auction> startAuction(
       {String sellerId,
       String productName,
       String productSKU,
@@ -40,7 +40,7 @@ class AuctionServiceRest implements AuctionService {
       String condition,
       String size,
       String category}) async {
-    await rest.post('auction/', data: {
+    final json = await rest.post('auction/', data: {
       'seller': sellerId,
       'productName': productName,
       'productSKU': productSKU,
@@ -51,5 +51,6 @@ class AuctionServiceRest implements AuctionService {
       // 'endTime': DateTime.now().toIso8601String(),
       'category': category
     });
+    return Auction.fromJson(json);
   }
 }

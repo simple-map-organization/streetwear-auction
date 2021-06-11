@@ -18,7 +18,7 @@ class StartAuctionViewModel extends Viewmodel {
   StartAuctionViewModel();
 
   List<String> categories = const ['Sneaker', 'Cap', 'Shirt'];
-  String dropdownValue = 'Sneaker';
+  String dropdownValue;
   String category = '';
 
   void init() async {
@@ -29,11 +29,13 @@ class StartAuctionViewModel extends Viewmodel {
     conditionController = TextEditingController();
     sizeController = TextEditingController();
     formKey = GlobalKey<FormState>();
+    dropdownValue = 'Sneaker';
     turnIdle();
   }
 
   Future<void> createAuction(context) async {
     turnBusy();
+    //final Auction _auction=
     await dataService.startAuction(
         sellerId: sellerId,
         productName: productNameController.text,
@@ -52,6 +54,5 @@ class StartAuctionViewModel extends Viewmodel {
     turnBusy();
     dropdownValue = data;
     turnIdle();
-    print(dropdownValue);
   }
 }

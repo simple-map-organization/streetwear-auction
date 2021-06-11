@@ -4,10 +4,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
 
-class OngoingBidCard extends StatelessWidget {
+class ToShipCard extends StatelessWidget {
   final Auction auction;
   final Function onPressStatusButton;
-  OngoingBidCard(this.auction, this.onPressStatusButton);
+  ToShipCard(this.auction, this.onPressStatusButton);
 
   @override
   Widget build(BuildContext context) {

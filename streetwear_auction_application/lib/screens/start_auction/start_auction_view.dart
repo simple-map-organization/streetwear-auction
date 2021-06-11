@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
 import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
+import 'package:streetwear_auction_application/screens/seller_product/seller_product_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/start_auction/start_auction_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/seller_product/widgets/ongoing_bid_card.dart';
+import 'package:streetwear_auction_application/screens/seller_product/widgets/to_ship_card.dart';
 import 'package:streetwear_auction_application/screens/start_auction/start_auction_view.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 
@@ -89,7 +89,7 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.toShipAuctions.length,
-                  itemBuilder: (context, index) => OngoingBidCard(
+                  itemBuilder: (context, index) => ToShipCard(
                       viewmodel.toShipAuctions[index],
                       viewmodel.onPressStatusButton),
                 ),
