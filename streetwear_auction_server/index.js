@@ -8,6 +8,7 @@ const auctionRoute = require("./routes/auction");
 const userRoute = require("./routes/user");
 const notificationRoute = require("./routes/notification");
 const loginRoute = require("./routes/login");
+const registrationRoute = require("./routes/registration");
 
 mongoose.connect(
   "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
@@ -21,11 +22,13 @@ db.once("open", function () {
 });
 app.use(express.json());
 app.get("/", (req, res) => res.send("Home Page!"));
+app.use(express.json());
 app.use(cors());
 app.use("/auction", auctionRoute);
 app.use("/user", userRoute);
 app.use("/notification", notificationRoute);
 app.use("/login", loginRoute);
+app.use("/registration", registrationRoute);
 
 app.listen(port, () =>
   console.log(`Server running at http://localhost:${port}`)

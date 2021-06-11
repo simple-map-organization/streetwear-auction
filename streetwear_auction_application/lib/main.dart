@@ -1,8 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'app/dependencies.dart' as di;
 import 'app/router.dart';
 
-void main() {
+Future<void> main() async {
   di.init();
   runApp(MyApp());
 }
