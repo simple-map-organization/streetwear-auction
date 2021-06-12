@@ -8,12 +8,14 @@ class SearchSellerProductViewModel extends Viewmodel {
 
   List<Auction> auctions;
   String searchProductName;
-
+  String sellerId = '60afa472cdec953fc4d5e8ce';
   Map<String, String> queryMap = {};
 
   Future<void> getList() async {
+    queryMap['seller'] = sellerId;
     turnBusy();
     auctions = await dataService.getAuctionList();
+    print(auctions);
     turnIdle();
   }
 
