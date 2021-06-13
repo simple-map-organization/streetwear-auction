@@ -8,7 +8,8 @@ import 'widgets/categories.dart';
 import 'widgets/search_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-  static Route<dynamic> route() =>
+  static const routeName = '/home';
+  static Route<dynamic> createRoute(args) =>
       MaterialPageRoute(builder: (_) => HomeScreen());
 
   @override

@@ -12,7 +12,9 @@ async function main() {
   const auctionRoute = require("./routes/auction");
   const userRoute = require("./routes/user");
   const notificationRoute = require("./routes/notification");
-
+  const loginRoute = require("./routes/login");
+  const registrationRoute = require("./routes/registration");
+  const UserAuthMiddleware = require("./middleware/authMiddleware");
   mongoose.connect(
     "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
     { useNewUrlParser: true, useUnifiedTopology: true }
@@ -30,7 +32,11 @@ async function main() {
   app.use(express.urlencoded({ limit: "50mb" }));
 
   app.get("/", (req, res) => res.send("Home Page!"));
+  app.use(express.json());
   app.use(cors());
+  app.use("/login", loginRoute);
+app.use("/registration", registrationRoute);
+app.use(UserAuthMiddleware);
   app.use("/auction", auctionRoute);
   app.use("/user", userRoute);
   app.use("/notification", notificationRoute);
@@ -47,3 +53,4 @@ async function getLocalIp() {
     });
   });
 }
+

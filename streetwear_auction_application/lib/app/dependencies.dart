@@ -1,4 +1,19 @@
 import 'package:get_it/get_it.dart';
+import 'package:streetwear_auction_application/app/auth.dart';
+import 'package:streetwear_auction_application/screens/login/login_viewmodel.dart';
+
+import 'package:streetwear_auction_application/screens/profile/edit_profile_viewmodel.dart';
+import 'package:streetwear_auction_application/screens/profile/profile_viewmodel.dart';
+
+import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
+import 'package:streetwear_auction_application/services/registration/registration_service.dart';
+import 'package:streetwear_auction_application/services/registration/registration_service_rest.dart';
+
+import 'package:streetwear_auction_application/services/user/login_service.dart';
+import 'package:streetwear_auction_application/services/user/login_service_rest.dart';
+import 'package:streetwear_auction_application/services/user/user_service.dart';
+import 'package:streetwear_auction_application/services/user/user_service_rest.dart';
+
 import 'package:streetwear_auction_application/screens/seller_product/seller_product_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/start_auction/start_auction_viewmodel.dart';
@@ -15,17 +30,28 @@ GetIt dependency = GetIt.instance;
 void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.68.107:3000'),
+    () => RestService(baseUrl: 'http://192.168.43.208:3000'),
   );
 
+  dependency.registerLazySingleton<AuthService>(() => AuthService());
+
   dependency.registerLazySingleton<AuctionService>(() => AuctionServiceRest());
-  // dependency.registerLazySingleton<AuthService>(() => AuthServiceRest());
-  // dependency.registerLazySingleton<CounterService>(() => CounterServiceMock());
-  // dependency.registerLazySingleton<AuthService>(() => AuthServiceMock());
+  dependency.registerLazySingleton<LoginService>(() => LoginServiceRest());
+
+  dependency.registerLazySingleton<UserService>(() => UserServiceRest());
+
+  dependency.registerLazySingleton<RegistrationService>(
+      () => RegistrationServiceRest());
 
   // Viewmodels
   dependency.registerLazySingleton(() => HomeViewModel());
+  dependency.registerLazySingleton(() => LoginViewModel());
+  dependency.registerLazySingleton(() => RegistrationViewModel());
   dependency.registerLazySingleton(() => SearchAuctionViewModel());
+
+  dependency.registerLazySingleton(() => ProfileViewModel());
+  dependency.registerLazySingleton(() => EditProfileViewModel());
+
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => SearchSellerProductViewModel());
   dependency.registerLazySingleton(() => StartAuctionViewModel());

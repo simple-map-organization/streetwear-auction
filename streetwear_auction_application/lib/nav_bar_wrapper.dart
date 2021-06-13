@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/home/home_view.dart';
-import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
+import 'screens/home/home_view.dart';
+import 'screens/profile/profile_view.dart';
+import 'screens/seller_product/seller_product_view.dart';
 
 class NavBarWrapper extends StatefulWidget {
   static MaterialPageRoute createRoute() =>
@@ -28,7 +29,11 @@ class _NavBarWrapperState extends State<NavBarWrapper> {
       'label': 'Purchase',
       'Widget': HomeScreen()
     },
-    {'icon': Icons.account_circle, 'label': 'Profile', 'Widget': HomeScreen()}
+    {
+      'icon': Icons.account_circle,
+      'label': 'Profile',
+      'Widget': ProfileScreen()
+    }
   ];
 
   void _onItemTapped(int index) {

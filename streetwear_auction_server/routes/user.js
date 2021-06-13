@@ -1,34 +1,10 @@
 const express = require("express");
+const User = require("../models/user");
 const router = express.Router();
 
-const User = require("../models/user");
+const userController = require("../controllers/userController");
 
-router.get("/", (req, res) => {
-  // let user = new User();
-
-  // user.userId = "";
-  // user.username = "";
-  // user.email = "";
-  // user.password = "";
-  // user.phoneNum = "";
-  // user.profilePhoto = "";
-  // user.bio = "";
-  // user.totalDeal = 0;
-  // user.rating = 0;
-  // user.address = {
-  //   address1: "",
-  //   address2: "",
-  //   address3: "",
-  //   postcode: 8100,
-  //   state: "",
-  //   country: "",
-  // };
-  // user.payment = { card: "xxxx xxxx", expiryDate: "", cvv: "120" };
-  // user.fbLink = "abc";
-  // user.igLink = "abc";
-  // user.lcLink = "abc";
-  // user.save();
-  res.send("user home");
-});
+router.get("/", userController.getUser);
+router.put("/", userController.updateUser);
 
 module.exports = router;
