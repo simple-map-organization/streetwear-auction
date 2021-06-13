@@ -7,6 +7,7 @@ module.exports.getAuctionList = async (req, res) => {
   const category = req.query.category;
   const status = req.query.status;
   const seller = req.query.seller;
+  const localIp = await getLocalIp();
 
   let filterQuery = {};
   productName &&
@@ -19,6 +20,11 @@ module.exports.getAuctionList = async (req, res) => {
     "bids.userId, seller"
   );
 
+  for (let x = 0; x < auctions.length; x++) {
+    auctions[x].photos = auctions[x].photos.map(
+      (name) => `http://${localIp}:3000/images/${name}`
+    );
+  }
   res.json(auctions);
 };
 
@@ -63,7 +69,6 @@ module.exports.createAuction = async (req, res) => {
     imageName,
     image,
   } = req.body;
-  const localIp = await getLocalIp(); // temporary
   for (let index = 0; index < imageName.length; index++) {
     var realFile = Buffer.from(image[index], "base64");
     fs.writeFile("public/images/" + imageName[index], realFile, function (err) {
@@ -82,9 +87,7 @@ module.exports.createAuction = async (req, res) => {
   auction.bin = bin;
   auction.deliveryFee = deliveryFee;
   auction.endTime = endTime;
-  auction.photos = imageName.map(
-    (image) => `http://${localIp}:3000/images/${image}` // temporary
-  );
+  auction.photos = imageName;
   auction.status = "ongoing";
   auction.bids = [];
   auction.trackingLink = "dsds";
@@ -100,8 +103,6 @@ module.exports.createAuction = async (req, res) => {
       console.log(err);
     });
 
-  //console.log(image);
-  //console.log(req.body);
 };
 
 module.exports.updateAuction = (req, res) => {
