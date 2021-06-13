@@ -69,8 +69,8 @@ class AuctionServiceRest implements AuctionService {
       'startingPrice': startingPrice,
       'minIncrement': minIncrement,
       'deliveryFee': deliveryFee,
-      "image": jsonEncode(base64Image),
-      "imageName": jsonEncode(fileName),
+      "image": base64Image,
+      "imageName": fileName,
     });
     return Auction.fromJson(json);
   }

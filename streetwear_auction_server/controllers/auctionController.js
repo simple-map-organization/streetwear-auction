@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Auction = require("../models/auction");
 var fs = require("fs");
-const { json } = require("express");
 
 module.exports.getAuctionList = async (req, res) => {
   const productName = req.query.productName;
@@ -31,12 +30,12 @@ module.exports.getAuction = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
 };
 
 module.exports.getUserAuctionList = (req, res) => {
   const status = req.query.status;
-  const userid = req.params['userid'];
+  const userid = req.params["userid"];
 
   Auction.find({ seller: userid })
     .then((result) => {
@@ -44,49 +43,62 @@ module.exports.getUserAuctionList = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-    })
+    });
 };
 
-module.exports.createAuction = (req, res) => {
-  const { seller, productName, productSKU, shortProductName, condition, size, category, bin, startingPrice, minIncrement, deliveryFee, endTime } = req.body;
-const object = JSON.parse(req.body);
-  const image = object.image;
-  const imageName = object.imageName;
-  console.log(image.length);
-  console.log(imageName.length);
-  // for (let index = 0; index < imageName.length; index++) {
-  //   var realFile = Buffer.from(image[index], "base64");
-  //   fs.writeFile("images/" + imageName[index], realFile, function (err) {
-  //     if (err) console.log(err);
-  //   });
-  // }
+module.exports.createAuction = async (req, res) => {
+  const {
+    seller,
+    productName,
+    productSKU,
+    shortProductName,
+    condition,
+    size,
+    category,
+    bin,
+    startingPrice,
+    minIncrement,
+    deliveryFee,
+    endTime,
+    imageName,
+    image,
+  } = req.body;
+  const localIp = await getLocalIp(); // temporary
+  for (let index = 0; index < imageName.length; index++) {
+    var realFile = Buffer.from(image[index], "base64");
+    fs.writeFile("public/images/" + imageName[index], realFile, function (err) {
+      if (err) console.log(err);
+    });
+  }
 
-  // let auction = new Auction();
-  // auction.productName = productName;
-  // auction.productSKU = productSKU;
-  // auction.shortProductName = shortProductName;
-  // auction.condition = condition;
-  // auction.size = size;
-  // auction.startingPrice = startingPrice;
-  // auction.minIncrement = minIncrement;
-  // auction.bin = bin;
-  // auction.deliveryFee = deliveryFee;
-  // auction.endTime = endTime;
-  // auction.photos = imageName;
-  // auction.status = "ongoing";
-  // auction.bids = [];
-  // auction.trackingLink = 'dsds';
-  // auction.rating = 0;
-  // auction.seller = seller;
-  // auction.category = category;
-  // auction.save()
-  //   .then((result) => {
-  //     res.json(result);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-
+  let auction = new Auction();
+  auction.productName = productName;
+  auction.productSKU = productSKU;
+  auction.shortProductName = shortProductName;
+  auction.condition = condition;
+  auction.size = size;
+  auction.startingPrice = startingPrice;
+  auction.minIncrement = minIncrement;
+  auction.bin = bin;
+  auction.deliveryFee = deliveryFee;
+  auction.endTime = endTime;
+  auction.photos = imageName.map(
+    (image) => `http://${localIp}:3000/images/${image}` // temporary
+  );
+  auction.status = "ongoing";
+  auction.bids = [];
+  auction.trackingLink = "dsds";
+  auction.rating = 0;
+  auction.seller = seller;
+  auction.category = category;
+  auction
+    .save()
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   //console.log(image);
   //console.log(req.body);
@@ -107,3 +119,11 @@ module.exports.deleteAuction = (req, res) => {
   const id = req.params["id"];
   res.send(`delete auction of id ${id}`);
 };
+
+async function getLocalIp() {
+  return new Promise((resolve, reject) => {
+    require("dns").lookup(require("os").hostname(), function (err, add, fam) {
+      resolve(add);
+    });
+  });
+}

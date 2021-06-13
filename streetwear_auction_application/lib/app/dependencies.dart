@@ -15,7 +15,7 @@ GetIt dependency = GetIt.instance;
 void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.68.107:3000'),
+    () => RestService(baseUrl: 'http://192.168.43.208:3000'),
   );
 
   dependency.registerLazySingleton<AuctionService>(() => AuctionServiceRest());

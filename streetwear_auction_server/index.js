@@ -4,29 +4,46 @@ const mongoose = require("mongoose");
 const app = express();
 const port = 3000;
 
-const auctionRoute = require("./routes/auction");
-const userRoute = require("./routes/user");
-const notificationRoute = require("./routes/notification");
+main();
 
-mongoose.connect(
-  "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+async function main() {
+  const localIp = await getLocalIp();
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function () {
-  console.log("connected to mongodb");
-});
+  const auctionRoute = require("./routes/auction");
+  const userRoute = require("./routes/user");
+  const notificationRoute = require("./routes/notification");
 
-app.get("/", (req, res) => res.send("Home Page!"));
-app.use(cors());
-app.use(express.json({ limit: '50mb' }));
-app.use("/auction", auctionRoute);
-app.use("/user", userRoute);
-app.use("/notification", notificationRoute);
-app.use(express.urlencoded({ limit: '50mb' }));
+  mongoose.connect(
+    "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  );
 
-app.listen(port, () =>
-  console.log(`Server running at http://localhost:${port}`)
-);
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error:"));
+  db.once("open", function () {
+    console.log("connected to mongodb");
+  });
+
+  app.use(express.static("public"));
+
+  app.use(express.json({ limit: "50mb" }));
+  app.use(express.urlencoded({ limit: "50mb" }));
+
+  app.get("/", (req, res) => res.send("Home Page!"));
+  app.use(cors());
+  app.use("/auction", auctionRoute);
+  app.use("/user", userRoute);
+  app.use("/notification", notificationRoute);
+
+  app.listen(port, () =>
+    console.log(`Server running at http://${localIp}:${port}`)
+  );
+}
+
+async function getLocalIp() {
+  return new Promise((resolve, reject) => {
+    require("dns").lookup(require("os").hostname(), function (err, add, fam) {
+      resolve(add);
+    });
+  });
+}
