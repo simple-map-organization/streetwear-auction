@@ -4,7 +4,6 @@ import 'package:streetwear_auction_application/screens/login/login_viewmodel.dar
 import 'package:streetwear_auction_application/screens/profile/edit_profile_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/profile/profile_viewmodel.dart';
 
-
 import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service_rest.dart';
@@ -30,8 +29,7 @@ String userId;
 void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.0.115:3000'),
-    // () => RestService(baseUrl: 'http://192.168.0.179:3000'),
+    () => RestService(baseUrl: 'http://192.168.43.208:3000'),
   );
 
   dependency.registerLazySingleton<AuctionService>(() => AuctionServiceRest());
@@ -57,5 +55,4 @@ void init() {
 
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => SearchSellerProductViewModel());
-
 }
