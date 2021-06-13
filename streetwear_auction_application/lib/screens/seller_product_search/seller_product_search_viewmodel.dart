@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../models/auction.dart';
 import '../../app/dependencies.dart';
 import '../viewmodel.dart';
@@ -15,7 +17,6 @@ class SearchSellerProductViewModel extends Viewmodel {
     queryMap['seller'] = sellerId;
     turnBusy();
     auctions = await dataService.getAuctionList();
-    print(auctions);
     turnIdle();
   }
 

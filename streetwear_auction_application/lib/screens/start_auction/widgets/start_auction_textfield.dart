@@ -38,6 +38,11 @@ class StartAuctionTextField extends StatelessWidget {
                 Radius.circular(10.0),
               ),
             ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.transparent,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
             hintText: hintText,
             fillColor: Color.fromRGBO(235, 235, 235, 1),
             filled: true),

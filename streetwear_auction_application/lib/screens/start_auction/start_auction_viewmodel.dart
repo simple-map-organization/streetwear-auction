@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/viewmodel.dart';
@@ -33,6 +36,8 @@ class StartAuctionViewModel extends Viewmodel {
   DateTime selectedDate;
 
   List<Asset> images;
+  List<File> fileImageArray;
+  //List<String> f;
 
   void init() async {
     turnBusy();
@@ -49,6 +54,7 @@ class StartAuctionViewModel extends Viewmodel {
     deliveryFeeController = TextEditingController();
     selectedDate = null;
     images = <Asset>[];
+    fileImageArray = [];
     turnIdle();
   }
 
@@ -66,7 +72,8 @@ class StartAuctionViewModel extends Viewmodel {
         startingPrice: int.parse(startingPriceController.text),
         minIncrement: int.parse(minIncrementController.text),
         deliveryFee: int.parse(deliveryFeeController.text),
-        endTime: selectedDate);
+        endTime: selectedDate,
+        listImageFile: fileImageArray);
     Navigator.of(context).pop(_auction);
     turnIdle();
   }
@@ -95,14 +102,15 @@ class StartAuctionViewModel extends Viewmodel {
     turnIdle();
   }
 
-  Future<void> loadAssets(List<Asset> images) async {
+  Future<void> loadAssets() async {
+    turnBusy();
     List<Asset> resultList = <Asset>[];
     String error = 'No Error Detected';
 
     try {
       resultList = await MultiImagePicker.pickImages(
-        maxImages: 300,
-        enableCamera: true,
+        maxImages: 5,
+        enableCamera: false,
         selectedAssets: images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
         materialOptions: MaterialOptions(
@@ -118,8 +126,11 @@ class StartAuctionViewModel extends Viewmodel {
     }
 
     //if (!mounted) return;
-
-    turnBusy();
+    for (int i = 0; i < resultList.length; i++) {
+      var path =
+          await FlutterAbsolutePath.getAbsolutePath(resultList[i].identifier);
+      fileImageArray.add(File(path));
+    }
     images = resultList;
     // _error = error;
     turnIdle();

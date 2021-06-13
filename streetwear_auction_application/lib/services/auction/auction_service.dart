@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../models/auction.dart';
 
 abstract class AuctionService {
@@ -19,5 +21,6 @@ abstract class AuctionService {
       int startingPrice,
       int minIncrement,
       int deliveryFee,
-      DateTime endTime});
+      DateTime endTime,
+      List<File> listImageFile});
 }

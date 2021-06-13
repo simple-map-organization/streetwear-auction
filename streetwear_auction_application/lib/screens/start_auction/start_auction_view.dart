@@ -4,7 +4,6 @@ import 'package:streetwear_auction_application/screens/start_auction/start_aucti
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'widgets/start_auction_textfield.dart';
-import 'dart:async';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 class StartAuctionScreen extends StatelessWidget {
@@ -12,19 +11,24 @@ class StartAuctionScreen extends StatelessWidget {
   static MaterialPageRoute createRoute(args) =>
       MaterialPageRoute(builder: (_) => StartAuctionScreen());
 
-  // Widget buildGridView(List<Asset> images) {
-  //   return GridView.count(
-  //     crossAxisCount: 3,
-  //     children: List.generate(images.length, (index) {
-  //       Asset asset = images[index];
-  //       return AssetThumb(
-  //         asset: asset,
-  //         width: 300,
-  //         height: 300,
-  //       );
-  //     }),
-  //   );
-  // }
+  Widget buildGridView(List<Asset> images) {
+    return Container(
+      margin: EdgeInsets.only(right: 10, left: 10),
+      child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        crossAxisCount: 3,
+        children: List.generate(images.length, (index) {
+          Asset asset = images[index];
+          return AssetThumb(
+            asset: asset,
+            width: 300,
+            height: 300,
+          );
+        }),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +48,7 @@ class StartAuctionScreen extends StatelessWidget {
         ),
         body: Container(
           child: SingleChildScrollView(
+            physics: ScrollPhysics(),
             child: Form(
               key: viewmodel.formKey,
               child: Column(
@@ -111,7 +116,6 @@ class StartAuctionScreen extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.all(
                               Radius.circular(10.0),
                             ),
@@ -155,7 +159,6 @@ class StartAuctionScreen extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.all(
                               Radius.circular(10.0),
                             ),
@@ -224,7 +227,6 @@ class StartAuctionScreen extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.all(
                               Radius.circular(10.0),
                             ),
@@ -258,25 +260,28 @@ class StartAuctionScreen extends StatelessWidget {
                               }))
                     ]),
                   ),
-                  // Container(
-                  //   //padding: EdgeInsets.only(top: 10),
-                  //   child: SizedBox(
-                  //     width: 150,
-                  //     child: ElevatedButton(
-                  //       onPressed: () async {
-                  //         await viewmodel.loadAssets(viewmodel.images);
-                  //       },
-                  //       child: const Text('Pick images'),
-                  //       style: ButtonStyle(
-                  //         backgroundColor: MaterialStateProperty.all<Color>(
-                  //             Theme.of(context).primaryColor),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   child: buildGridView(viewmodel.images),
-                  // ),
+                  Container(
+                    //padding: EdgeInsets.only(top: 10),
+                    child: SizedBox(
+                      width: 150,
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await viewmodel.loadAssets();
+                        },
+                        icon: Icon(
+                          Icons.image,
+                        ),
+                        label: Text('Pick Images'),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).primaryColor),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: buildGridView(viewmodel.images),
+                  ),
                   Container(
                     padding: EdgeInsets.only(top: 10),
                     child: SizedBox(

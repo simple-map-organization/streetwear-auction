@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:streetwear_auction_application/services/auction/auction_service.dart';
 
 import '../../app/dependencies.dart';
@@ -44,7 +47,14 @@ class AuctionServiceRest implements AuctionService {
       int startingPrice,
       int minIncrement,
       int deliveryFee,
-      DateTime endTime}) async {
+      DateTime endTime,
+      List<File> listImageFile}) async {
+//encode image
+    List<String> base64Image =
+        listImageFile.map((e) => base64Encode(e.readAsBytesSync())).toList();
+    List<String> fileName =
+        listImageFile.map((e) => e.path.split("/").last).toList();
+
     final json = await rest.post('auction/', data: {
       'seller': sellerId,
       'productName': productName,
@@ -58,7 +68,9 @@ class AuctionServiceRest implements AuctionService {
       'bin': bin,
       'startingPrice': startingPrice,
       'minIncrement': minIncrement,
-      'deliveryFee': deliveryFee
+      'deliveryFee': deliveryFee,
+      "image": jsonEncode(base64Image),
+      "imageName": jsonEncode(fileName),
     });
     return Auction.fromJson(json);
   }
