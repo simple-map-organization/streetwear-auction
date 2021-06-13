@@ -124,7 +124,7 @@ class EditProfileViewModel extends Viewmodel {
     user.fbLink = fbLinkController.text;
     user.igLink = igLinkController.text;
     user.lcLink = lcLinkController.text;
-    this.user = await dataService.updateUser(userId, user);
+    this.user = await dataService.updateUser(user);
     turnIdle();
   }
 

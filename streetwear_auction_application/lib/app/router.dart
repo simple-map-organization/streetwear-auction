@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/auth_wrapper.dart';
 import 'package:streetwear_auction_application/screens/home/home_view.dart';
 import 'package:streetwear_auction_application/screens/login/login_view.dart';
 import 'package:streetwear_auction_application/screens/profile/edit_profile_view.dart';
@@ -9,7 +10,6 @@ import 'package:streetwear_auction_application/screens/registration/registration
 import 'package:streetwear_auction_application/screens/registration/verification_view.dart';
 import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
 import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
-import '../nav_bar_wrapper.dart';
 import '../screens/auction_checkout/auction_checkout_view.dart';
 import '../screens/search_auction/search_auction_view.dart';
 import '../screens/auction_detail/auction_detail.dart';
@@ -18,7 +18,7 @@ import '../screens/image_carousel/image_carousel.dart';
 Route<dynamic> createRoute(settings) {
   switch (settings.name) {
     case '/':
-      return NavBarWrapper.createRoute();
+      return AuthWrapper.createRoute();
 
     case LoginScreen.routeName:
       return LoginScreen.createRoute();

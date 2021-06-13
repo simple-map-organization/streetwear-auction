@@ -146,10 +146,18 @@ class ProfileScreen extends StatelessWidget {
                       height: 1,
                     ),
                     ProfileListButton(text: 'To Rate'),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      child: ElevatedButton(
+                        child: Text('Log Out'),
+                        onPressed: viewmodel.logOut,
+                      ),
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

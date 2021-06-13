@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'app/dependencies.dart' as di;
 import 'app/router.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.lightBlue,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: '/login',
+        initialRoute: '/',
         onGenerateRoute: createRoute,
       ),
     );
