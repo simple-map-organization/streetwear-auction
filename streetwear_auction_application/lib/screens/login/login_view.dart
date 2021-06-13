@@ -67,18 +67,14 @@ class LoginScreen extends StatelessWidget {
                           child: CustomAuthenticationButton(
                               text: 'Login',
                               onPressed: () async {
-                                if (viewmodel.formKey.currentState.validate()) {
-                                  bool isValid =
-                                      await viewmodel.checkCredential();
-                                  if (isValid) {
-                                    Navigator.popAndPushNamed(context, '/');
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Invalid Credential, please try again')));
-                                  }
-                                }
+                                if (!viewmodel.formKey.currentState.validate())
+                                  return;
+
+                                if (!await viewmodel.checkCredential())
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Invalid Credential, please try again')));
                               }),
                         )),
                   ],

@@ -57,7 +57,7 @@ class User {
           profilePhoto: json['profilePhoto'],
           bio: json['bio'],
           totalDeal: json['totalDeal'],
-          rating: json['rating'],
+          rating: json['rating'] == null ? json['rating'] + .0 : 0.0,
           address1: json['address']['address1'],
           address2: json['address']['address2'],
           address3: json['address']['address3'],
