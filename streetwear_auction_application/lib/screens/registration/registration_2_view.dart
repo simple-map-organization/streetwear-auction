@@ -35,7 +35,7 @@ class RegistrationScreen2 extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 40, right: 40),
                   child: Container(
-                    height: 200,
+                    height: 150,
                     child: Image.asset(
                       'assets/img/logo-01.png',
                     ),
@@ -46,7 +46,7 @@ class RegistrationScreen2 extends StatelessWidget {
                   style: TextStyle(fontSize: 30),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                   child: Text(
                       'Hereby, you have to provide 3 photos for the prove of your identity: \n\n' +
                           '1. Front view of the IC/Passport/License\n\n' +
@@ -55,7 +55,7 @@ class RegistrationScreen2 extends StatelessWidget {
                       style: TextStyle(fontSize: 14)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                       '*Make sure the photos taken are clear, so that your face and name are both clear and legible.',
                       style: TextStyle(fontSize: 12, color: Colors.red)),
