@@ -42,11 +42,12 @@ class SearchSellerProductScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-                icon: Icon(
-                  Icons.filter_alt_sharp,
-                  size: 28.0,
-                ),
-                onPressed: () async {}),
+              icon: Icon(
+                Icons.filter_alt_sharp,
+                size: 28.0,
+              ),
+              onPressed: () {},
+            ),
             IconButton(
                 icon: Icon(
                   Icons.notifications,

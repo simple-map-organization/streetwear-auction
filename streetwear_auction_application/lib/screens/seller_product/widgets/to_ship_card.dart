@@ -1,11 +1,13 @@
+import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
 
-class SellerProductCard extends StatelessWidget {
+class ToShipCard extends StatelessWidget {
   final Auction auction;
-  SellerProductCard(this.auction);
+  final Function onPressStatusButton;
+  ToShipCard(this.auction, this.onPressStatusButton);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +34,15 @@ class SellerProductCard extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(5),
+            Padding(
+              padding: const EdgeInsets.only(top: 0),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                //mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Container(
+                    child: Center(
                         child: Image.network(
                       auction.photos[0],
                       width: 100,
@@ -47,9 +50,8 @@ class SellerProductCard extends StatelessWidget {
                     )),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
-                      alignment: Alignment.topCenter,
                       padding: EdgeInsets.only(left: 10),
                       child: Column(children: <Widget>[
                         Align(
@@ -58,7 +60,7 @@ class SellerProductCard extends StatelessWidget {
                               'SKU: ${auction.productSKU}\n' +
                               'Condition: ${auction.condition}\n' +
                               'Size: ${auction.size}\n\n' +
-                              'End Date: ${auction.endTime}\n' +
+                              'End Date:\n ${auction.endTime}\n\n' +
                               'Status: ${auction.status}\n'),
                         ),
                         (auction.rating != 0)
@@ -75,6 +77,21 @@ class SellerProductCard extends StatelessWidget {
                                     onRatingUpdate: null))
                             : SizedBox(),
                       ]),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await onPressStatusButton(auction.auctionId, 'shipped');
+                      },
+                      child: Text(
+                        'Ship',
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            Theme.of(context).primaryColor),
+                      ),
                     ),
                   ),
                 ],

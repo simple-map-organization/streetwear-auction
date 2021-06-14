@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
+import 'package:streetwear_auction_application/screens/seller_product/widgets/to_ship_card.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
 
 import 'seller_product_viewmodel.dart';
@@ -7,6 +8,7 @@ import 'widgets/seller_product_card.dart';
 import 'widgets/seller_product_search_bar.dart';
 
 class SellerProductScreen extends StatelessWidget {
+  static const routeName = '/sellerProduct';
   static Route<dynamic> route() =>
       MaterialPageRoute(builder: (_) => SellerProductScreen());
   @override
@@ -86,8 +88,9 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.toShipAuctions.length,
-                  itemBuilder: (context, index) =>
-                      SellerProductCard(viewmodel.toShipAuctions[index]),
+                  itemBuilder: (context, index) => ToShipCard(
+                      viewmodel.toShipAuctions[index],
+                      viewmodel.onPressStatusButton),
                 ),
               ),
               Container(
@@ -102,17 +105,13 @@ class SellerProductScreen extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            // onPressed: () => Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (_) => StartAuction()),
-            // ),
-            onPressed: () {},
+            onPressed: () => viewmodel.onPressFloatButton(context),
             child: Icon(
               Icons.add,
               size: 50,
               color: Colors.white,
             ),
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.grey.withOpacity(0.5),
           ),
         ),
       ),

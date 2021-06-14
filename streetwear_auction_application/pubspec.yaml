@@ -34,6 +34,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   email_validator: "^1.0.0"
   expansion_card: ^0.1.0
+  multi_image_picker: ^4.8.01
+  flutter_absolute_path: ^1.0.6
   flutter_secure_storage: ^4.2.0
 
 dev_dependencies:
