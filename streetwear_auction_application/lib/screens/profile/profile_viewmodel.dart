@@ -1,7 +1,7 @@
-import 'package:streetwear_auction_application/app/auth.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/user.dart';
-import 'package:streetwear_auction_application/services/user/user_service.dart';
+import '../../app/auth.dart';
+import '../../app/dependencies.dart';
+import '../../models/user.dart';
+import '../../services/user/user_service.dart';
 import '../viewmodel.dart';
 
 class ProfileViewModel extends Viewmodel {

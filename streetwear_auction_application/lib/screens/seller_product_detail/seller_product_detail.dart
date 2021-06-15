@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
+import 'package:intl/intl.dart';
+
+import '../../models/auction.dart';
 
 class SellerProductDetailScreen extends StatelessWidget {
   static const routeName = '/sellerProductDetail';
@@ -10,22 +12,22 @@ class SellerProductDetailScreen extends StatelessWidget {
   final Auction auction;
   SellerProductDetailScreen(this.auction);
 
-  void _openBidding(context) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24.0),
-            topRight: Radius.circular(24.0),
-          ),
-        ),
-        context: context,
-        builder: null
-        // (_) => BiddingDetails(),
-        );
-    return;
-  }
+  // void _openBidding(context) {
+  //   showModalBottomSheet(
+  //       isScrollControlled: true,
+  //       backgroundColor: Colors.white,
+  //       shape: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.only(
+  //           topLeft: Radius.circular(24.0),
+  //           topRight: Radius.circular(24.0),
+  //         ),
+  //       ),
+  //       context: context,
+  //       builder: null
+  //       // (_) => BiddingDetails(),
+  //       );
+  //   return;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class SellerProductDetailScreen extends StatelessWidget {
                       'SKU: ${auction.productSKU}\n' +
                       'Condition: ${auction.condition}\n' +
                       'Size: ${auction.size}\n\n' +
-                      'End Date: ${auction.endTime}\n' +
+                      'End Date: ${DateFormat.yMd().add_jm().format(auction.endTime)}\n' +
                       'Status: ${auction.status}\n\n',
                 ),
               ),

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 import '../../image_carousel/image_carousel.dart';
 
 class ImageCarouselWidget extends StatefulWidget {
-  final List<String> images;
-  ImageCarouselWidget(this.images);
+  final List<Image> images;
+  final double _height;
+  final bool _autoPlay;
+  ImageCarouselWidget(this.images,
+      {double height = 200.0, bool autoPlay = false})
+      : _height = height,
+        _autoPlay = autoPlay;
 
   @override
   _ImageCarouselWidgetState createState() => _ImageCarouselWidgetState();
@@ -22,7 +28,8 @@ class _ImageCarouselWidgetState extends State<ImageCarouselWidget> {
         children: [
           CarouselSlider(
             options: CarouselOptions(
-                height: 200.0,
+                autoPlay: widget._autoPlay,
+                height: widget._height,
                 viewportFraction: 1.0,
                 onPageChanged: (currentPage, _) {
                   setState(() {
@@ -39,12 +46,7 @@ class _ImageCarouselWidgetState extends State<ImageCarouselWidget> {
                               'index': widget.images.indexOf(image)
                             });
                       },
-                      child: Container(
-                          width: double.infinity,
-                          child: Image.network(
-                            image,
-                            fit: BoxFit.contain,
-                          )),
+                      child: Container(width: double.infinity, child: image),
                     ))
                 .toList(),
           ),

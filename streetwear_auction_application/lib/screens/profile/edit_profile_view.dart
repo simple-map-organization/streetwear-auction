@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/models/user.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-import 'package:streetwear_auction_application/widgets/custom_authetication_button.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
 
+import '../../app/dependencies.dart';
+import '../../models/user.dart';
+import '../../widgets/custom_authetication_button.dart';
+import '../view.dart';
 import 'edit_profile_viewmodel.dart';
 import 'widgets/custom_text_form_field.dart';
 import 'widgets/dropdown_list.dart';

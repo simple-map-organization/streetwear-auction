@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/registration/verification_view.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-import 'package:streetwear_auction_application/widgets/custom_authetication_button.dart';
+
+import '../../app/dependencies.dart';
+import '../../widgets/custom_authetication_button.dart';
+import '../view.dart';
+import 'registration_viewmodel.dart';
+import 'verification_view.dart';
 
 class RegistrationScreen3 extends StatelessWidget {
   static const routeName = '/registration_3';
@@ -12,7 +13,7 @@ class RegistrationScreen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
-      viewmodel: dependency<RegistrationViewModel>()..initCheckBox(),
+      viewmodel: dependency<RegistrationViewModel>(),
       builder: (context, viewmodel, _) => Scaffold(
           backgroundColor: Color.fromRGBO(217, 217, 217, 1),
           body: Stack(children: [
@@ -121,21 +122,23 @@ class RegistrationScreen3 extends StatelessWidget {
                                 viewmodel.setIsChecked();
                               })),
                       Expanded(
-                          flex: 7,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    'I acknowledge that I have read, and do hereby accept the Terms and Conditions by the Streetwear Acution Application'),
-                                InkWell(
-                                  child: Text(
-                                    'Read Terms and Conditions',
-                                    style: TextStyle(
-                                        color: Colors.blue[900],
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                )
-                              ]))
+                        flex: 7,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                'I acknowledge that I have read, and do hereby accept the Terms and Conditions by the Streetwear Acution Application'),
+                            InkWell(
+                              child: Text(
+                                'Read Terms and Conditions',
+                                style: TextStyle(
+                                    color: Colors.blue[900],
+                                    decoration: TextDecoration.underline),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

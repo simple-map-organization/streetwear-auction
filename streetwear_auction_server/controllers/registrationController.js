@@ -11,12 +11,14 @@ module.exports.checkUsername = async (req, res) => {
         res.send(err);
       }
       if (user == null) {
-        return res.json('success');
+        return res.json("success");
       } else {
         if (user.username === username) {
-          return res.json('The username already exists, please use another one.');
+          return res.json(
+            "The username already exists, please use another one."
+          );
         } else if (user.email === email) {
-          return res.json('The email already exists, please use another one.');
+          return res.json("The email already exists, please use another one.");
         }
       }
     }

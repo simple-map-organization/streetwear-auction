@@ -17,14 +17,14 @@ class StartAuctionTextField extends StatelessWidget {
                 hintText == 'Min Increment' ||
                 hintText == 'Delivery Fee')
             ? TextInputType.numberWithOptions(decimal: true)
-            : TextInputType.name,
+            : TextInputType.text,
         inputFormatters: [
           (hintText == 'BIN' ||
                   hintText == 'Starting Price' ||
                   hintText == 'Min Increment' ||
                   hintText == 'Delivery Fee')
               ? FilteringTextInputFormatter.digitsOnly
-              : FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9]+$'))
+              : FilteringTextInputFormatter.singleLineFormatter
         ],
         validator: (value) => (value == null || value.isEmpty)
             ? 'Please fill in this field.'

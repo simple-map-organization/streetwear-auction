@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/models/user.dart';
-import 'package:streetwear_auction_application/screens/profile/edit_profile_view.dart';
+
+import '../../../models/user.dart';
+import '../edit_profile_view.dart';
 
 class ProfileListButton extends StatelessWidget {
   final String text;

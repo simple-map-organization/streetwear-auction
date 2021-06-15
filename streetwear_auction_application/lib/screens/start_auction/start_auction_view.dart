@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/start_auction/start_auction_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-
-import 'widgets/start_auction_textfield.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+
+import '../../app/dependencies.dart';
+import '../view.dart';
+import 'start_auction_viewmodel.dart';
+import 'widgets/start_auction_textfield.dart';
 
 class StartAuctionScreen extends StatelessWidget {
   static const routeName = '/startAuction';
@@ -251,8 +251,8 @@ class StartAuctionScreen extends StatelessWidget {
                                 final DateTime picked = await showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
-                                    firstDate: DateTime(2015, 8),
-                                    lastDate: DateTime(2101));
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2050));
                                 if (picked != null &&
                                     picked != viewmodel.selectedDate) {
                                   viewmodel.changeDate(picked);
@@ -288,7 +288,10 @@ class StartAuctionScreen extends StatelessWidget {
                       width: 100,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (viewmodel.formKey.currentState.validate()) {
+                          if (viewmodel.formKey.currentState.validate() &&
+                              viewmodel.selectedDate != null &&
+                              (viewmodel.images != null) &&
+                              (viewmodel.images.length > 0)) {
                             viewmodel.createAuction(context);
                           }
                         },
