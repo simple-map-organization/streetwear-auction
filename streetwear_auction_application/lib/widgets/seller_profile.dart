@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/models/user.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../models/user.dart';
 
 class SellerProfile extends StatelessWidget {
   final User user;

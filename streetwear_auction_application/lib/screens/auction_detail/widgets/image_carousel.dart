@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 import '../../image_carousel/image_carousel.dart';
 
 class ImageCarouselWidget extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/auth.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/nav_bar_wrapper.dart';
-import 'package:streetwear_auction_application/screens/login/login_view.dart';
+import 'app/auth.dart';
+import 'app/dependencies.dart';
+import 'nav_bar_wrapper.dart';
+import 'screens/login/login_view.dart';
 
 class AuthWrapper extends StatelessWidget {
   static MaterialPageRoute createRoute() =>

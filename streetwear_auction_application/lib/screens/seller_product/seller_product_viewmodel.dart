@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
-import 'package:streetwear_auction_application/screens/start_auction/start_auction_view.dart';
+
 import '../../app/dependencies.dart';
 import '../../models/auction.dart';
-import '../viewmodel.dart';
 import '../../services/auction/auction_service.dart';
+import '../start_auction/start_auction_view.dart';
+import '../viewmodel.dart';
 
 class SellerProductViewModel extends Viewmodel {
   List<Auction> auctions;
 
+  String searchProductName;
+
   SellerProductViewModel();
   AuctionService get dataService => dependency();
+  Map<String, String> queryMap = {};
 
   Future<void> getList() async {
     turnBusy();
@@ -24,10 +27,14 @@ class SellerProductViewModel extends Viewmodel {
   get toShipAuctions => auctions.where((i) => i.status == "to ship").toList();
   get shippedAuctions => auctions.where((i) => i.status == "shipped").toList();
 
-  void onPressSearchBar(context) {
-    Navigator.of(context).pushNamed(
-      SearchSellerProductScreen.routeName,
-    );
+  void onSearchProductName(String productName) async {
+    if (productName == searchProductName) return;
+
+    searchProductName = productName;
+    queryMap['productName'] = productName;
+    turnBusy();
+    auctions = await dataService.getSellerAuctionList(queryMap);
+    turnIdle();
   }
 
   void onPressFloatButton(context) async {

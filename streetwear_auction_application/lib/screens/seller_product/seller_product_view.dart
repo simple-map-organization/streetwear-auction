@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/seller_product/widgets/to_ship_card.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
 
+import '../../app/dependencies.dart';
+import '../view.dart';
 import 'seller_product_viewmodel.dart';
 import 'widgets/seller_product_card.dart';
-import 'widgets/seller_product_search_bar.dart';
+import 'widgets/to_ship_card.dart';
 
 class SellerProductScreen extends StatelessWidget {
   static const routeName = '/sellerProduct';
@@ -19,6 +18,26 @@ class SellerProductScreen extends StatelessWidget {
         length: 5,
         child: Scaffold(
           appBar: AppBar(
+            title: TextFormField(
+              initialValue: viewmodel.searchProductName,
+              onFieldSubmitted: viewmodel.onSearchProductName,
+              style: TextStyle(fontSize: 12.0),
+              cursorColor: Colors.grey,
+              decoration: InputDecoration(
+                hintText: 'Search here',
+                isDense: true,
+                contentPadding: EdgeInsets.all(12.0),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey[200], width: 1.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey[200], width: 1.0),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey[200], width: 1.0),
+                ),
+              ),
+            ),
             toolbarHeight: 100,
             backgroundColor: Colors.white,
             bottom: TabBar(
@@ -49,9 +68,6 @@ class SellerProductScreen extends StatelessWidget {
                         style:
                             TextStyle(color: Theme.of(context).primaryColor))),
               ],
-            ),
-            title: SellerProductSearchBar(
-              onPressSearchBar: viewmodel.onPressSearchBar,
             ),
           ),
           body: TabBarView(

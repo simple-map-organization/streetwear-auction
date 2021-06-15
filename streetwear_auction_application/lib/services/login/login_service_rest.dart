@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
 
+import '../../app/dependencies.dart';
 import '../rest.dart';
 import 'login_service.dart';
 

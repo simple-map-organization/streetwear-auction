@@ -6,16 +6,15 @@ import 'package:streetwear_auction_application/screens/profile/edit_profile_view
 import 'package:streetwear_auction_application/screens/profile/profile_viewmodel.dart';
 
 import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
+import 'package:streetwear_auction_application/services/login/login_service.dart';
+import 'package:streetwear_auction_application/services/login/login_service_rest.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service.dart';
 import 'package:streetwear_auction_application/services/registration/registration_service_rest.dart';
 
-import 'package:streetwear_auction_application/services/user/login_service.dart';
-import 'package:streetwear_auction_application/services/user/login_service_rest.dart';
 import 'package:streetwear_auction_application/services/user/user_service.dart';
 import 'package:streetwear_auction_application/services/user/user_service_rest.dart';
 
 import 'package:streetwear_auction_application/screens/seller_product/seller_product_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/start_auction/start_auction_viewmodel.dart';
 
 import '../screens/home/home_viewmodel.dart';
@@ -53,6 +52,5 @@ void init() {
   dependency.registerLazySingleton(() => EditProfileViewModel());
 
   dependency.registerLazySingleton(() => SellerProductViewModel());
-  dependency.registerLazySingleton(() => SearchSellerProductViewModel());
   dependency.registerLazySingleton(() => StartAuctionViewModel());
 }

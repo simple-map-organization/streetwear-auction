@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/login/login_view.dart';
-import 'package:streetwear_auction_application/widgets/custom_authetication_button.dart';
+
+import '../login/login_view.dart';
+import '../../widgets/custom_authetication_button.dart';
 
 class VerificationScreen extends StatelessWidget {
   static const routeName = '/verification';

@@ -40,13 +40,17 @@ module.exports.getAuction = (req, res) => {
 };
 
 module.exports.getSellerAuctionList = async (req, res) => {
-  const status = req.query.status;
   const sellerId = req.id;
+  const productName = req.query.productName;
 
-  const auctions = await Auction.find({ seller: sellerId }).populate(
+  let filterQuery = {};
+  filterQuery.seller = sellerId;
+  productName &&
+    (filterQuery.productName = { $regex: productName, $options: "i" });
+  console.log(filterQuery);
+  const auctions = await Auction.find(filterQuery).populate(
     "bids.userId, seller"
   );
-
   auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
       (name) => `http://${process.env.IP}:3000/images/${name}`

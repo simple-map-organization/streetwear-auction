@@ -1,6 +1,6 @@
 import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/user.dart';
 
+import '../../models/user.dart';
 import '../rest.dart';
 import 'user_service.dart';
 

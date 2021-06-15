@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
-import 'package:streetwear_auction_application/screens/seller_product_detail/seller_product_detail.dart';
+
+import '../../../models/auction.dart';
+import '../../seller_product_detail/seller_product_detail.dart';
 
 class SellerProductCard extends StatelessWidget {
   final Auction auction;

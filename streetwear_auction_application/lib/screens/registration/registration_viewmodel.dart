@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/viewmodel.dart';
-import 'package:streetwear_auction_application/services/registration/registration_service.dart';
+
+import '../../app/dependencies.dart';
+import '../../services/registration/registration_service.dart';
+import '../viewmodel.dart';
 
 String username;
 String password;

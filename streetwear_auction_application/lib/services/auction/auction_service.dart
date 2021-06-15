@@ -5,7 +5,7 @@ import '../../models/auction.dart';
 abstract class AuctionService {
   Future<List<Auction>> getAuctionList([Map<String, String> filter]);
 
-  Future<List<Auction>> getSellerAuctionList();
+  Future<List<Auction>> getSellerAuctionList([Map<String, String> filter]);
 
   Future<void> updateAuctionStatus({String auctionID, String status});
 

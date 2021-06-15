@@ -1,13 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_absolute_path/flutter_absolute_path.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
-import 'package:streetwear_auction_application/screens/viewmodel.dart';
-import 'package:streetwear_auction_application/services/auction/auction_service.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-import 'dart:async';
+
+import '../../app/dependencies.dart';
+import '../../models/auction.dart';
+import '../../services/auction/auction_service.dart';
+import '../viewmodel.dart';
 
 class StartAuctionViewModel extends Viewmodel {
   TextEditingController productNameController;

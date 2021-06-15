@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:streetwear_auction_application/widgets/seller_profile.dart';
 
+import '../../widgets/seller_profile.dart';
 import '../auction_checkout/auction_checkout_view.dart';
 import '../auction_detail/widgets/image_carousel.dart';
 import '../../models/auction.dart';

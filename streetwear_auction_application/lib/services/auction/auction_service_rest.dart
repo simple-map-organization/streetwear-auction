@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:streetwear_auction_application/services/auction/auction_service.dart';
-
 import '../../app/dependencies.dart';
 import '../../models/auction.dart';
 import '../rest.dart';
+import 'auction_service.dart';
 
 class AuctionServiceRest implements AuctionService {
   final rest = dependency<RestService>();
@@ -22,8 +21,12 @@ class AuctionServiceRest implements AuctionService {
     return auctionList;
   }
 
-  Future<List<Auction>> getSellerAuctionList() async {
-    var jsonList = await rest.get('auction/seller');
+  Future<List<Auction>> getSellerAuctionList(
+      [Map<String, String> filter]) async {
+    String endPoint = filter == null
+        ? 'auction/seller'
+        : 'auction/seller?' + Uri(queryParameters: filter).query;
+    var jsonList = await rest.get(endPoint);
 
     List<Auction> auctionList =
         (jsonList as List).map((json) => Auction.fromJson(json)).toList();

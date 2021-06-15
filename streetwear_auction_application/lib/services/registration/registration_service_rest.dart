@@ -1,6 +1,6 @@
 import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/services/registration/registration_service.dart';
 
+import 'registration_service.dart';
 import '../rest.dart';
 
 class RegistrationServiceRest implements RegistrationService {

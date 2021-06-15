@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
-import 'package:streetwear_auction_application/widgets/auction_card.dart';
+import '../models/auction.dart';
+import 'auction_card.dart';
 
 class AuctionGrid extends StatelessWidget {
   final List<Auction> auctions;

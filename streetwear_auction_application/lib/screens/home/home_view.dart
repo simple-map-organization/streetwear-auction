@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/auction_detail/widgets/image_carousel.dart';
 
 import '../../app/dependencies.dart';
 import '../../widgets/auction_grid.dart';
+import '../auction_detail/widgets/image_carousel.dart';
 import '../view.dart';
 import 'home_viewmodel.dart';
 import 'widgets/search_bar.dart';

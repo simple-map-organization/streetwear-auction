@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:streetwear_auction_application/screens/filter_auction/filter_auction.dart';
 
 import '../../app/dependencies.dart';
 import 'search_auction_viewmodel.dart';
@@ -45,12 +46,13 @@ class SearchAuctionScreen extends StatelessWidget {
             ),
           ),
           actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.filter_alt_sharp,
-                  size: 28.0,
-                ),
-                onPressed: () async {}),
+            // IconButton(
+            //     icon: Icon(
+            //       Icons.filter_alt_sharp,
+            //       size: 28.0,
+            //     ),
+            //     onPressed: () async =>
+            //         Navigator.of(context).pushNamed(FilterAuction.routeName)),
             IconButton(
                 icon: Icon(
                   Icons.notifications,

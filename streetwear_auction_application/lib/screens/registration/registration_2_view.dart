@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/registration/registration_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-import 'package:streetwear_auction_application/widgets/custom_authetication_button.dart';
+
+import '../../app/dependencies.dart';
+import '../../widgets/custom_authetication_button.dart';
+import '../view.dart';
+import 'registration_viewmodel.dart';
 
 class RegistrationScreen2 extends StatelessWidget {
   static const routeName = '/registration_2';

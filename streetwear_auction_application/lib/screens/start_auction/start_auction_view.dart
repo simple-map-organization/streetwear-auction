@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/start_auction/start_auction_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-
-import 'widgets/start_auction_textfield.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+
+import '../../app/dependencies.dart';
+import '../view.dart';
+import 'start_auction_viewmodel.dart';
+import 'widgets/start_auction_textfield.dart';
 
 class StartAuctionScreen extends StatelessWidget {
   static const routeName = '/startAuction';

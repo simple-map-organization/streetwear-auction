@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
 
-import 'profile_viewmodel.dart';
+import '../../app/dependencies.dart';
+import '../view.dart';
 import 'edit_profile_view.dart';
+import 'profile_viewmodel.dart';
 import 'widgets/profile_list_button.dart';
 
 class ProfileScreen extends StatelessWidget {
