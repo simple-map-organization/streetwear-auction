@@ -9,7 +9,7 @@ import 'widgets/seller_product_search_bar.dart';
 
 class SellerProductScreen extends StatelessWidget {
   static const routeName = '/sellerProduct';
-  static Route<dynamic> route() =>
+  static Route<dynamic> createRoute() =>
       MaterialPageRoute(builder: (_) => SellerProductScreen());
   @override
   Widget build(BuildContext context) {

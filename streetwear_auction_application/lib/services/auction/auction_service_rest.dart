@@ -22,8 +22,8 @@ class AuctionServiceRest implements AuctionService {
     return auctionList;
   }
 
-  Future<List<Auction>> getUserAuctionList({String sellerId}) async {
-    var jsonList = await rest.get('auction/seller/$sellerId');
+  Future<List<Auction>> getSellerAuctionList() async {
+    var jsonList = await rest.get('auction/seller');
 
     List<Auction> auctionList =
         (jsonList as List).map((json) => Auction.fromJson(json)).toList();
@@ -35,20 +35,20 @@ class AuctionServiceRest implements AuctionService {
     await rest.put('auction/$auctionID?', data: {'status': status});
   }
 
-  Future<Auction> startAuction(
-      {String sellerId,
-      String productName,
-      String productSKU,
-      String shortProductName,
-      String condition,
-      String size,
-      String category,
-      int bin,
-      int startingPrice,
-      int minIncrement,
-      int deliveryFee,
-      DateTime endTime,
-      List<File> listImageFile}) async {
+  Future<Auction> startAuction({
+    String productName,
+    String productSKU,
+    String shortProductName,
+    String condition,
+    String size,
+    String category,
+    int bin,
+    int startingPrice,
+    int minIncrement,
+    int deliveryFee,
+    DateTime endTime,
+    List<File> listImageFile,
+  }) async {
 //encode image
     List<String> base64Image =
         listImageFile.map((e) => base64Encode(e.readAsBytesSync())).toList();
@@ -56,7 +56,6 @@ class AuctionServiceRest implements AuctionService {
         listImageFile.map((e) => e.path.split("/").last).toList();
 
     final json = await rest.post('auction/', data: {
-      'seller': sellerId,
       'productName': productName,
       'productSKU': productSKU,
       'shortProductName': shortProductName,

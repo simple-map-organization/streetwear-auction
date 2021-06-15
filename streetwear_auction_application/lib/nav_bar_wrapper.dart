@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'screens/watchlist/watchlist_view.dart';
 import 'screens/home/home_view.dart';
 import 'screens/profile/profile_view.dart';
 import 'screens/seller_product/seller_product_view.dart';
@@ -18,7 +20,7 @@ class _NavBarWrapperState extends State<NavBarWrapper> {
       'label': 'Home',
       'Widget': HomeScreen(),
     },
-    {'icon': Icons.bookmark, 'label': 'Watchlist', 'Widget': HomeScreen()},
+    {'icon': Icons.bookmark, 'label': 'Watchlist', 'Widget': WatchListScreen()},
     {
       'icon': Icons.shopping_bag_rounded,
       'label': 'My Product',
@@ -27,7 +29,7 @@ class _NavBarWrapperState extends State<NavBarWrapper> {
     {
       'icon': Icons.shopping_basket,
       'label': 'Purchase',
-      'Widget': HomeScreen()
+      'Widget': WatchListScreen()
     },
     {
       'icon': Icons.account_circle,

@@ -4,7 +4,7 @@ import '../../app/dependencies.dart';
 import 'search_auction_viewmodel.dart';
 import 'widgets/category_button.dart';
 import '../view.dart';
-import '../../widgets/auction-grid.dart';
+import '../../widgets/auction_grid.dart';
 
 class SearchAuctionScreen extends StatelessWidget {
   static const routeName = '/searchAuction';

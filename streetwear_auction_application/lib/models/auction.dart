@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import './user.dart';
 
 class Auction {
   String auctionId;
@@ -18,6 +19,7 @@ class Auction {
   String trackingLink;
   double rating;
   String category;
+  User seller;
 
   Auction({
     @required this.auctionId,
@@ -37,6 +39,7 @@ class Auction {
     @required this.trackingLink,
     @required this.rating,
     @required this.category,
+    @required this.seller,
   });
 
   Map<String, dynamic> toJson() => {
@@ -57,6 +60,7 @@ class Auction {
         'trackingLink': trackingLink,
         'rating': rating,
         'category': category,
+        'seller': seller,
       };
 
   Auction.fromJson(Map<String, dynamic> json)
@@ -73,11 +77,10 @@ class Auction {
             deliveryFee: json['deliveryFee'],
             endTime: DateTime.parse(json['endTime']),
             photos: List<String>.from(json['photos']),
-            bids: List<Map>.from(
-                json['bids']?.map((x) => x)), //need use class User
+            bids: List<Map>.from(json['bids']?.map((x) => x)), //TODO: user
             status: json['status'],
             trackingLink: json['trackingLink'],
-            rating:
-                json['rating'] == null ? 0 : json['rating'] + .0, //TODO: seller
-            category: json['category']);
+            rating: json['rating'] == null ? 0 : json['rating'] + .0,
+            category: json['category'],
+            seller: User.fromJson(json['seller']));
 }

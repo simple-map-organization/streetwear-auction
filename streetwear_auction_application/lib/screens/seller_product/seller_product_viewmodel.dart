@@ -8,17 +8,13 @@ import '../../services/auction/auction_service.dart';
 
 class SellerProductViewModel extends Viewmodel {
   List<Auction> auctions;
-  String sellerId = '60afa472cdec953fc4d5e8ce';
-  Map<String, String> queryMap = {};
 
   SellerProductViewModel();
   AuctionService get dataService => dependency();
 
   Future<void> getList() async {
-    queryMap['seller'] = sellerId;
-
     turnBusy();
-    auctions = await dataService.getAuctionList(queryMap);
+    auctions = await dataService.getSellerAuctionList();
     turnIdle();
   }
 

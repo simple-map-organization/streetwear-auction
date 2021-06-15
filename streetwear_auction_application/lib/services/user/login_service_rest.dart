@@ -9,7 +9,8 @@ class LoginServiceRest implements LoginService {
   final rest = dependency<RestService>();
 
   Future<String> checkCredential(String username, String password) async {
-    var jsonResult = await rest.get('login/$username/$password');
+    var jsonResult = await rest
+        .post('login', data: {'username': username, 'password': password});
     return jsonResult['loginStatus'] == 1 ? jsonResult['jwt'] : '-1';
   }
 }

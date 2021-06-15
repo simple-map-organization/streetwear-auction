@@ -251,8 +251,8 @@ class StartAuctionScreen extends StatelessWidget {
                                 final DateTime picked = await showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
-                                    firstDate: DateTime(2015, 8),
-                                    lastDate: DateTime(2101));
+                                    firstDate: DateTime.now(),
+                                    lastDate: DateTime(2050));
                                 if (picked != null &&
                                     picked != viewmodel.selectedDate) {
                                   viewmodel.changeDate(picked);
@@ -288,7 +288,10 @@ class StartAuctionScreen extends StatelessWidget {
                       width: 100,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (viewmodel.formKey.currentState.validate()) {
+                          if (viewmodel.formKey.currentState.validate() &&
+                              viewmodel.selectedDate != null &&
+                              (viewmodel.images != null) &&
+                              (viewmodel.images.length > 0)) {
                             viewmodel.createAuction(context);
                           }
                         },

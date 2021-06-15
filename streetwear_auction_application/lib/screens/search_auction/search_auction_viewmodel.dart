@@ -5,14 +5,21 @@ import '../../services/auction/auction_service.dart';
 
 class SearchAuctionViewModel extends Viewmodel {
   //const here
-  List<String> categories = const ['All', 'Sneaker', 'Cap', 'Shirt'];
+  List<String> categories = const [
+    'All',
+    'Sneaker',
+    'Cap',
+    'Shirt',
+    'Pants',
+    'Cardholder'
+  ];
 
   AuctionService get dataService => dependency();
 
   //states here
   List<Auction> auctions;
   String searchProductName;
-  int selectedCategory;
+  int selectedCategory = 0;
 
   Map<String, String> queryMap = {};
 

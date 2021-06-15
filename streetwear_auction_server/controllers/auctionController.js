@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const Auction = require("../models/auction");
 var fs = require("fs");
@@ -7,7 +8,6 @@ module.exports.getAuctionList = async (req, res) => {
   const category = req.query.category;
   const status = req.query.status;
   const seller = req.query.seller;
-  const localIp = await getLocalIp();
 
   let filterQuery = {};
   productName &&
@@ -20,11 +20,11 @@ module.exports.getAuctionList = async (req, res) => {
     "bids.userId, seller"
   );
 
-  for (let x = 0; x < auctions.length; x++) {
-    auctions[x].photos = auctions[x].photos.map(
-      (name) => `http://${localIp}:3000/images/${name}`
+  auctions.forEach((auction) => {
+    auction.photos = auction.photos.map(
+      (name) => `http://${process.env.IP}:3000/images/${name}`
     );
-  }
+  });
   res.json(auctions);
 };
 
@@ -39,22 +39,25 @@ module.exports.getAuction = (req, res) => {
     });
 };
 
-module.exports.getUserAuctionList = (req, res) => {
+module.exports.getSellerAuctionList = async (req, res) => {
   const status = req.query.status;
-  const userid = req.params["userid"];
+  const sellerId = req.id;
 
-  Auction.find({ seller: userid })
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const auctions = await Auction.find({ seller: sellerId }).populate(
+    "bids.userId, seller"
+  );
+
+  auctions.forEach((auction) => {
+    auction.photos = auction.photos.map(
+      (name) => `http://${process.env.IP}:3000/images/${name}`
+    );
+  });
+
+  res.json(auctions);
 };
 
 module.exports.createAuction = async (req, res) => {
   const {
-    seller,
     productName,
     productSKU,
     shortProductName,
@@ -69,6 +72,7 @@ module.exports.createAuction = async (req, res) => {
     imageName,
     image,
   } = req.body;
+  const seller = req.id;
   for (let index = 0; index < imageName.length; index++) {
     var realFile = Buffer.from(image[index], "base64");
     fs.writeFile("public/images/" + imageName[index], realFile, function (err) {
@@ -102,7 +106,6 @@ module.exports.createAuction = async (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-
 };
 
 module.exports.updateAuction = (req, res) => {
@@ -120,11 +123,3 @@ module.exports.deleteAuction = (req, res) => {
   const id = req.params["id"];
   res.send(`delete auction of id ${id}`);
 };
-
-async function getLocalIp() {
-  return new Promise((resolve, reject) => {
-    require("dns").lookup(require("os").hostname(), function (err, add, fam) {
-      resolve(add);
-    });
-  });
-}

@@ -15,10 +15,10 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(217, 217, 217, 1),
-      body: SingleChildScrollView(
-        child: ConsumerView(
-          viewmodel: dependency<LoginViewModel>()..init(),
-          builder: (context, viewmodel, _) => Column(
+      body: ConsumerView(
+        viewmodel: dependency<LoginViewModel>()..init(),
+        builder: (context, viewmodel, _) => SingleChildScrollView(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(

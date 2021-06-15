@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:streetwear_auction_application/widgets/seller_profile.dart';
 
 import '../auction_checkout/auction_checkout_view.dart';
 import '../auction_detail/widgets/image_carousel.dart';
@@ -15,18 +18,19 @@ class AuctionDetailScreen extends StatelessWidget {
 
   void _openSellerProfile(context) {
     showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24.0),
-            topRight: Radius.circular(24.0),
-          ),
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.0),
+          topRight: Radius.circular(24.0),
         ),
-        context: context,
-        builder: null
-        // builder: (_) => SellerProfile(),
-        );
+      ),
+      context: context,
+      builder: (_) => SellerProfile(
+        user: auction.seller,
+      ),
+    );
     return;
   }
 
@@ -88,7 +92,12 @@ class AuctionDetailScreen extends StatelessWidget {
       body: ListView(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ImageCarouselWidget(auction.photos),
+          ImageCarouselWidget(auction.photos
+              .map((image) => Image.network(
+                    image,
+                    fit: BoxFit.contain,
+                  ))
+              .toList()),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 8.0),
             child: Center(child: Text(auction.productName)),
@@ -109,7 +118,7 @@ class AuctionDetailScreen extends StatelessWidget {
                           height: 30,
                         ),
                         SizedBox(width: 4.0),
-                        Text("seller name"),
+                        Text(auction.seller.username),
                       ],
                     ),
                     MaterialButton(
@@ -123,9 +132,109 @@ class AuctionDetailScreen extends StatelessWidget {
                 SizedBox(
                   height: 16.0,
                 ),
-                Text('Condition: ${auction.condition}\nSize: ${auction.size}\n' +
-                    'Min inc: ${auction.minIncrement}\nDelivery fee: ${auction.deliveryFee}\n' +
-                    'End time: ${DateFormat.yMd().add_jm().format(auction.endTime)}'),
+                Row(
+                  children: [
+                    Expanded(child: Text('Condition')),
+                    Expanded(
+                      child: Text(
+                        auction.condition,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 6.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: Text('Size')),
+                    Expanded(
+                      child: Text(
+                        auction.size,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 6.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: Text('Min Inc')),
+                    Expanded(
+                      child: Text(
+                        'RM${auction.minIncrement.toString()}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 6.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: Text('Delivery Fee')),
+                    Expanded(
+                      child: Text(
+                        'RM${auction.deliveryFee.toString()}',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 6.0,
+                ),
+                Row(
+                  children: [
+                    Expanded(child: Text('End time')),
+                    Expanded(
+                      child: Text(
+                        DateFormat.yMd().add_jm().format(auction.endTime),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      flex: 2,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 12.0,
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Biddings'),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.black),
+                        ),
+                        onPressed: () {},
+                        child: Text('View More >'),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  //onTap: () => _openBidding(context),
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(color: Colors.grey),
+                    child: ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text('chong_lim @ RM1800'),
+                      trailing: Text('9:03 AM'),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

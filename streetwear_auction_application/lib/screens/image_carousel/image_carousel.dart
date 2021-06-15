@@ -6,7 +6,7 @@ class ImageCarouselScreen extends StatelessWidget {
   static MaterialPageRoute createRoute(args) => MaterialPageRoute(
       builder: (_) => ImageCarouselScreen(args['images'], args['index'] ?? 0));
 
-  final List<String> _images;
+  final List<Image> _images;
   final int _index;
   ImageCarouselScreen(this._images, this._index);
 
@@ -35,11 +35,7 @@ class ImageCarouselScreen extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 5.0),
                 decoration: BoxDecoration(color: Colors.white),
                 child: Center(
-                  child: Image.network(
-                    image,
-                    fit: BoxFit.contain,
-                    height: height,
-                  ),
+                  child: image,
                 ),
               ),
             )

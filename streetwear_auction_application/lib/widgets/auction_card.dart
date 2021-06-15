@@ -40,13 +40,13 @@ class AuctionCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
               child: Text(
                 auction.productName,
                 textAlign: TextAlign.center,
               ),
             ),
+            Divider(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -56,17 +56,18 @@ class AuctionCard extends StatelessWidget {
                     children: [
                       Text('Current Bid'),
                       SizedBox(
-                        height: 4.0,
+                        height: 2.0,
                       ),
                       Chip(
-                        padding: EdgeInsets.all(0.0),
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
                         backgroundColor: Colors.transparent,
                         label: Text(
-                          'RM${auction.bids[0]['price']}',
+                          'RM10',
                           style: TextStyle(color: Colors.green),
                         ),
                         shape: StadiumBorder(
-                            side: BorderSide(color: Colors.green)),
+                          side: BorderSide(color: Colors.green),
+                        ),
                       ),
                     ],
                   ),
@@ -74,9 +75,10 @@ class AuctionCard extends StatelessWidget {
                     children: [
                       Text('BIN'),
                       SizedBox(
-                        height: 4.0,
+                        height: 2.0,
                       ),
                       Chip(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
                         backgroundColor: Colors.transparent,
                         label: Text(
                           'RM${auction.bin}',
@@ -96,7 +98,6 @@ class AuctionCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 8.0),
                     Text(auction.productSKU),
                     Text('Condition: ${auction.condition}'),
                     Text('Size: ${auction.size}'),

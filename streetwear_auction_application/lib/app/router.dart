@@ -12,6 +12,7 @@ import 'package:streetwear_auction_application/screens/seller_product_detail/sel
 import 'package:streetwear_auction_application/screens/seller_product_search/seller_product_search_view.dart';
 import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
 import 'package:streetwear_auction_application/screens/start_auction/start_auction_view.dart';
+import 'package:streetwear_auction_application/screens/watchlist/watchlist_view.dart';
 import '../nav_bar_wrapper.dart';
 import '../screens/auction_checkout/auction_checkout_view.dart';
 import '../screens/search_auction/search_auction_view.dart';
@@ -69,7 +70,10 @@ Route<dynamic> createRoute(settings) {
       return StartAuctionScreen.createRoute(settings.arguments);
 
     case SellerProductScreen.routeName:
-      return SellerProductScreen.route();
+      return SellerProductScreen.createRoute();
+
+    case WatchListScreen.routeName:
+      return WatchListScreen.createRoute();
   }
   return null;
 }
