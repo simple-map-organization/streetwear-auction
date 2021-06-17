@@ -14,6 +14,7 @@ class NavBarWrapper extends StatefulWidget {
 
 class _NavBarWrapperState extends State<NavBarWrapper> {
   int _selectedIndex = 0;
+
   List _navBarItem = [
     {
       'icon': Icons.home,

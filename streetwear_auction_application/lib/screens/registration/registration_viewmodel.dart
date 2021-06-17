@@ -19,14 +19,13 @@ class RegistrationViewModel extends Viewmodel {
   GlobalKey<FormState> formKey;
   PickedFile pickedFile;
   bool isSent;
-  bool isChecked;
+  bool isChecked = false;
 
   RegistrationService get dataService => dependency();
 
   RegistrationViewModel();
 
   void init() async {
-    turnBusy();
     usernameController = TextEditingController();
     passwordController = TextEditingController();
     phoneNoController = TextEditingController();
@@ -34,13 +33,6 @@ class RegistrationViewModel extends Viewmodel {
     verificationNoController = TextEditingController();
     formKey = GlobalKey<FormState>();
     isSent = false;
-    turnIdle();
-  }
-
-  void initCheckBox() {
-    turnBusy();
-    isChecked = false;
-    turnIdle();
   }
 
   Future<bool> register() async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/auth_wrapper.dart';
 
 import '../login/login_view.dart';
 import '../../widgets/custom_authetication_button.dart';
@@ -42,8 +43,7 @@ class VerificationScreen extends StatelessWidget {
             CustomAuthenticationButton(
                 text: 'Continue',
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, LoginScreen.routeName, (route) => false);
+                  Navigator.popUntil(context, (route) => route.isFirst);
                 })
           ],
         ));

@@ -47,7 +47,6 @@ module.exports.getSellerAuctionList = async (req, res) => {
   filterQuery.seller = sellerId;
   productName &&
     (filterQuery.productName = { $regex: productName, $options: "i" });
-  console.log(filterQuery);
   const auctions = await Auction.find(filterQuery).populate(
     "bids.userId, seller"
   );
@@ -102,14 +101,14 @@ module.exports.createAuction = async (req, res) => {
   auction.rating = 0;
   auction.seller = seller;
   auction.category = category;
-  auction
-    .save()
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const { _id } = await auction.save();
+  let newAuction = await Auction.findById(_id).populate("bids.userId, seller");
+
+  newAuction.photos = newAuction.photos.map(
+    (name) => `http://${process.env.IP}:3000/images/${name}`
+  );
+
+  return res.json(newAuction);
 };
 
 module.exports.updateAuction = (req, res) => {

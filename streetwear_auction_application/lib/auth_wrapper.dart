@@ -5,6 +5,7 @@ import 'nav_bar_wrapper.dart';
 import 'screens/login/login_view.dart';
 
 class AuthWrapper extends StatelessWidget {
+  static final routeName = '/auth';
   static MaterialPageRoute createRoute() =>
       MaterialPageRoute(builder: (_) => AuthWrapper());
 

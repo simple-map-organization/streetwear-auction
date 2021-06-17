@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 
 import '../../../models/auction.dart';
 import '../../seller_product_detail/seller_product_detail.dart';
@@ -59,7 +60,7 @@ class SellerProductCard extends StatelessWidget {
                               'SKU: ${auction.productSKU}\n' +
                               'Condition: ${auction.condition}\n' +
                               'Size: ${auction.size}\n\n' +
-                              'End Date: ${auction.endTime}\n' +
+                              'End Date: ${DateFormat.yMd().add_jm().format(auction.endTime)}\n' +
                               'Status: ${auction.status}\n'),
                         ),
                         (auction.rating != 0)

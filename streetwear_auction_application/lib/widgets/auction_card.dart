@@ -62,7 +62,7 @@ class AuctionCard extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 4.0),
                         backgroundColor: Colors.transparent,
                         label: Text(
-                          'RM10',
+                          'No bids',
                           style: TextStyle(color: Colors.green),
                         ),
                         shape: StadiumBorder(

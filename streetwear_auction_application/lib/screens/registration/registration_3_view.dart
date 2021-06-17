@@ -13,7 +13,7 @@ class RegistrationScreen3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
-      viewmodel: dependency<RegistrationViewModel>()..initCheckBox(),
+      viewmodel: dependency<RegistrationViewModel>(),
       builder: (context, viewmodel, _) => Scaffold(
           backgroundColor: Color.fromRGBO(217, 217, 217, 1),
           body: Stack(children: [

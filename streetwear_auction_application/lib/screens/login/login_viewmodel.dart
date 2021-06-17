@@ -8,8 +8,8 @@ import '../../services/login/login_service.dart';
 
 class LoginViewModel extends Viewmodel {
   final storage = new FlutterSecureStorage();
-  TextEditingController usernameController;
-  TextEditingController passwordController;
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey;
 
   LoginService get dataService => dependency();
@@ -18,11 +18,7 @@ class LoginViewModel extends Viewmodel {
   LoginViewModel();
 
   void init() async {
-    turnBusy();
-    usernameController = TextEditingController();
-    passwordController = TextEditingController();
     formKey = GlobalKey<FormState>();
-    turnIdle();
   }
 
   Future<bool> checkCredential() async {
