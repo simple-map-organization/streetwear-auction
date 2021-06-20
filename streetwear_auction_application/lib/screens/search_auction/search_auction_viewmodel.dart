@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/screens/auction_detail/auction_detail.dart';
+
 import '../../models/auction.dart';
 import '../../app/dependencies.dart';
 import '../viewmodel.dart';
@@ -36,7 +39,7 @@ class SearchAuctionViewModel extends Viewmodel {
 
   Future<void> getList() async {
     turnBusy();
-    auctions = await dataService.getAuctionList();
+    auctions = await dataService.getAuctionList(queryMap);
     turnIdle();
   }
 
@@ -59,5 +62,11 @@ class SearchAuctionViewModel extends Viewmodel {
     turnBusy();
     auctions = await dataService.getAuctionList(queryMap);
     turnIdle();
+  }
+
+  void onCardPressed(context, auction) async {
+    await Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
+        arguments: {'auction': auction});
+    getList();
   }
 }

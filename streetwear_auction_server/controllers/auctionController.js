@@ -16,10 +16,9 @@ module.exports.getAuctionList = async (req, res) => {
   status && (filterQuery.status = { $regex: status, $options: "i" });
   seller && (filterQuery.seller = new mongoose.Types.ObjectId(seller));
 
-  let auctions = await Auction.find(filterQuery).populate(
-    "bids.userId, seller"
-  );
-
+  let auctions = await Auction.find(filterQuery)
+    .populate("bids.userId")
+    .populate("seller");
   auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
       (name) => `http://${process.env.IP}:3000/images/${name}`
@@ -47,9 +46,9 @@ module.exports.getSellerAuctionList = async (req, res) => {
   filterQuery.seller = sellerId;
   productName &&
     (filterQuery.productName = { $regex: productName, $options: "i" });
-  const auctions = await Auction.find(filterQuery).populate(
-    "bids.userId, seller"
-  );
+  const auctions = await Auction.find(filterQuery)
+    .populate("bids.userId")
+    .populate("seller");
   auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
       (name) => `http://${process.env.IP}:3000/images/${name}`
@@ -102,7 +101,9 @@ module.exports.createAuction = async (req, res) => {
   auction.seller = seller;
   auction.category = category;
   const { _id } = await auction.save();
-  let newAuction = await Auction.findById(_id).populate("bids.userId, seller");
+  let newAuction = await Auction.findById(_id)
+    .populate("bids.userId")
+    .populate("seller");
 
   newAuction.photos = newAuction.photos.map(
     (name) => `http://${process.env.IP}:3000/images/${name}`
@@ -118,8 +119,38 @@ module.exports.updateAuction = (req, res) => {
     if (err) {
       console.log(err);
     }
+    console.log(doc);
     res.send(doc);
   });
+};
+
+module.exports.bidAuction = async (req, res) => {
+  const userId = req.id;
+  const auctionId = req.params["auctionId"];
+  const { price } = req.body;
+
+  let result = await Auction.findByIdAndUpdate(
+    auctionId,
+    {
+      $push: {
+        bids: {
+          $each: [{ userId: userId, price: price }],
+          $sort: { price: -1 },
+        },
+      },
+    },
+    { new: true, useFindAndModify: false }
+  );
+
+  let updatedAuction = await Auction.findById(result._id)
+    .populate("bids.userId")
+    .populate("seller");
+
+  updatedAuction.photos = updatedAuction.photos.map(
+    (name) => `http://${process.env.IP}:3000/images/${name}`
+  );
+
+  res.json(updatedAuction);
 };
 
 module.exports.deleteAuction = (req, res) => {

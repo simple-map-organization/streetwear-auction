@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../screens/auction_detail/auction_detail_viewmodel.dart';
 import '../screens/home/home_viewmodel.dart';
 import '../screens/login/login_viewmodel.dart';
 import '../screens/profile/edit_profile_viewmodel.dart';
@@ -43,4 +44,5 @@ void init() {
   dependency.registerLazySingleton(() => EditProfileViewModel());
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => StartAuctionViewModel());
+  dependency.registerLazySingleton(() => AuctionDetailViewModel());
 }

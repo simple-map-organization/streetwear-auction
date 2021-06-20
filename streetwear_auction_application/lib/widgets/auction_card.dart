@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../screens/auction_detail/auction_detail.dart';
 import '../models/auction.dart';
 
 class AuctionCard extends StatelessWidget {
   final Auction auction;
-  AuctionCard(this.auction);
+  final Function(BuildContext, Auction) onPressed;
+  AuctionCard(this.auction, this.onPressed);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
-            arguments: {'auction': auction});
+        onPressed(context, auction);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -27,7 +26,12 @@ class AuctionCard extends StatelessWidget {
                   topRight: Radius.circular(8.0)),
               child: Stack(
                 children: [
-                  Image.network(auction.photos[0]),
+                  Container(
+                      height: 100,
+                      width: double.infinity,
+                      child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.network(auction.photos[0]))),
                   Container(
                     margin: const EdgeInsets.all(4.0),
                     child: Icon(
@@ -42,8 +46,9 @@ class AuctionCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
               child: Text(
-                auction.productName,
-                textAlign: TextAlign.center,
+                auction.productName.toUpperCase(),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
             Divider(),
@@ -54,7 +59,7 @@ class AuctionCard extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text('Current Bid'),
+                      Text('Highest Bid'),
                       SizedBox(
                         height: 2.0,
                       ),
@@ -62,11 +67,19 @@ class AuctionCard extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 4.0),
                         backgroundColor: Colors.transparent,
                         label: Text(
-                          'No bids',
-                          style: TextStyle(color: Colors.green),
+                          auction.bids.length == 0
+                              ? 'No Bid'
+                              : 'RM${auction.bids[0].price}',
+                          style: TextStyle(
+                              color: auction.bids.length == 0
+                                  ? Colors.green
+                                  : Colors.orange[600]),
                         ),
                         shape: StadiumBorder(
-                          side: BorderSide(color: Colors.green),
+                          side: BorderSide(
+                              color: auction.bids.length == 0
+                                  ? Colors.green
+                                  : Colors.orange[600]),
                         ),
                       ),
                     ],
