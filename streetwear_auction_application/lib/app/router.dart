@@ -20,6 +20,7 @@ import '../screens/watchlist/watchlist_view.dart';
 
 Route<dynamic> createRoute(settings) {
   switch (settings.name) {
+    case '/':
       return AuthWrapper.createRoute();
 
     case LoginScreen.routeName:
