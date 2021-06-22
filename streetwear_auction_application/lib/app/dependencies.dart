@@ -2,7 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
 import 'package:streetwear_auction_application/services/purchase/purchase_service_rest.dart';
 
+
 import '../screens/my_purchase/purchase_viewmodel.dart';
+import '../screens/auction_detail/auction_detail_viewmodel.dart';
 import '../screens/home/home_viewmodel.dart';
 import '../screens/login/login_viewmodel.dart';
 import '../screens/profile/edit_profile_viewmodel.dart';
@@ -49,4 +51,6 @@ void init() {
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => StartAuctionViewModel());
   dependency.registerLazySingleton(() => PurchaseViewModel());
+  dependency.registerLazySingleton(() => AuctionDetailViewModel());
+
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/screens/auction_detail/auction_detail.dart';
 
 import '../search_auction/search_auction_view.dart';
 import '../../app/dependencies.dart';
@@ -18,14 +19,16 @@ class HomeViewModel extends Viewmodel {
     turnIdle();
   }
 
-  void onSelectCategory(context, category) {
-    Navigator.of(context).pushNamed(SearchAuctionScreen.routeName,
-        arguments: {'category': category});
-  }
-
-  void onPressSearchBar(context) {
-    Navigator.of(context).pushNamed(
+  void onPressSearchBar(context) async {
+    await Navigator.of(context).pushNamed(
       SearchAuctionScreen.routeName,
     );
+    getList();
+  }
+
+  void onCardPressed(context, auction) async {
+    await Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
+        arguments: {'auction': auction});
+    getList();
   }
 }
