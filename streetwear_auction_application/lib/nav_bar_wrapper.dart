@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/screens/my_purchase/purchase_view.dart';
 
 import 'screens/watchlist/watchlist_view.dart';
 import 'screens/home/home_view.dart';
@@ -30,7 +31,7 @@ class _NavBarWrapperState extends State<NavBarWrapper> {
     {
       'icon': Icons.shopping_basket,
       'label': 'Purchase',
-      'Widget': WatchListScreen()
+      'Widget': PurchaseScreen()
     },
     {
       'icon': Icons.account_circle,

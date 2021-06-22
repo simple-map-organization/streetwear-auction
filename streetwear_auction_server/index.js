@@ -10,6 +10,7 @@ const userRoute = require("./routes/user");
 const notificationRoute = require("./routes/notification");
 const loginRoute = require("./routes/login");
 const registrationRoute = require("./routes/registration");
+const purchaseRoute = require("./routes/purchase");
 const UserAuthMiddleware = require("./middleware/authMiddleware");
 
 mongoose.connect(
@@ -39,6 +40,7 @@ app.use(UserAuthMiddleware);
 app.use("/auction", auctionRoute);
 app.use("/user", userRoute);
 app.use("/notification", notificationRoute);
+app.use("/purchase", purchaseRoute);
 
 app.listen(port, () =>
   console.log(`Server running at http://${process.env.IP}:${port}`)

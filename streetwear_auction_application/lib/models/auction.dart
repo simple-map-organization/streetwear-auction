@@ -82,5 +82,7 @@ class Auction {
             trackingLink: json['trackingLink'],
             rating: json['rating'] == null ? 0 : json['rating'] + .0,
             category: json['category'],
-            seller: User.fromJson(json['seller']));
+            seller: json['seller'].runtimeType != String
+                ? User.fromJson(json['seller'])
+                : null);
 }
