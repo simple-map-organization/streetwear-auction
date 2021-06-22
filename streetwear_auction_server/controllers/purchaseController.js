@@ -24,7 +24,7 @@ module.exports.getPurchaseList = async (req, res) => {
   };
 
 module.exports.updateStatus = async (req, res) => {
-  const id= req.id;
+  const id = req.params['id'];
   const {rating} = req.body;
   let purchase = await Purchase.findById(id).populate('product');
 

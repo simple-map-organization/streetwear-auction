@@ -14,20 +14,27 @@ class RateSellerDialogBox extends StatelessWidget {
         'Rate seller $seller',
         textAlign: TextAlign.center,
       ),
-      content: RatingBar.builder(
-        initialRating: 3,
-        minRating: 0,
-        direction: Axis.horizontal,
-        allowHalfRating: true,
-        itemCount: 5,
-        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-        itemBuilder: (context, _) => Icon(
-          Icons.star,
-          color: Colors.amber,
-        ),
-        onRatingUpdate: (rating) {
-          setRating(rating);
-        },
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 0,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemSize: 30,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              setRating(rating);
+            },
+          ),
+        ],
       ),
       actions: <Widget>[
         TextButton(

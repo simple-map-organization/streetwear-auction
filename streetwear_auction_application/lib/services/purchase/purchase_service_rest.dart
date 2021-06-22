@@ -15,10 +15,11 @@ class PurchaseServiceRest implements PurchaseService {
     return purchaseList;
   }
 
-  Future<Purchase> updateStatus(double rating) async {
+  Future<Purchase> updateStatus(String purchaseId, double rating) async {
     var result = rating != -1
-        ? await rest.put('purchase/updateStatus', data: {'rating': rating})
-        : await rest.put('purchase/updateStatus', data: {});
+        ? await rest.put('purchase/updateStatus/' + purchaseId,
+            data: {'rating': rating})
+        : await rest.put('purchase/updateStatus/' + purchaseId, data: {});
     return Purchase.fromJson(result);
   }
 }

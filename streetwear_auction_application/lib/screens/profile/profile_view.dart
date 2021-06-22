@@ -39,7 +39,8 @@ class ProfileScreen extends StatelessWidget {
                                 radius: 40.0,
                                 backgroundImage: viewmodel.user.profilePhoto !=
                                         ""
-                                    ? AssetImage(viewmodel.user.profilePhoto)
+                                    ? NetworkImage(viewmodel.user.profilePhoto,
+                                        scale: 40)
                                     : AssetImage('assets/img/profile.png'),
                                 backgroundColor: Colors.transparent,
                               ),
@@ -49,7 +50,9 @@ class ProfileScreen extends StatelessWidget {
                                 child: Container(
                                   width: 40,
                                   child: RawMaterialButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      await viewmodel.chooseImage();
+                                    },
                                     fillColor: Colors.white,
                                     child: Icon(Icons.add, size: 15.0),
                                     padding: EdgeInsets.all(1),

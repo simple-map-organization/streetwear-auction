@@ -80,6 +80,7 @@ class PurchaseScreen extends StatelessWidget {
                             }).toList())),
                     Expanded(
                       child: ListView.builder(
+                        padding: EdgeInsets.only(bottom: 15),
                         itemCount: viewmodel.disaplayWinPurchaseList.length,
                         itemBuilder: (context, index) => ProductCard(
                             purchase: viewmodel.disaplayWinPurchaseList[index],

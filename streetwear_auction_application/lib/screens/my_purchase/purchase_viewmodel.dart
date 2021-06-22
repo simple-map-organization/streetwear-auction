@@ -74,7 +74,8 @@ class PurchaseViewModel extends Viewmodel {
 
   void updateStatus({Purchase purchase, double rating = -1}) async {
     turnBusy();
-    Purchase result = await purchaseService.updateStatus(rating);
+    Purchase result =
+        await purchaseService.updateStatus(purchase.purchaseId, rating);
     purchaseList
         .where((element) => element.purchaseId == purchase.purchaseId)
         .toList()[0]
