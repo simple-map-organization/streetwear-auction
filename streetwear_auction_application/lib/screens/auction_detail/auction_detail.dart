@@ -42,6 +42,10 @@ class AuctionDetailScreen extends StatelessWidget {
     int minBid = viewmodel.auction.bids.length > 0
         ? viewmodel.auction.bids[0].price + viewmodel.auction.minIncrement
         : viewmodel.auction.startingPrice;
+    if (minBid >= viewmodel.auction.bin) {
+      return _buyItNow(context, viewmodel);
+    }
+
     final _bidController = TextEditingController(text: minBid.toString());
 
     showDialog(
@@ -80,8 +84,7 @@ class AuctionDetailScreen extends StatelessWidget {
           TextButton(
             onPressed: () {
               if (!_formKey.currentState.validate()) return;
-              viewmodel.onPlaceBid(viewmodel.auction.auctionId,
-                  int.parse(_bidController.value.text));
+              viewmodel.onPlaceBid(int.parse(_bidController.value.text));
               Navigator.of(context).pop();
               // Navigator.pushNamed(context, AuctionCheckoutScreen.routeName);
             },
@@ -92,15 +95,56 @@ class AuctionDetailScreen extends StatelessWidget {
     );
   }
 
-  void _buyItNow(context) {
-    Navigator.pushNamed(context, AuctionCheckoutScreen.routeName);
+  void _buyItNow(context, viewmodel) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: RichText(
+            text: TextSpan(
+                text: 'You are buying it at ',
+                style: TextStyle(color: Colors.black),
+                children: [
+              TextSpan(
+                  text: 'RM${viewmodel.auction.bin}',
+                  style: TextStyle(color: Theme.of(context).primaryColor))
+            ])),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await viewmodel.onPlaceBid(viewmodel.auction.bin);
+              var purchase =
+                  await viewmodel.getUserPurchaseByAuctionId(auction.auctionId);
+
+              Navigator.pushNamed(context, AuctionCheckoutScreen.routeName,
+                  arguments: {
+                    'purchase': purchase,
+                    'price': viewmodel.auction.bin,
+                    'deliveryFee': viewmodel.auction.deliveryFee
+                  });
+            },
+            child: Text('Confirm'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
         viewmodel: dependency<AuctionDetailViewModel>()..init(auction),
-        builder: (context, viewmodel, _) {
+        builder: (context, viewmodel, __) {
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -350,9 +394,12 @@ class AuctionDetailScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: MaterialButton(
+                        disabledColor: Colors.lightBlue[200],
                         padding: EdgeInsets.symmetric(vertical: 16.0),
-                        color: Theme.of(context).primaryColor,
-                        onPressed: () => _placeBid(context, viewmodel),
+                        color: Colors.lightBlue,
+                        onPressed: viewmodel.auction.isAllowBid
+                            ? () => _placeBid(context, viewmodel)
+                            : null,
                         child: Text(
                           'Place Bid',
                           style: TextStyle(color: Colors.white),
@@ -361,9 +408,12 @@ class AuctionDetailScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: MaterialButton(
+                        disabledColor: Colors.green[200],
                         padding: EdgeInsets.symmetric(vertical: 8.0),
                         color: Colors.green,
-                        onPressed: () => _buyItNow(context),
+                        onPressed: viewmodel.auction.isAllowBid
+                            ? () => _buyItNow(context, viewmodel)
+                            : null,
                         child: Text(
                           'Buy It Now\nRM${viewmodel.auction.bin}',
                           textAlign: TextAlign.center,

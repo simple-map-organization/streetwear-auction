@@ -21,6 +21,11 @@ class Auction {
   String category;
   User seller;
 
+  get isAllowBid {
+    if (bids.length > 0 && bids[0].price >= bin) return false;
+    return true;
+  }
+
   Auction({
     @required this.auctionId,
     @required this.productName,
@@ -97,7 +102,11 @@ class Bid {
   Bid({this.price, this.user});
 
   Bid.fromJson(Map<String, dynamic> json)
-      : this(price: json['price'], user: User.fromJson(json['userId']));
+      : this(
+            price: json['price'],
+            user: json['userId'].runtimeType != String
+                ? User.fromJson(json['userId'])
+                : null);
 
   Map<String, dynamic> toJson() => {'price': this.price, 'userId:': this.user};
 }

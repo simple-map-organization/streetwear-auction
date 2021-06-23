@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Auction = require("../models/auction");
+const Purchase = require("../models/purchase");
 var fs = require("fs");
 
 module.exports.getAuctionList = async (req, res) => {
@@ -129,26 +130,64 @@ module.exports.bidAuction = async (req, res) => {
   const auctionId = req.params["auctionId"];
   const { price } = req.body;
 
-  let result = await Auction.findByIdAndUpdate(
-    auctionId,
-    {
-      $push: {
-        bids: {
-          $each: [{ userId: userId, price: price }],
-          $sort: { price: -1 },
+  let auction = await Auction.findById(auctionId);
+  let purchaseId;
+
+  //bids already exists, update the price
+  if (auction.bids.some((bid) => bid.userId == userId)) {
+    await Auction.updateOne(
+      { _id: auctionId, "bids.userId": userId },
+      {
+        $set: {
+          "bids.$.price": price,
         },
       },
-    },
-    { new: true, useFindAndModify: false }
-  );
+      { useFindAndModify: false }
+    );
+  } else {
+    await Auction.findByIdAndUpdate(
+      auctionId,
+      {
+        $push: {
+          bids: {
+            $each: [{ userId: userId, price: price }],
+            $sort: { price: -1 },
+          },
+        },
+      },
+      { useFindAndModify: false }
+    );
+  }
 
-  let updatedAuction = await Auction.findById(result._id)
+  let updatedAuction = await Auction.findById(auctionId)
     .populate("bids.userId")
     .populate("seller");
 
-  updatedAuction.photos = updatedAuction.photos.map(
-    (name) => `http://${process.env.IP}:3000/images/${name}`
-  );
+  if (updatedAuction.bids[0].price >= updatedAuction.bin) {
+    let purchases = updatedAuction.bids.map((bid) => {
+      return {
+        product: updatedAuction._id,
+        user: bid.userId._id,
+        won: false,
+        status: "",
+        payBefore: null,
+        delivery: {
+          fullname: "",
+          phone: "",
+          address1: "",
+          address2: "",
+          postcode: "",
+          state: "",
+          country: "",
+        },
+      };
+    });
+    purchases[0].won = true;
+    purchases[0].status = "To Pay";
+    purchases[0].payBefore = new Date().setDate(new Date().getDate() + 7);
+
+    await Purchase.insertMany(purchases);
+  }
 
   res.json(updatedAuction);
 };

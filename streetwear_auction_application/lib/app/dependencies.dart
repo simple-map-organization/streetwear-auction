@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
 import 'package:streetwear_auction_application/services/purchase/purchase_service_rest.dart';
 
-
 import '../screens/my_purchase/purchase_viewmodel.dart';
 import '../screens/auction_detail/auction_detail_viewmodel.dart';
 import '../screens/home/home_viewmodel.dart';
@@ -29,7 +28,7 @@ GetIt dependency = GetIt.instance;
 void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.1.103:3000'),
+    () => RestService(baseUrl: 'http://192.168.43.208:3000'),
   );
 
   dependency.registerLazySingleton<AuthService>(() => AuthService());
@@ -52,5 +51,4 @@ void init() {
   dependency.registerLazySingleton(() => StartAuctionViewModel());
   dependency.registerLazySingleton(() => PurchaseViewModel());
   dependency.registerLazySingleton(() => AuctionDetailViewModel());
-
 }

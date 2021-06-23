@@ -1,6 +1,6 @@
-import 'dart:developer';
-
 import 'package:streetwear_auction_application/models/auction.dart';
+import 'package:streetwear_auction_application/models/purchase.dart';
+import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
 
 import '../../app/dependencies.dart';
 import '../viewmodel.dart';
@@ -10,6 +10,7 @@ class AuctionDetailViewModel extends Viewmodel {
   AuctionDetailViewModel();
   Auction auction;
   AuctionService get dataService => dependency();
+  PurchaseService get purchaseService => dependency();
 
   bool isShowALlBids = false;
 
@@ -30,9 +31,14 @@ class AuctionDetailViewModel extends Viewmodel {
     this.auction = auction;
   }
 
-  Future<void> onPlaceBid(String auctionId, int price) async {
+  Future<void> onPlaceBid(int price) async {
     turnBusy();
-    auction = await dataService.bidAuction(auctionID: auctionId, price: price);
+    auction = await dataService.bidAuction(
+        auctionID: auction.auctionId, price: price);
     turnIdle();
+  }
+
+  Future<Purchase> getUserPurchaseByAuctionId(String auctionId) {
+    return purchaseService.getUserPurchaseByAuctionId(auctionId);
   }
 }

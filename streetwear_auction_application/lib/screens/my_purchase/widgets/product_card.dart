@@ -16,82 +16,83 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Container(
-        margin: EdgeInsets.only(top: 8, left: 8, right: 8),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-        ),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '${purchase.product.productSKU} ' +
-                    (purchase.won ? '(${purchase.status})' : ''),
-                style: TextStyle(fontSize: 18),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: 120,
-                    height: 100,
-                    child: Center(
-                      child: Image.network(
-                        purchase.product.photos[0],
-                        width: 100,
-                        height: 100,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Date : ${DateFormat.yMd().add_jm().format(purchase.product.endTime)}\n' +
-                            'Winning Bid : RM0\n' +
-                            'Condition: ${purchase.product.condition}\n' +
-                            'Size :${purchase.product.size}\n' +
-                            (purchase.won
-                                ? 'Pay before :\n${purchase.payBefore}'
-                                : ''),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+    return Container(
+      margin: EdgeInsets.only(top: 8, left: 8, right: 8),
+      padding: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
-      Positioned(
-        bottom: 5,
-        right: 25,
-        child: Container(
-          width: 90,
-          height: 28,
-          child: btnText[purchase.status] != null
-              ? ElevatedButton(
-                  onPressed: function,
-                  child: Text(btnText[purchase.status]),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).primaryColor),
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '${purchase.product.productSKU} ' +
+                  (purchase.won ? '(${purchase.status})' : ''),
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Image.network(
+                    purchase.product.photos[0],
+                    width: double.infinity,
+                    height: 130,
+                    fit: BoxFit.fill,
                   ),
-                )
-              : Container(),
-        ),
-      )
-    ]);
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Date : ${DateFormat.yMd().add_jm().format(purchase.product.endTime)}\n' +
+                              'Winning Bid : RM0\n' +
+                              'Condition: ${purchase.product.condition}\n' +
+                              'Size :${purchase.product.size}\n' +
+                              (purchase.won
+                                  ? 'Pay before :\n${purchase.payBefore}'
+                                  : ''),
+                          textAlign: TextAlign.left,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                              top: 8.0, left: 8.0, right: 8.0),
+                          width: double.infinity,
+                          height: 28,
+                          child: btnText[purchase.status] != null
+                              ? ElevatedButton(
+                                  onPressed: function,
+                                  child: Text(btnText[purchase.status]),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Theme.of(context).primaryColor),
+                                  ),
+                                )
+                              : Container(),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
