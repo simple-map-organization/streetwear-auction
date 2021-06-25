@@ -16,12 +16,19 @@ class AuctionCheckoutViewModel extends Viewmodel {
   TextEditingController address2Controller = TextEditingController();
   String state = 'Perak';
   TextEditingController postcodeController = TextEditingController();
+  bool isChecked;
+  void changeIsChecked() {
+    isChecked = isChecked ? false : true;
+    turnIdle();
+  }
 
   void init(Purchase purchase) {
     this.purchase = purchase;
+    isChecked = false;
   }
 
   Future<void> onPay() async {
+    print(purchase.purchaseId);
     await dataService.updatePurchase(
       purchase.purchaseId,
       fullname: fullnameController.text,
@@ -30,7 +37,6 @@ class AuctionCheckoutViewModel extends Viewmodel {
       address2: address2Controller.text,
       state: state,
       postcode: postcodeController.text,
-      status: 'Paid',
     );
   }
 }

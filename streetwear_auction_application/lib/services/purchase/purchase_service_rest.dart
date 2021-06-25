@@ -37,7 +37,6 @@ class PurchaseServiceRest implements PurchaseService {
     String address1,
     String address2,
     String state,
-    String status,
     String postcode,
   }) async {
     await rest.put('purchase/$purchaseId', data: {
@@ -46,7 +45,6 @@ class PurchaseServiceRest implements PurchaseService {
       'address1': address1,
       'address2': address2,
       'state': state,
-      'status': status,
       'postcode': postcode
     });
   }

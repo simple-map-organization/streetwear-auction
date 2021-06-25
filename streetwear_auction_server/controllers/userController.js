@@ -28,8 +28,8 @@ module.exports.uploadImage = async (req, res) => {
     fs.writeFile("public/images/" + name, realFile, function (err) {
       if (err) console.log(err);
     });
-
-  await User.findOneAndUpdate({user:id},{profilePhoto:name},{new: true,
+    console.log(name);
+  await User.findByIdAndUpdate(id,{profilePhoto:name},{new: true,
     useFindAndModify: false});
   res.json(`http://${process.env.IP}:3000/images/${name}`);
   }

@@ -11,7 +11,6 @@ abstract class PurchaseService {
     String address1,
     String address2,
     String state,
-    String status,
     String postcode,
   });
 }

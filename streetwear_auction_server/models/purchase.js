@@ -4,7 +4,6 @@ const purchaseSchema = mongoose.Schema({
   product: { type: mongoose.Schema.Types.ObjectId, ref: "Auction" },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   won: Boolean,
-  status: String, //Cancelled(failed to pay) if failed to pay
   payBefore: Date, //1 week
   delivery: {
     fullname: String,

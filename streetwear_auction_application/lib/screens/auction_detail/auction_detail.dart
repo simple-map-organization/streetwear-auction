@@ -128,6 +128,7 @@ class AuctionDetailScreen extends StatelessWidget {
 
               Navigator.pushNamed(context, AuctionCheckoutScreen.routeName,
                   arguments: {
+                    'processType': 'BIN',
                     'purchase': purchase,
                     'price': viewmodel.auction.bin,
                     'deliveryFee': viewmodel.auction.deliveryFee

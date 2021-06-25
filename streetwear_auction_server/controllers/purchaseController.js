@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Purchase = require("../models/purchase");
+const Auction = require("../models/auction");
 
 module.exports.getPurchaseList = async (req, res) => {
   const id = req.id;
@@ -30,26 +31,30 @@ module.exports.updateStatus = async (req, res) => {
   let purchase = await Purchase.findById(id).populate("product");
 
   if (purchase != null) {
-    switch (purchase.status) {
-      case "To Pay":
-        purchase.status = "To Ship";
+    switch (purchase.product.status) {
+      case "Payment Pending":
+        purchase.product.status = "To Ship";
         break;
       case "To Ship":
-        purchase.status = "To Receive";
+        purchase.product.status = "To Receive";
         break;
       case "To Receive":
-        purchase.status = "To Rate";
+        purchase.product.status = "To Rate";
         break;
       case "To Rate":
-        purchase.status = "Completed";
+        purchase.product.status = "Completed";
         break;
     }
-
+    await purchase.product.save();
     if (rating) {
-      purchase.product.rating = rating;
-      await purchase.product.save();
+      let product = await Auction.findById(purchase.product._id).populate('seller');
+      product.rating = rating;
+      product.seller.rating = (product.seller.rating * product.seller.ratingCount + rating)/ (product.seller.ratingCount+1);
+      product.seller.ratingCount++;
+      await product.seller.save();
+      await product.save();
     }
-    await purchase.save();
+    
     res.json(purchase);
   }
 };
@@ -57,11 +62,10 @@ module.exports.updateStatus = async (req, res) => {
 module.exports.updatePurchase = async (req, res) => {
   const purchaseId = req.params["purchaseId"];
 
-  const { fullname, phone, address1, address2, postcode, state, status } =
+  const { fullname, phone, address1, address2, postcode, state } =
     req.body;
 
   let purchaseData = {
-    status: status,
     delivery: {
       fullname: fullname,
       phone: phone,
@@ -70,14 +74,15 @@ module.exports.updatePurchase = async (req, res) => {
       postcode: postcode,
       state: state,
       country: "Malaysia",
-    },
+    }
   };
 
-  await Purchase.findByIdAndUpdate(purchaseId, purchaseData, {
+  let purchase = await Purchase.findByIdAndUpdate(purchaseId, purchaseData, {
     useFindAndModify: false,
     new: true,
-  });
-
+  }).populate('product');
+  purchase.product.status = 'To Ship';
+  purchase.product.save();
   res.json(purchase);
 };
 

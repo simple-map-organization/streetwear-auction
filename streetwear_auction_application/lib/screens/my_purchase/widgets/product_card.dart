@@ -8,10 +8,11 @@ class ProductCard extends StatelessWidget {
   ProductCard({this.purchase, this.function});
 
   final btnText = {
-    'To Pay': 'Pay',
+    'Payment Pending': 'Pay',
     'To Rate': 'Rate',
     'To Receive': 'Received',
-    'To Ship': null
+    'To Ship': null,
+    'Completed': null,
   };
 
   @override
@@ -29,7 +30,9 @@ class ProductCard extends StatelessWidget {
             alignment: Alignment.centerLeft,
             child: Text(
               '${purchase.product.productSKU} ' +
-                  (purchase.won ? '(${purchase.status})' : ''),
+                  (purchase.won
+                      ? '(${purchase.product.status == 'Payment Pending' ? 'To Pay' : purchase.product.status})'
+                      : ''),
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.left,
             ),
@@ -72,10 +75,11 @@ class ProductCard extends StatelessWidget {
                               top: 8.0, left: 8.0, right: 8.0),
                           width: double.infinity,
                           height: 28,
-                          child: btnText[purchase.status] != null
+                          child: btnText[purchase.product.status] != null &&
+                                  purchase.won
                               ? ElevatedButton(
                                   onPressed: function,
-                                  child: Text(btnText[purchase.status]),
+                                  child: Text(btnText[purchase.product.status]),
                                   style: ButtonStyle(
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(

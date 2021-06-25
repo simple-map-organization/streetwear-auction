@@ -6,10 +6,12 @@ import 'package:streetwear_auction_application/screens/view.dart';
 class AuctionCheckoutScreen extends StatelessWidget {
   static const routeName = '/auctionCheckout';
   static MaterialPageRoute createRoute(args) => MaterialPageRoute(
-      builder: (_) => AuctionCheckoutScreen(
+      builder: (_) => AuctionCheckoutScreen(args['processType'],
           args['purchase'], args['price'], args['deliveryFee']));
 
-  AuctionCheckoutScreen(this.purchase, this.price, this.deliveryFee);
+  AuctionCheckoutScreen(
+      this.processType, this.purchase, this.price, this.deliveryFee);
+  final String processType;
   final Purchase purchase;
   final int price;
   final int deliveryFee;
@@ -225,7 +227,11 @@ class AuctionCheckoutScreen extends StatelessWidget {
                             top: 14.0, bottom: 14.0, right: 10.0),
                         child: Row(
                           children: [
-                            Checkbox(value: true, onChanged: (value) {}),
+                            Checkbox(
+                                value: viewmodel.isChecked,
+                                onChanged: (value) {
+                                  viewmodel.changeIsChecked();
+                                }),
                             Expanded(
                               child: Text(
                                   'I have read and consent to eShopWorld processing my information in accordance with the Privacy Statement and Cookie Policy. eShopWorld is a trusted Nike partner.'),
@@ -244,7 +250,8 @@ class AuctionCheckoutScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 16.0),
                 color: Theme.of(context).primaryColor,
                 onPressed: () async {
-                  if (!_formKey.currentState.validate()) return;
+                  if (!_formKey.currentState.validate() || !viewmodel.isChecked)
+                    return;
                   await viewmodel.onPay();
                   final snackBar = SnackBar(content: Text('Paid successful!'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);

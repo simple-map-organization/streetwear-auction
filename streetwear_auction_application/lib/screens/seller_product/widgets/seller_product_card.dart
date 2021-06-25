@@ -67,6 +67,7 @@ class SellerProductCard extends StatelessWidget {
                             ? Align(
                                 alignment: Alignment.centerLeft,
                                 child: RatingBar.builder(
+                                    ignoreGestures: true,
                                     itemSize: 20,
                                     initialRating: auction.rating,
                                     allowHalfRating: true,

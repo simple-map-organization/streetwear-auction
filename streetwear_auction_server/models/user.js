@@ -9,6 +9,7 @@ const userSchema = mongoose.Schema({
   bio: String,
   totalDeal: Number,
   rating: Number,
+  ratingCount: Number,
   address: {
     address1: String,
     address2: String,

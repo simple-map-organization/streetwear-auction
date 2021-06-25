@@ -6,7 +6,6 @@ class Purchase {
   String purchaseId;
   Auction product;
   bool won;
-  String status; //Cancelled(failed to pay) if failed to pay
   DateTime payBefore; //1 week
   String fullname;
   String phone;
@@ -20,7 +19,6 @@ class Purchase {
     @required this.purchaseId,
     @required this.product,
     @required this.won,
-    @required this.status,
     @required this.payBefore,
     @required this.fullname,
     @required this.phone,
@@ -36,8 +34,9 @@ class Purchase {
           purchaseId: json['_id'],
           product: Auction.fromJson(json['product']),
           won: json['won'],
-          status: json['status'],
-          payBefore: DateTime.parse(json['payBefore']),
+          payBefore: json['payBefore'] != null
+              ? DateTime.parse(json['payBefore'])
+              : null,
           fullname: json['delivery']['fullname'],
           phone: json['delivery']['phone'],
           address1: json['delivery']['address1'],

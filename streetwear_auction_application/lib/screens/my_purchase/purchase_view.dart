@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
 import 'package:streetwear_auction_application/models/purchase.dart';
+import 'package:streetwear_auction_application/screens/auction_checkout/auction_checkout_view.dart';
 import 'package:streetwear_auction_application/screens/my_purchase/purchase_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/my_purchase/widgets/rate_seller_dialog_box.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
@@ -85,33 +86,55 @@ class PurchaseScreen extends StatelessWidget {
                         itemBuilder: (context, index) => ProductCard(
                             purchase: viewmodel.disaplayWinPurchaseList[index],
                             function: () async {
-                              if (viewmodel
-                                      .disaplayWinPurchaseList[index].status ==
-                                  "To Rate") {
-                                viewmodel.sellerRating = 3.0;
-                                final value = await showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      RateSellerDialogBox(
-                                    seller: (viewmodel
-                                                .disaplayWinPurchaseList[index]
-                                            as Purchase)
-                                        .product
-                                        .seller
-                                        .username,
-                                    setRating: viewmodel.setRating,
-                                  ),
-                                );
-                                if (value == "Confirm") {
+                              switch (viewmodel.disaplayWinPurchaseList[index]
+                                  .product.status) {
+                                case "Payment Pending":
+                                  await Navigator.pushNamed(
+                                      context, AuctionCheckoutScreen.routeName,
+                                      arguments: {
+                                        'processType': 'BID',
+                                        'purchase': viewmodel
+                                            .disaplayWinPurchaseList[index],
+                                        'price':
+                                            (viewmodel.disaplayWinPurchaseList[
+                                                    index] as Purchase)
+                                                .product
+                                                .bids[0]
+                                                .price,
+                                        'deliveryFee':
+                                            (viewmodel.disaplayWinPurchaseList[
+                                                    index] as Purchase)
+                                                .product
+                                                .deliveryFee
+                                      });
+                                  viewmodel.getPurchasedList();
+                                  break;
+                                case "To Rate":
+                                  viewmodel.sellerRating = 3.0;
+                                  final value = await showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        RateSellerDialogBox(
+                                      seller:
+                                          (viewmodel.disaplayWinPurchaseList[
+                                                  index] as Purchase)
+                                              .product
+                                              .seller
+                                              .username,
+                                      setRating: viewmodel.setRating,
+                                    ),
+                                  );
+                                  if (value == "Confirm") {
+                                    viewmodel.updateStatus(
+                                        purchase: viewmodel
+                                            .disaplayWinPurchaseList[index],
+                                        rating: viewmodel.sellerRating);
+                                  }
+                                  break;
+                                default:
                                   viewmodel.updateStatus(
                                       purchase: viewmodel
-                                          .disaplayWinPurchaseList[index],
-                                      rating: viewmodel.sellerRating);
-                                }
-                              } else {
-                                viewmodel.updateStatus(
-                                    purchase: viewmodel
-                                        .disaplayWinPurchaseList[index]);
+                                          .disaplayWinPurchaseList[index]);
                               }
                             }),
                       ),

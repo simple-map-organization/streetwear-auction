@@ -3,19 +3,17 @@ const mongoose = require("mongoose");
 const Auction = require("../models/auction");
 const Purchase = require("../models/purchase");
 var fs = require("fs");
+const { findOne } = require("../models/purchase");
 
 module.exports.getAuctionList = async (req, res) => {
   const productName = req.query.productName;
   const category = req.query.category;
-  const status = req.query.status;
-  const seller = req.query.seller;
 
   let filterQuery = {};
   productName &&
     (filterQuery.productName = { $regex: productName, $options: "i" });
   category && (filterQuery.category = { $regex: category, $options: "i" });
-  status && (filterQuery.status = { $regex: status, $options: "i" });
-  seller && (filterQuery.seller = new mongoose.Types.ObjectId(seller));
+  filterQuery.status = { $eq:"ongoing" };
 
   let auctions = await Auction.find(filterQuery)
     .populate("bids.userId")
@@ -97,8 +95,8 @@ module.exports.createAuction = async (req, res) => {
   auction.photos = imageName;
   auction.status = "ongoing";
   auction.bids = [];
-  auction.trackingLink = "dsds";
-  auction.rating = 0;
+  auction.trackingLink = "";
+  auction.rating = null;
   auction.seller = seller;
   auction.category = category;
   const { _id } = await auction.save();
@@ -169,7 +167,6 @@ module.exports.bidAuction = async (req, res) => {
         product: updatedAuction._id,
         user: bid.userId._id,
         won: false,
-        status: "",
         payBefore: null,
         delivery: {
           fullname: "",
@@ -182,8 +179,9 @@ module.exports.bidAuction = async (req, res) => {
         },
       };
     });
+    updatedAuction.status = "Payment Pending";
+    updatedAuction.save();
     purchases[0].won = true;
-    purchases[0].status = "To Pay";
     purchases[0].payBefore = new Date().setDate(new Date().getDate() + 7);
 
     await Purchase.insertMany(purchases);

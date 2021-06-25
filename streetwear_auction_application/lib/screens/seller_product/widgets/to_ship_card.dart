@@ -83,7 +83,8 @@ class ToShipCard extends StatelessWidget {
                     flex: 1,
                     child: ElevatedButton(
                       onPressed: () async {
-                        await onPressStatusButton(auction.auctionId, 'shipped');
+                        await onPressStatusButton(
+                            auction.auctionId, 'To Receive');
                       },
                       child: Text(
                         'Ship',
