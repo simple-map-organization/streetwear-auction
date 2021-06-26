@@ -5,8 +5,12 @@ import 'auction_card.dart';
 
 class AuctionGrid extends StatelessWidget {
   final List<Auction> auctions;
-
-  const AuctionGrid({Key key, this.auctions}) : super(key: key);
+  final Function onPressStarIcon;
+  const AuctionGrid(
+      {Key key,
+      this.auctions,
+      this.onPressStarIcon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class AuctionGrid extends StatelessWidget {
       crossAxisCount: 4,
       itemCount: auctions.length,
       itemBuilder: (BuildContext context, int index) =>
-          AuctionCard(auctions[index]),
+          AuctionCard(auctions[index], onPressStarIcon),
       staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
       mainAxisSpacing: 6.0,
       crossAxisSpacing: 6.0,

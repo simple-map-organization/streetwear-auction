@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:streetwear_auction_application/screens/watchlist/watchlist_viewmodel.dart';
+import 'package:streetwear_auction_application/services/watchlist/watchlist_service.dart';
+import 'package:streetwear_auction_application/services/watchlist/watchlist_service_rest.dart';
 
 import '../screens/home/home_viewmodel.dart';
 import '../screens/login/login_viewmodel.dart';
@@ -24,7 +27,7 @@ GetIt dependency = GetIt.instance;
 void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.43.208:3000'),
+    () => RestService(baseUrl: 'http://192.168.56.1:3000'),
   );
 
   dependency.registerLazySingleton<AuthService>(() => AuthService());
@@ -33,6 +36,8 @@ void init() {
   dependency.registerLazySingleton<UserService>(() => UserServiceRest());
   dependency.registerLazySingleton<RegistrationService>(
       () => RegistrationServiceRest());
+  dependency
+      .registerLazySingleton<WatchlistService>(() => WatchlistServiceRest());
 
   // Viewmodels
   dependency.registerLazySingleton(() => HomeViewModel());
@@ -43,4 +48,5 @@ void init() {
   dependency.registerLazySingleton(() => EditProfileViewModel());
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => StartAuctionViewModel());
+  dependency.registerLazySingleton(() => WatchlistViewModel());
 }
