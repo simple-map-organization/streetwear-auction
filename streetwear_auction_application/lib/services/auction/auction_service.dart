@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:streetwear_auction_application/models/watchlist.dart';
+
 import '../../models/auction.dart';
 
 abstract class AuctionService {
@@ -25,4 +27,6 @@ abstract class AuctionService {
     DateTime endTime,
     List<File> listImageFile,
   });
+
+  Future<String> addAuctionToWatchlist({String auctionID});
 }

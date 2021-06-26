@@ -4,8 +4,9 @@ import '../models/auction.dart';
 
 class AuctionCard extends StatelessWidget {
   final Auction auction;
+  final Function onPressStarIcon;
   final Function(BuildContext, Auction) onPressed;
-  AuctionCard(this.auction, this.onPressed);
+  AuctionCard(this.auction, this.onPressed, this.onPressStarIcon);
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +35,23 @@ class AuctionCard extends StatelessWidget {
                           child: Image.network(auction.photos[0]))),
                   Container(
                     margin: const EdgeInsets.all(4.0),
-                    child: Icon(
-                      Icons.star,
-                      size: 16.0,
-                      color: Colors.grey[400],
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.star,
+                        size: 16.0,
+                        color: Colors.grey[400],
+                      ),
+                      onPressed: () async {
+                        final status = await onPressStarIcon(auction.auctionId);
+                        if (status == 'Updated') {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text('Added to watchlist successfully!')));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Product added already!')));
+                        }
+                      },
                     ),
                   ),
                 ],
