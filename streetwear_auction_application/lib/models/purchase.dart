@@ -6,11 +6,11 @@ class Purchase {
   String purchaseId;
   Auction product;
   bool won;
-  String status; //Cancelled(failed to pay) if failed to pay
   DateTime payBefore; //1 week
+  String fullname;
+  String phone;
   String address1;
   String address2;
-  String address3;
   String postcode;
   String state;
   String country;
@@ -19,11 +19,11 @@ class Purchase {
     @required this.purchaseId,
     @required this.product,
     @required this.won,
-    @required this.status,
     @required this.payBefore,
+    @required this.fullname,
+    @required this.phone,
     @required this.address1,
     @required this.address2,
-    @required this.address3,
     @required this.postcode,
     @required this.state,
     @required this.country,
@@ -34,13 +34,15 @@ class Purchase {
           purchaseId: json['_id'],
           product: Auction.fromJson(json['product']),
           won: json['won'],
-          status: json['status'],
-          payBefore: json['payBefore'],
-          address1: json['address']['address1'],
-          address2: json['address']['address2'],
-          address3: json['address']['address3'],
-          postcode: json['address']['postcode'],
-          state: json['address']['state'],
-          country: json['address']['country'],
+          payBefore: json['payBefore'] != null
+              ? DateTime.parse(json['payBefore'])
+              : null,
+          fullname: json['delivery']['fullname'],
+          phone: json['delivery']['phone'],
+          address1: json['delivery']['address1'],
+          address2: json['delivery']['address2'],
+          postcode: json['delivery']['postcode'],
+          state: json['delivery']['state'],
+          country: json['delivery']['country'],
         );
 }

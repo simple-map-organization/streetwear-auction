@@ -94,6 +94,7 @@ class SearchAuctionScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: SingleChildScrollView(
                   child: AuctionGrid(
+                    onPressStarIcon: viewmodel.onPressStarIcon,
                     auctions: viewmodel.auctions,
                     onCardPressed: viewmodel.onCardPressed,
                   ),

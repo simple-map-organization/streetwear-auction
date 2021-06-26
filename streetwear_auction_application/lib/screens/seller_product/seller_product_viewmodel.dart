@@ -21,11 +21,17 @@ class SellerProductViewModel extends Viewmodel {
     turnIdle();
   }
 
-  get ongoingAuctions => auctions.where((i) => i.status == "ongoing").toList();
+  get ongoingAuctions => auctions.where((i) => i.status == "Ongoing").toList();
   get paymentPendingAuctions =>
-      auctions.where((i) => i.status == "payment pending").toList();
-  get toShipAuctions => auctions.where((i) => i.status == "to ship").toList();
-  get shippedAuctions => auctions.where((i) => i.status == "shipped").toList();
+      auctions.where((i) => i.status == "Payment Pending").toList();
+  get toShipAuctions => auctions.where((i) => i.status == "To Ship").toList();
+  get shippedAuctions => auctions.where((i) => i.status == "To Receive").toList();
+  get completedAuctions => auctions
+      .where((i) => i.status == "Completed" || i.status == "To Rate")
+      .toList();
+  get cancelledAuctions => auctions
+      .where((i) => i.status.contains('Cancelled'))
+      .toList();   
 
   void onSearchProductName(String productName) async {
     if (productName == searchProductName) return;

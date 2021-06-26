@@ -1,14 +1,20 @@
 import 'dart:async';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:streetwear_auction_application/app/dependencies.dart';
+import 'package:streetwear_auction_application/models/user.dart';
+import 'package:streetwear_auction_application/services/user/user_service.dart';
 
 class AuthService implements Disposable {
+  User user;
   final storage = new FlutterSecureStorage();
   final loginStatusController = StreamController<bool>();
+  UserService userDataService = dependency();
 
   Future<void> triggerLogIn(String jwt) async {
     storage.write(key: 'jwt', value: jwt);
     loginStatusController.add(true);
+    user = await userDataService.getUser();
   }
 
   Future<void> triggerLogOut() async {

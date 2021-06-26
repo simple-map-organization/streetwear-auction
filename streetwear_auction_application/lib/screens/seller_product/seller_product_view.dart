@@ -4,7 +4,6 @@ import '../../app/dependencies.dart';
 import '../view.dart';
 import 'seller_product_viewmodel.dart';
 import 'widgets/seller_product_card.dart';
-import 'widgets/to_ship_card.dart';
 
 class SellerProductScreen extends StatelessWidget {
   static const routeName = '/sellerProduct';
@@ -15,7 +14,7 @@ class SellerProductScreen extends StatelessWidget {
     return ConsumerView(
       viewmodel: dependency<SellerProductViewModel>()..getList(),
       builder: (context, viewmodel, _) => DefaultTabController(
-        length: 5,
+        length: 7,
         child: Scaffold(
           appBar: AppBar(
             title: TextFormField(
@@ -67,6 +66,14 @@ class SellerProductScreen extends StatelessWidget {
                     child: Text('Shipped',
                         style:
                             TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('Completed',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('Cancelled',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
               ],
             ),
           ),
@@ -77,8 +84,10 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.auctions.length,
-                  itemBuilder: (context, index) =>
-                      SellerProductCard(viewmodel.auctions[index]),
+                  itemBuilder: (context, index) => SellerProductCard(
+                    viewmodel.auctions[index],
+                    onShip: viewmodel.onPressStatusButton,
+                  ),
                 ),
               ),
               Container(
@@ -104,9 +113,10 @@ class SellerProductScreen extends StatelessWidget {
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                 child: ListView.builder(
                   itemCount: viewmodel.toShipAuctions.length,
-                  itemBuilder: (context, index) => ToShipCard(
-                      viewmodel.toShipAuctions[index],
-                      viewmodel.onPressStatusButton),
+                  itemBuilder: (context, index) => SellerProductCard(
+                    viewmodel.auctions[index],
+                    onShip: viewmodel.onPressStatusButton,
+                  ),
                 ),
               ),
               Container(
@@ -116,6 +126,24 @@ class SellerProductScreen extends StatelessWidget {
                   itemCount: viewmodel.shippedAuctions.length,
                   itemBuilder: (context, index) =>
                       SellerProductCard(viewmodel.shippedAuctions[index]),
+                ),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView.builder(
+                  itemCount: viewmodel.completedAuctions.length,
+                  itemBuilder: (context, index) =>
+                      SellerProductCard(viewmodel.completedAuctions[index]),
+                ),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView.builder(
+                  itemCount: viewmodel.cancelledAuctions.length,
+                  itemBuilder: (context, index) =>
+                      SellerProductCard(viewmodel.cancelledAuctions[index]),
                 ),
               ),
             ],

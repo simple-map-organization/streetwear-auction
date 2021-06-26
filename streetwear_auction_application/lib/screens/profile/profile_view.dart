@@ -78,7 +78,8 @@ class ProfileScreen extends StatelessWidget {
                                 'Rating       : ',
                                 style: TextStyle(fontSize: 14.0),
                               ),
-                              Text('${viewmodel.user.rating}',
+                              Text(
+                                  '${(viewmodel.user.rating as double).toStringAsFixed(1)}',
                                   style: TextStyle(fontSize: 14.0)),
                             ],
                           ),

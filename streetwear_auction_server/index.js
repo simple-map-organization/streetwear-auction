@@ -23,6 +23,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
   console.log("connected to mongodb");
+  require("./scheduler/auctionScheduler");
 });
 
 app.use(express.static("public"));
@@ -36,6 +37,9 @@ app.get("/", (req, res) => res.send("Home Page!"));
 app.use("/login", loginRoute);
 app.use("/registration", registrationRoute);
 
+//backend running schedule
+// AuctionScheduler.endBidScheduler;
+
 //protected routes
 app.use(UserAuthMiddleware);
 app.use("/auction", auctionRoute);
@@ -43,6 +47,7 @@ app.use("/user", userRoute);
 app.use("/notification", notificationRoute);
 app.use("/watchlist", watchlistRoute);
 app.use("/purchase", purchaseRoute);
+
 
 app.listen(port, () =>
   console.log(`Server running at http://${process.env.IP}:${port}`)

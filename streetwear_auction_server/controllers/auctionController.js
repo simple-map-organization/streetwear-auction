@@ -1,20 +1,19 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 const Auction = require("../models/auction");
+const Purchase = require("../models/purchase");
 var fs = require("fs");
+const { findOne } = require("../models/purchase");
 
 module.exports.getAuctionList = async (req, res) => {
   const productName = req.query.productName;
   const category = req.query.category;
-  const status = req.query.status;
-  const seller = req.query.seller;
 
   let filterQuery = {};
   productName &&
     (filterQuery.productName = { $regex: productName, $options: "i" });
   category && (filterQuery.category = { $regex: category, $options: "i" });
-  status && (filterQuery.status = { $regex: status, $options: "i" });
-  seller && (filterQuery.seller = new mongoose.Types.ObjectId(seller));
+  filterQuery.status = { $eq: "Ongoing" };
 
   let auctions = await Auction.find(filterQuery)
     .populate("bids.userId")
@@ -94,10 +93,10 @@ module.exports.createAuction = async (req, res) => {
   auction.deliveryFee = deliveryFee;
   auction.endTime = endTime;
   auction.photos = imageName;
-  auction.status = "ongoing";
+  auction.status = "Ongoing";
   auction.bids = [];
-  auction.trackingLink = "dsds";
-  auction.rating = 0;
+  auction.trackingLink = "";
+  auction.rating = null;
   auction.seller = seller;
   auction.category = category;
   const { _id } = await auction.save();
@@ -119,7 +118,6 @@ module.exports.updateAuction = (req, res) => {
     if (err) {
       console.log(err);
     }
-    console.log(doc);
     res.send(doc);
   });
 };
@@ -129,26 +127,76 @@ module.exports.bidAuction = async (req, res) => {
   const auctionId = req.params["auctionId"];
   const { price } = req.body;
 
-  let result = await Auction.findByIdAndUpdate(
-    auctionId,
-    {
-      $push: {
-        bids: {
-          $each: [{ userId: userId, price: price }],
-          $sort: { price: -1 },
+  let auction = await Auction.findById(auctionId);
+
+  //bids already exists, update the price
+  if (auction.bids.some((bid) => bid.userId == userId)) {
+    await Auction.updateOne(
+      { _id: auctionId, "bids.userId": userId },
+      {
+        $set: {
+          "bids.$.price": price,
         },
       },
-    },
-    { new: true, useFindAndModify: false }
-  );
+      { useFindAndModify: false }
+    );
+    //sort
+    await Auction.findByIdAndUpdate(
+      auctionId,
+      {
+        $push: {
+          bids: {
+            $each: [],
+            $sort: { price: -1 },
+          },
+        },
+      },
+      { useFindAndModify: false }
+    );
+  } else {
+    await Auction.findByIdAndUpdate(
+      auctionId,
+      {
+        $push: {
+          bids: {
+            $each: [{ userId: userId, price: price }],
+            $sort: { price: -1 },
+          },
+        },
+      },
+      { useFindAndModify: false }
+    );
+  }
 
-  let updatedAuction = await Auction.findById(result._id)
+  let updatedAuction = await Auction.findById(auctionId)
     .populate("bids.userId")
     .populate("seller");
 
-  updatedAuction.photos = updatedAuction.photos.map(
-    (name) => `http://${process.env.IP}:3000/images/${name}`
-  );
+  if (updatedAuction.bids[0].price >= updatedAuction.bin) {
+    let purchases = updatedAuction.bids.map((bid) => {
+      return {
+        product: updatedAuction._id,
+        user: bid.userId._id,
+        won: false,
+        payBefore: null,
+        delivery: {
+          fullname: "",
+          phone: "",
+          address1: "",
+          address2: "",
+          postcode: "",
+          state: "",
+          country: "",
+        },
+      };
+    });
+    updatedAuction.status = "Payment Pending";
+    updatedAuction.save();
+    purchases[0].won = true;
+    purchases[0].payBefore = new Date().setDate(new Date().getDate() + 7);
+
+    await Purchase.insertMany(purchases);
+  }
 
   res.json(updatedAuction);
 };

@@ -4,7 +4,6 @@ const Watchlist = require("../models/watchlist");
 module.exports.checkUsername = async (req, res) => {
   const username = req.query.username;
   const email = req.query.email;
-  console.log(email);
   await User.findOne(
     { $or: [{ username: username }, { email: email }] },
     function (err, user) {

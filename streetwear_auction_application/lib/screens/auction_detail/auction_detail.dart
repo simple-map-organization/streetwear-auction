@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:streetwear_auction_application/app/dependencies.dart';
+import 'package:streetwear_auction_application/models/purchase.dart';
 import 'package:streetwear_auction_application/screens/view.dart';
+import 'package:streetwear_auction_application/widgets/winner_profile.dart';
 
 import '../../widgets/seller_profile.dart';
 import '../auction_checkout/auction_checkout_view.dart';
@@ -36,12 +38,36 @@ class AuctionDetailScreen extends StatelessWidget {
     return;
   }
 
+  void _openWinnerProfile(context, viewmodel) async {
+    Purchase purchase =
+        await viewmodel.getUserPurchaseByAuctionId(auction.auctionId);
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.0),
+          topRight: Radius.circular(24.0),
+        ),
+      ),
+      context: context,
+      builder: (_) => WinnerProfile(
+        purchase: purchase,
+      ),
+    );
+    return;
+  }
+
   void _placeBid(context, viewmodel) {
     final _formKey = GlobalKey<FormState>();
 
     int minBid = viewmodel.auction.bids.length > 0
         ? viewmodel.auction.bids[0].price + viewmodel.auction.minIncrement
         : viewmodel.auction.startingPrice;
+    if (minBid >= viewmodel.auction.bin) {
+      return _buyItNow(context, viewmodel);
+    }
+
     final _bidController = TextEditingController(text: minBid.toString());
 
     showDialog(
@@ -80,8 +106,7 @@ class AuctionDetailScreen extends StatelessWidget {
           TextButton(
             onPressed: () {
               if (!_formKey.currentState.validate()) return;
-              viewmodel.onPlaceBid(viewmodel.auction.auctionId,
-                  int.parse(_bidController.value.text));
+              viewmodel.onPlaceBid(int.parse(_bidController.value.text));
               Navigator.of(context).pop();
               // Navigator.pushNamed(context, AuctionCheckoutScreen.routeName);
             },
@@ -92,15 +117,57 @@ class AuctionDetailScreen extends StatelessWidget {
     );
   }
 
-  void _buyItNow(context) {
-    Navigator.pushNamed(context, AuctionCheckoutScreen.routeName);
+  void _buyItNow(context, viewmodel) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: RichText(
+            text: TextSpan(
+                text: 'You are buying it at ',
+                style: TextStyle(color: Colors.black),
+                children: [
+              TextSpan(
+                  text: 'RM${viewmodel.auction.bin}',
+                  style: TextStyle(color: Theme.of(context).primaryColor))
+            ])),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+              await viewmodel.onPlaceBid(viewmodel.auction.bin);
+              var purchase =
+                  await viewmodel.getUserPurchaseByAuctionId(auction.auctionId);
+
+              Navigator.pushNamed(context, AuctionCheckoutScreen.routeName,
+                  arguments: {
+                    'processType': 'BIN',
+                    'purchase': purchase,
+                    'price': viewmodel.auction.bin,
+                    'deliveryFee': viewmodel.auction.deliveryFee
+                  });
+            },
+            child: Text('Confirm'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
         viewmodel: dependency<AuctionDetailViewModel>()..init(auction),
-        builder: (context, viewmodel, _) {
+        builder: (context, viewmodel, __) {
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -293,6 +360,24 @@ class AuctionDetailScreen extends StatelessWidget {
                       SizedBox(
                         height: 12.0,
                       ),
+                      viewmodel.isAuctionOwner ? Divider() : Container(),
+                      viewmodel.isAuctionOwner
+                          ? Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Winner: ' + auction.winner),
+                                  TextButton(
+                                      onPressed: () {
+                                        _openWinnerProfile(context, viewmodel);
+                                      },
+                                      child: Text('View Address'))
+                                ],
+                              ),
+                            )
+                          : Container(),
                       Divider(),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -301,15 +386,6 @@ class AuctionDetailScreen extends StatelessWidget {
                           children: <Widget>[
                             Text('Biddings',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            // TextButton(
-                            //   style: ButtonStyle(
-                            //     foregroundColor:
-                            //         MaterialStateProperty.all<Color>(
-                            //             Colors.black),
-                            //   ),
-                            //   onPressed: () {},
-                            //   child: Text('View More >'),
-                            // )
                           ],
                         ),
                       ),
@@ -340,41 +416,49 @@ class AuctionDetailScreen extends StatelessWidget {
                 ),
               ],
             ),
-            bottomNavigationBar: BottomAppBar(
-              elevation: 0,
-              child: Container(
-                color: Colors.transparent,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: MaterialButton(
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                        color: Theme.of(context).primaryColor,
-                        onPressed: () => _placeBid(context, viewmodel),
-                        child: Text(
-                          'Place Bid',
-                          style: TextStyle(color: Colors.white),
-                        ),
+            bottomNavigationBar: !viewmodel.isAuctionOwner
+                ? BottomAppBar(
+                    elevation: 0,
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: MaterialButton(
+                              disabledColor: Colors.lightBlue[200],
+                              padding: EdgeInsets.symmetric(vertical: 16.0),
+                              color: Colors.lightBlue,
+                              onPressed: viewmodel.auction.isAllowBid
+                                  ? () => _placeBid(context, viewmodel)
+                                  : null,
+                              child: Text(
+                                'Place Bid',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: MaterialButton(
+                              disabledColor: Colors.green[200],
+                              padding: EdgeInsets.symmetric(vertical: 8.0),
+                              color: Colors.green,
+                              onPressed: viewmodel.auction.isAllowBid
+                                  ? () => _buyItNow(context, viewmodel)
+                                  : null,
+                              child: Text(
+                                'Buy It Now\nRM${viewmodel.auction.bin}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: MaterialButton(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        color: Colors.green,
-                        onPressed: () => _buyItNow(context),
-                        child: Text(
-                          'Buy It Now\nRM${viewmodel.auction.bin}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : null,
           );
         });
   }

@@ -9,11 +9,12 @@ class PurchaseViewModel extends Viewmodel {
   String dropdownValue = 'All';
   var selection = [
     'All',
-    'Completed',
     'To Pay',
     'To Ship',
     'To Receive',
-    'To Rate'
+    'To Rate',
+    'Completed',
+    'Cancelled'
   ];
   List<Purchase> purchaseList;
   List<Purchase> disaplayWinPurchaseList;
@@ -22,16 +23,24 @@ class PurchaseViewModel extends Viewmodel {
 
   get winPurchaseList => purchaseList.where((e) => e.won).toList();
   get lostPurchaseList => purchaseList.where((e) => !e.won).toList();
-  get toPayPurchaseList =>
-      purchaseList.where((e) => e.won && e.status == 'To Pay').toList();
-  get completedPurchaseList =>
-      purchaseList.where((e) => e.won && e.status == 'Completed').toList();
-  get toRatePurchaseList =>
-      purchaseList.where((e) => e.won && e.status == 'To Rate').toList();
-  get toShipPurchaseList =>
-      purchaseList.where((e) => e.won && e.status == 'To Ship').toList();
-  get toReceievePurchaseList =>
-      purchaseList.where((e) => e.won && e.status == 'To Receieve').toList();
+  get toPayPurchaseList => purchaseList
+      .where((e) => e.won && e.product.status == 'Payment Pending')
+      .toList();
+  get toRatePurchaseList => purchaseList
+      .where((e) => e.won && e.product.status == 'To Rate')
+      .toList();
+  get toShipPurchaseList => purchaseList
+      .where((e) => e.won && e.product.status == 'To Ship')
+      .toList();
+  get toReceievePurchaseList => purchaseList
+      .where((e) => e.won && e.product.status == 'To Receieve')
+      .toList();
+   get completedPurchaseList => purchaseList
+      .where((e) => e.won && e.product.status == 'Completed')
+      .toList();
+   get cancelledPurchaseList => purchaseList
+      .where((e) => e.won && e.product.status.contains('Cancelled'))
+      .toList();
 
   PurchaseViewModel();
 
@@ -64,6 +73,9 @@ class PurchaseViewModel extends Viewmodel {
       case 'To Rate':
         disaplayWinPurchaseList = toRatePurchaseList;
         break;
+      case 'Cancelled':
+        disaplayWinPurchaseList = cancelledPurchaseList;
+        break;
     }
     turnIdle();
   }
@@ -79,7 +91,8 @@ class PurchaseViewModel extends Viewmodel {
     purchaseList
         .where((element) => element.purchaseId == purchase.purchaseId)
         .toList()[0]
-        .status = result.status;
+        .product
+        .status = result.product.status;
     turnIdle();
   }
 }

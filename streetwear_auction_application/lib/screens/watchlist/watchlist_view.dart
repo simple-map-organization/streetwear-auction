@@ -20,24 +20,6 @@ class WatchListScreen extends StatelessWidget {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            // title: TextFormField(
-            //   style: TextStyle(fontSize: 12.0),
-            //   cursorColor: Colors.grey,
-            //   decoration: InputDecoration(
-            //     hintText: 'Search here',
-            //     isDense: true,
-            //     contentPadding: EdgeInsets.all(12.0),
-            //     enabledBorder: OutlineInputBorder(
-            //       borderSide: BorderSide(color: Colors.grey[200], width: 1.0),
-            //     ),
-            //     focusedBorder: OutlineInputBorder(
-            //       borderSide: BorderSide(color: Colors.grey[200], width: 1.0),
-            //     ),
-            //     border: OutlineInputBorder(
-            //       borderSide: BorderSide(color: Colors.grey[200], width: 1.0),
-            //     ),
-            //   ),
-            // ),
             toolbarHeight: 50,
             backgroundColor: Colors.white,
             bottom: TabBar(
@@ -82,8 +64,7 @@ class WatchListScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: viewmodel.auctions.length,
                     itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist,
-                        viewmodel.auctions[index]),
+                        viewmodel.watchlist, viewmodel.auctions[index]),
                   ),
                 ),
                 Container(
@@ -93,8 +74,7 @@ class WatchListScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: viewmodel.winningAuctions.length,
                     itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist,
-                        viewmodel.winningAuctions[index]),
+                        viewmodel.watchlist, viewmodel.winningAuctions[index]),
                   ),
                 ),
                 Container(
@@ -104,8 +84,7 @@ class WatchListScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: viewmodel.losingAuctions.length,
                     itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist,
-                        viewmodel.losingAuctions[index]),
+                        viewmodel.watchlist, viewmodel.losingAuctions[index]),
                   ),
                 ),
                 Container(
@@ -115,8 +94,7 @@ class WatchListScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: viewmodel.watchingAuctions.length,
                     itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist,
-                        viewmodel.watchingAuctions[index]),
+                        viewmodel.watchlist, viewmodel.watchingAuctions[index]),
                   ),
                 ),
               ],

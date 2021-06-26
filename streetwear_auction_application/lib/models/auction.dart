@@ -21,6 +21,17 @@ class Auction {
   String category;
   User seller;
 
+  get isAllowBid {
+    if (bids.length > 0 && bids[0].price >= bin) return false;
+    return true;
+  }
+
+  get winner {
+    if (this.status == 'Ongoing') return 'No winner yet';
+    if (this.bids.isEmpty) return 'No winner';
+    return bids[0].user.username;
+  }
+
   Auction({
     @required this.auctionId,
     @required this.productName,
@@ -83,7 +94,7 @@ class Auction {
                 : [],
             status: json['status'],
             trackingLink: json['trackingLink'],
-            rating: json['rating'] == null ? 0 : json['rating'] + .0,
+            rating: json['rating'] == null ? -1 : json['rating'] + .0,
             category: json['category'],
             seller: json['seller'].runtimeType != String
                 ? User.fromJson(json['seller'])
@@ -97,7 +108,11 @@ class Bid {
   Bid({this.price, this.user});
 
   Bid.fromJson(Map<String, dynamic> json)
-      : this(price: json['price'], user: User.fromJson(json['userId']));
+      : this(
+            price: json['price'],
+            user: json['userId'].runtimeType != String
+                ? User.fromJson(json['userId'])
+                : null);
 
   Map<String, dynamic> toJson() => {'price': this.price, 'userId:': this.user};
 }

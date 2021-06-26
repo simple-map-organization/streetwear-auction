@@ -67,6 +67,7 @@ class ToShipCard extends StatelessWidget {
                             ? Align(
                                 alignment: Alignment.centerLeft,
                                 child: RatingBar.builder(
+                                  ignoreGestures: true,
                                     itemSize: 20,
                                     initialRating: auction.rating,
                                     allowHalfRating: true,
@@ -83,7 +84,8 @@ class ToShipCard extends StatelessWidget {
                     flex: 1,
                     child: ElevatedButton(
                       onPressed: () async {
-                        await onPressStatusButton(auction.auctionId, 'shipped');
+                        await onPressStatusButton(
+                            auction.auctionId, 'To Receive');
                       },
                       child: Text(
                         'Ship',

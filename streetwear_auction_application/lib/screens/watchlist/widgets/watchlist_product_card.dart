@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
@@ -9,19 +11,28 @@ class WatchlistProductCard extends StatelessWidget {
   final Auction auction;
   WatchlistProductCard(this.watchlist, this.auction);
 
+  get _isWinning =>
+      auction.bids.length > 0 &&
+      auction.bids.any((bid) => bid.user.userId == watchlist.user.userId) &&
+      auction.bids[0].user.userId == watchlist.user.userId;
+
+  get _isLosing =>
+      auction.bids.length > 0 &&
+      auction.bids.any((bid) => bid.user.userId == watchlist.user.userId) &&
+      auction.bids[0].user.userId != watchlist.user.userId;
+
   @override
   Widget build(BuildContext context) {
+    print(auction.bids.any((bid) => bid.user.userId == watchlist.user.userId));
     return Container(
       padding: EdgeInsets.only(right: 7.0),
       margin: EdgeInsets.only(top: 8, left: 8, right: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(8.0), bottomLeft: Radius.circular(8.0)),
-        color: (auction.bids[0]["userId"] == watchlist.user.userId)
+        color: _isWinning
             ? Color.fromRGBO(123, 255, 66, 1)
-            : ((auction.bids[0]["userId"] != watchlist.user.userId) &&
-                    (auction.bids.contains(
-                        (bid) => bid["userId"] == watchlist.user.userId)))
+            : _isLosing
                 ? Color.fromRGBO(255, 117, 117, 1)
                 : Color.fromRGBO(166, 166, 166, 1),
       ),
