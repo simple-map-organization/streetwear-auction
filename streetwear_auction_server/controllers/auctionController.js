@@ -128,7 +128,6 @@ module.exports.bidAuction = async (req, res) => {
   const { price } = req.body;
 
   let auction = await Auction.findById(auctionId);
-  let purchaseId;
 
   //bids already exists, update the price
   if (auction.bids.some((bid) => bid.userId == userId)) {
@@ -137,6 +136,19 @@ module.exports.bidAuction = async (req, res) => {
       {
         $set: {
           "bids.$.price": price,
+        },
+      },
+      { useFindAndModify: false }
+    );
+    //sort
+    await Auction.findByIdAndUpdate(
+      auctionId,
+      {
+        $push: {
+          bids: {
+            $each: [],
+            $sort: { price: -1 },
+          },
         },
       },
       { useFindAndModify: false }

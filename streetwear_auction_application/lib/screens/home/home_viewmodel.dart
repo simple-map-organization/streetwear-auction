@@ -9,7 +9,6 @@ import '../../services/auction/auction_service.dart';
 
 class HomeViewModel extends Viewmodel {
   List<Auction> auctions;
-  String status;
   HomeViewModel();
   AuctionService get dataService => dependency();
 
@@ -33,7 +32,8 @@ class HomeViewModel extends Viewmodel {
   }
 
   Future<String> onPressStarIcon(String auctionID) async {
-    status = await dataService.addAuctionToWatchlist(auctionID: auctionID);
+    String status =
+        await dataService.addAuctionToWatchlist(auctionID: auctionID);
     turnIdle();
     return status;
   }

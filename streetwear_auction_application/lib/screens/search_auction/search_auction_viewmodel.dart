@@ -69,4 +69,11 @@ class SearchAuctionViewModel extends Viewmodel {
         arguments: {'auction': auction});
     getList();
   }
+
+    Future<String> onPressStarIcon(String auctionID) async {
+    String status = await dataService.addAuctionToWatchlist(auctionID: auctionID);
+    turnIdle();
+    return status;
+  }
+  
 }

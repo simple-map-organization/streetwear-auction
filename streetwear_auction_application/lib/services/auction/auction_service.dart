@@ -1,7 +1,4 @@
 import 'dart:io';
-
-import 'package:streetwear_auction_application/models/watchlist.dart';
-
 import '../../models/auction.dart';
 
 abstract class AuctionService {

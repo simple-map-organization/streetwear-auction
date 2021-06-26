@@ -18,17 +18,22 @@ class WatchlistViewModel extends Viewmodel {
   }
 
   get winningAuctions => auctions
-      .where((i) => (i.bids[0]["userId"] == watchlist.user.userId))
+      .where((auction) =>
+          auction.bids.length > 0 &&
+          auction.bids.any((bid) => bid.user.userId == watchlist.user.userId) &&
+          auction.bids[0].user.userId == watchlist.user.userId)
       .toList();
 
   get losingAuctions => auctions
-      .where((i) =>
-          (i.bids[0]["userId"] != watchlist.user.userId) &&
-          (i.bids.contains((bid) => bid["userId"] == watchlist.user.userId)))
+      .where((auction) =>
+          auction.bids.length > 0 &&
+          auction.bids.any((bid) => bid.user.userId == watchlist.user.userId) &&
+          auction.bids[0].user.userId != watchlist.user.userId)
       .toList();
 
   get watchingAuctions => auctions
-      .where((i) =>
-          (i.bids.contains((bid) => bid["userId"] = watchlist.user.userId)))
+      .where((auction) =>
+          auction.bids.length == 0 ||
+          !auction.bids.any((bid) => bid.user.userId == watchlist.user.userId))
       .toList();
 }
