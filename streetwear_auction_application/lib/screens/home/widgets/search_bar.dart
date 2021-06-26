@@ -9,7 +9,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(horizontal: 4.0),
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,7 @@ class SearchBar extends StatelessWidget {
               child: IconButton(
                 icon: Icon(
                   Icons.notifications,
-                  size: 24.0,
+                  size: 20.0,
                 ),
                 onPressed: () {
                   // Navigator.pushNamed(context, '/notification');

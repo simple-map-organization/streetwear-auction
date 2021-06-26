@@ -2,7 +2,11 @@ import 'package:get_it/get_it.dart';
 import 'package:streetwear_auction_application/screens/watchlist/watchlist_viewmodel.dart';
 import 'package:streetwear_auction_application/services/watchlist/watchlist_service.dart';
 import 'package:streetwear_auction_application/services/watchlist/watchlist_service_rest.dart';
+import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
+import 'package:streetwear_auction_application/services/purchase/purchase_service_rest.dart';
 
+import '../screens/my_purchase/purchase_viewmodel.dart';
+import '../screens/auction_detail/auction_detail_viewmodel.dart';
 import '../screens/home/home_viewmodel.dart';
 import '../screens/login/login_viewmodel.dart';
 import '../screens/profile/edit_profile_viewmodel.dart';
@@ -27,7 +31,8 @@ GetIt dependency = GetIt.instance;
 void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
-    () => RestService(baseUrl: 'http://192.168.56.1:3000'),
+    () => RestService(baseUrl: 'http://192.168.1.103:3000'),
+
   );
 
   dependency.registerLazySingleton<AuthService>(() => AuthService());
@@ -36,8 +41,9 @@ void init() {
   dependency.registerLazySingleton<UserService>(() => UserServiceRest());
   dependency.registerLazySingleton<RegistrationService>(
       () => RegistrationServiceRest());
-  dependency
-      .registerLazySingleton<WatchlistService>(() => WatchlistServiceRest());
+  dependency.registerLazySingleton<WatchlistService>(() => WatchlistServiceRest());
+  dependency.registerLazySingleton<PurchaseService>(() => PurchaseServiceRest());
+
 
   // Viewmodels
   dependency.registerLazySingleton(() => HomeViewModel());
@@ -49,4 +55,8 @@ void init() {
   dependency.registerLazySingleton(() => SellerProductViewModel());
   dependency.registerLazySingleton(() => StartAuctionViewModel());
   dependency.registerLazySingleton(() => WatchlistViewModel());
+
+  dependency.registerLazySingleton(() => PurchaseViewModel());
+  dependency.registerLazySingleton(() => AuctionDetailViewModel());
+
 }

@@ -56,17 +56,22 @@ class User {
           phoneNum: json['phoneNum'],
           profilePhoto: json['profilePhoto'],
           bio: json['bio'],
-          totalDeal: json['totalDeal'],
-          rating: json['rating'] == null ? json['rating'] + .0 : 0.0,
-          address1: json['address']['address1'],
-          address2: json['address']['address2'],
-          address3: json['address']['address3'],
-          postcode: json['address']['postcode'],
-          state: json['address']['state'],
-          country: json['address']['country'],
-          card: json['payment']['card'],
-          expiryDate: json['payment']['expiryDate'],
-          cvv: json['payment']['cvv'],
+          totalDeal: json['totalDeal'] != null ? json['totalDeal'] : -1,
+          rating: json['rating'] != null ? json['rating'] + .0 : -1,
+          address1:
+              json['address'] != null ? json['address']['address1'] : null,
+          address2:
+              json['address'] != null ? json['address']['address2'] : null,
+          address3:
+              json['address'] != null ? json['address']['address3'] : null,
+          postcode:
+              json['address'] != null ? json['address']['postcode'] : null,
+          state: json['address'] != null ? json['address']['state'] : null,
+          country: json['address'] != null ? json['address']['country'] : null,
+          card: json['payment'] != null ? json['address']['card'] : null,
+          expiryDate:
+              json['payment'] != null ? json['payment']['expiryDate'] : null,
+          cvv: json['payment'] != null ? json['address']['cvv'] : null,
           fbLink: json['fbLink'],
           igLink: json['igLink'],
           lcLink: json['lcLink'],

@@ -95,6 +95,7 @@ class SearchAuctionScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: AuctionGrid(
                     auctions: viewmodel.auctions,
+                    onCardPressed: viewmodel.onCardPressed,
                   ),
                 ),
               ),

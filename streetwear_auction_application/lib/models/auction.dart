@@ -14,7 +14,7 @@ class Auction {
   int deliveryFee;
   DateTime endTime;
   List<String> photos;
-  List<Map> bids;
+  List<Bid> bids;
   String status;
   String trackingLink;
   double rating;
@@ -77,10 +77,27 @@ class Auction {
             deliveryFee: json['deliveryFee'],
             endTime: DateTime.parse(json['endTime']),
             photos: List<String>.from(json['photos']),
-            bids: List<Map>.from(json['bids']?.map((x) => x)), //TODO: user
+            bids: json['bids'].length > 0
+                ? List<Bid>.from(json['bids'].map((bid) => Bid.fromJson(bid)))
+                    .toList()
+                : [],
             status: json['status'],
             trackingLink: json['trackingLink'],
             rating: json['rating'] == null ? 0 : json['rating'] + .0,
             category: json['category'],
-            seller: User.fromJson(json['seller']));
+            seller: json['seller'].runtimeType != String
+                ? User.fromJson(json['seller'])
+                : null);
+}
+
+class Bid {
+  int price;
+  User user;
+
+  Bid({this.price, this.user});
+
+  Bid.fromJson(Map<String, dynamic> json)
+      : this(price: json['price'], user: User.fromJson(json['userId']));
+
+  Map<String, dynamic> toJson() => {'price': this.price, 'userId:': this.user};
 }

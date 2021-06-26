@@ -77,8 +77,12 @@ class AuctionServiceRest implements AuctionService {
     return Auction.fromJson(json);
   }
 
+
   Future<String> addAuctionToWatchlist({String auctionID}) async {
     String result = await rest.put('watchlist', data: {'auctionID': auctionID});
     return result;
+  Future<Auction> bidAuction({String auctionID, int price}) async {
+    var json = await rest.put('auction/bid/$auctionID', data: {'price': price});
+    return Auction.fromJson(json);
   }
 }

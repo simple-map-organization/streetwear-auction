@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
 
-import 'profile_viewmodel.dart';
+import '../../app/dependencies.dart';
+import '../view.dart';
 import 'edit_profile_view.dart';
+import 'profile_viewmodel.dart';
 import 'widgets/profile_list_button.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -31,33 +31,36 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child:
-                            Stack(alignment: Alignment.bottomRight, children: [
-                          CircleAvatar(
-                            radius: 40.0,
-                            backgroundImage: viewmodel.user.profilePhoto != ""
-                                ? AssetImage(viewmodel.user.profilePhoto)
-                                : AssetImage('assets/img/profile.png'),
-                            backgroundColor: Colors.transparent,
-                          ),
-                          Positioned(
-                            bottom: -10,
-                            right: -10,
-                            child: RawMaterialButton(
-                              constraints: BoxConstraints(
-                                  minWidth: 25.0, minHeight: 25.0),
-                              onPressed: () {},
-                              fillColor: Colors.white,
-                              child: IconButton(
-                                icon: Icon(Icons.add),
-                                iconSize: 15.0,
-                                onPressed: () {},
+                        child: Stack(
+                            alignment: Alignment.bottomRight,
+                            clipBehavior: Clip.none,
+                            children: [
+                              CircleAvatar(
+                                radius: 40.0,
+                                backgroundImage: viewmodel.user.profilePhoto !=
+                                        ""
+                                    ? NetworkImage(viewmodel.user.profilePhoto,
+                                        scale: 40)
+                                    : AssetImage('assets/img/profile.png'),
+                                backgroundColor: Colors.transparent,
                               ),
-                              padding: EdgeInsets.all(2),
-                              shape: CircleBorder(),
-                            ),
-                          )
-                        ]),
+                              Positioned(
+                                bottom: -10,
+                                right: -10,
+                                child: Container(
+                                  width: 40,
+                                  child: RawMaterialButton(
+                                    onPressed: () async {
+                                      await viewmodel.chooseImage();
+                                    },
+                                    fillColor: Colors.white,
+                                    child: Icon(Icons.add, size: 15.0),
+                                    padding: EdgeInsets.all(1),
+                                    shape: CircleBorder(),
+                                  ),
+                                ),
+                              )
+                            ]),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,

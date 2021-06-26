@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:streetwear_auction_application/app/dependencies.dart';
 
 import '../../models/user.dart';
@@ -14,5 +17,14 @@ class UserServiceRest implements UserService {
   Future<User> updateUser(User user) async {
     var jsonResult = await rest.put('user', data: user.toJson());
     return User.fromJson(jsonResult);
+  }
+
+  Future<String> uploadPhoto(File imagefile) async {
+    String base64Image = base64Encode(imagefile.readAsBytesSync());
+    String fileName = imagefile.path.split("/").last;
+    return await rest.put('user/uploadImage', data: {
+      "image": base64Image,
+      "name": fileName,
+    });
   }
 }
