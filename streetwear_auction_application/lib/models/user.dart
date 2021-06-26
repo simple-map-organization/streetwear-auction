@@ -49,7 +49,7 @@ class User {
 
   User.fromJson(Map<String, dynamic> json)
       : this(
-          userId: json['userId'],
+          userId: json['_id'],
           username: json['username'],
           email: json['email'],
           password: json['password'],

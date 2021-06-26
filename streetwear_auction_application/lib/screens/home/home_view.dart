@@ -42,6 +42,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                         AuctionGrid(
                           auctions: viewmodel.auctions,
+                          onPressStarIcon: viewmodel.onPressStarIcon,
                           onCardPressed: viewmodel.onCardPressed,
                         ),
                       ],

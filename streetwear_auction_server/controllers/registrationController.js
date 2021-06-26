@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Watchlist = require("../models/watchlist");
 
 module.exports.checkUsername = async (req, res) => {
   const username = req.query.username;
@@ -51,5 +52,11 @@ module.exports.register = async (req, res) => {
   user.lcLink = "";
 
   user.save();
+
+  let watchlist = new Watchlist();
+  watchlist.user = user.id;
+  watchlist.auctions = [];
+  watchlist.save();
+
   res.json({ isRegistered: 1 });
 };

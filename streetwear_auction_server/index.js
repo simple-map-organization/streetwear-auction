@@ -12,6 +12,7 @@ const loginRoute = require("./routes/login");
 const registrationRoute = require("./routes/registration");
 const purchaseRoute = require("./routes/purchase");
 const UserAuthMiddleware = require("./middleware/authMiddleware");
+const watchlistRoute = require("./routes/watchlist");
 
 mongoose.connect(
   "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
@@ -40,6 +41,7 @@ app.use(UserAuthMiddleware);
 app.use("/auction", auctionRoute);
 app.use("/user", userRoute);
 app.use("/notification", notificationRoute);
+app.use("/watchlist", watchlistRoute);
 app.use("/purchase", purchaseRoute);
 
 app.listen(port, () =>
