@@ -1,3 +1,4 @@
+import 'package:streetwear_auction_application/app/auth.dart';
 import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:streetwear_auction_application/models/purchase.dart';
 import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
@@ -11,8 +12,13 @@ class AuctionDetailViewModel extends Viewmodel {
   Auction auction;
   AuctionService get dataService => dependency();
   PurchaseService get purchaseService => dependency();
+  AuthService get authService => dependency();
 
   bool isShowALlBids = false;
+
+  bool get isAuctionOwner {
+    return this.authService.user.userId == auction.seller.userId;
+  }
 
   List<Bid> get bids {
     return !isShowALlBids ? auction.bids.take(3).toList() : auction.bids;

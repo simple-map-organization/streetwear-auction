@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/user.dart';
 
@@ -42,23 +43,21 @@ class SellerProfile extends StatelessWidget {
                       child: Column(
                         children: [
                           Text('Rating'),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: user.rating == 0
-                                ? [
-                                    Text(
-                                      'No Rating',
-                                      style: TextStyle(fontSize: 10.0),
-                                    )
-                                  ]
-                                : List.filled(
-                                    user.rating.ceil(),
-                                    Icon(
-                                      Icons.star,
-                                      size: 12.0,
-                                      color: Colors.yellow,
-                                    )),
-                          )
+                          user.rating == -1
+                              ? Text(
+                                  'No Rating',
+                                  style: TextStyle(fontSize: 10.0),
+                                )
+                              : RatingBar.builder(
+                                  ignoreGestures: true,
+                                  itemSize: 12.0,
+                                  initialRating: user.rating,
+                                  allowHalfRating: true,
+                                  itemPadding:
+                                      EdgeInsets.symmetric(horizontal: 1.0),
+                                  itemBuilder: (context, _) =>
+                                      Icon(Icons.star, color: Colors.amber),
+                                  onRatingUpdate: null),
                         ],
                       ),
                     ),
@@ -67,7 +66,7 @@ class SellerProfile extends StatelessWidget {
                         children: [
                           Text('Total Deals'),
                           Text(
-                            '666',
+                            user.totalDeal.toString(),
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor),
                           )

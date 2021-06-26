@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:streetwear_auction_application/screens/auction_detail/auction_detail.dart';
 
 import '../../../models/auction.dart';
-import '../../seller_product_detail/seller_product_detail.dart';
 
 class SellerProductCard extends StatelessWidget {
   final Auction auction;
-  SellerProductCard(this.auction);
+  final Function onShip;
+  SellerProductCard(this.auction, {this.onShip});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(SellerProductDetailScreen.routeName,
+        Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
             arguments: {'auction': auction});
       },
       child: Container(
         margin: EdgeInsets.only(top: 8, left: 8, right: 8),
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -35,17 +36,18 @@ class SellerProductCard extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(5),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     flex: 1,
                     child: Container(
                         child: Image.network(
                       auction.photos[0],
-                      width: 100,
-                      height: 100,
+                      width: double.infinity,
+                      height: 130,
+                      fit: BoxFit.fill,
                     )),
                   ),
                   Expanded(
@@ -77,6 +79,28 @@ class SellerProductCard extends StatelessWidget {
                                         Icon(Icons.star, color: Colors.amber),
                                     onRatingUpdate: null))
                             : SizedBox(),
+                        (onShip != null && auction.status == 'To Ship')
+                            ? Container(
+                                margin: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0),
+                                width: double.infinity,
+                                height: 28,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    await onShip(
+                                        auction.auctionId, 'To Receive');
+                                  },
+                                  child: Text('Ship'),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Theme.of(context).primaryColor),
+                                  ),
+                                ),
+                              )
+                            : SizedBox(
+                                height: 28,
+                              ),
                       ]),
                     ),
                   ),

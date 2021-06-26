@@ -48,7 +48,7 @@ class ProductCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Image.network(
                     purchase.product.photos[0],
                     width: double.infinity,
@@ -57,7 +57,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -65,11 +65,11 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Text(
                           'Date : ${DateFormat.yMd().add_jm().format(purchase.product.endTime)}\n' +
-                              'Winning Bid : RM0\n' +
+                              'Highest Bid : RM${purchase.product.bids[0].price}\n' +
                               'Condition: ${purchase.product.condition}\n' +
                               'Size :${purchase.product.size}\n' +
                               (purchase.won
-                                  ? 'Pay before :\n${purchase.payBefore}'
+                                  ? 'Pay before :${DateFormat.yMd().add_jm().format(purchase.payBefore)}'
                                   : ''),
                           textAlign: TextAlign.left,
                         ),

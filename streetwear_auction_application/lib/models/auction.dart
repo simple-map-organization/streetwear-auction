@@ -26,6 +26,12 @@ class Auction {
     return true;
   }
 
+  get winner {
+    if (this.status == 'Ongoing') return 'No winner yet';
+    if (this.bids.isEmpty) return 'No winner';
+    return bids[0].user.username;
+  }
+
   Auction({
     @required this.auctionId,
     @required this.productName,

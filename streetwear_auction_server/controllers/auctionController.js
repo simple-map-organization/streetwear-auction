@@ -118,7 +118,6 @@ module.exports.updateAuction = (req, res) => {
     if (err) {
       console.log(err);
     }
-    console.log(doc);
     res.send(doc);
   });
 };
