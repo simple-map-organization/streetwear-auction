@@ -63,7 +63,7 @@ class SellerProductCard extends StatelessWidget {
                               'End Date: ${DateFormat.yMd().add_jm().format(auction.endTime)}\n' +
                               'Status: ${auction.status}\n'),
                         ),
-                        (auction.rating != 0)
+                        (auction.rating != -1)
                             ? Align(
                                 alignment: Alignment.centerLeft,
                                 child: RatingBar.builder(

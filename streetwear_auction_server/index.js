@@ -12,7 +12,6 @@ const loginRoute = require("./routes/login");
 const registrationRoute = require("./routes/registration");
 const purchaseRoute = require("./routes/purchase");
 const UserAuthMiddleware = require("./middleware/authMiddleware");
-const AuctionScheduler = require("./scheduler/auctionScheduler");
 
 mongoose.connect(
   "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
@@ -23,6 +22,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
   console.log("connected to mongodb");
+  require("./scheduler/auctionScheduler");
 });
 
 app.use(express.static("public"));
@@ -37,7 +37,7 @@ app.use("/login", loginRoute);
 app.use("/registration", registrationRoute);
 
 //backend running schedule
-AuctionScheduler;
+// AuctionScheduler.endBidScheduler;
 
 //protected routes
 app.use(UserAuthMiddleware);

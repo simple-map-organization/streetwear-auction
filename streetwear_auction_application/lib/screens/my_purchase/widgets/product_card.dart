@@ -13,6 +13,9 @@ class ProductCard extends StatelessWidget {
     'To Receive': 'Received',
     'To Ship': null,
     'Completed': null,
+    'Cancelled (No Bidder)': null,
+    'Cancelled (Fail To Pay)': null,
+    'Cancelled (Fail To Ship)': null,
   };
 
   @override

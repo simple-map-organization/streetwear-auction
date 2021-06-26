@@ -13,7 +13,7 @@ module.exports.getAuctionList = async (req, res) => {
   productName &&
     (filterQuery.productName = { $regex: productName, $options: "i" });
   category && (filterQuery.category = { $regex: category, $options: "i" });
-  filterQuery.status = { $eq:"ongoing" };
+  filterQuery.status = { $eq: "Ongoing" };
 
   let auctions = await Auction.find(filterQuery)
     .populate("bids.userId")
@@ -93,7 +93,7 @@ module.exports.createAuction = async (req, res) => {
   auction.deliveryFee = deliveryFee;
   auction.endTime = endTime;
   auction.photos = imageName;
-  auction.status = "ongoing";
+  auction.status = "Ongoing";
   auction.bids = [];
   auction.trackingLink = "";
   auction.rating = null;

@@ -28,7 +28,9 @@ module.exports.getPurchaseList = async (req, res) => {
 module.exports.updateStatus = async (req, res) => {
   const id = req.params["id"];
   const { rating } = req.body;
-  let purchase = await Purchase.findById(id).populate("product");
+  let purchase = await Purchase.findById(id)
+    .populate("product")
+    .populate("seller");
 
   if (purchase != null) {
     switch (purchase.product.status) {
@@ -39,6 +41,8 @@ module.exports.updateStatus = async (req, res) => {
         purchase.product.status = "To Receive";
         break;
       case "To Receive":
+        purchase.product.seller.totalDeal++;
+        purchase.product.seller.save();
         purchase.product.status = "To Rate";
         break;
       case "To Rate":
@@ -47,14 +51,18 @@ module.exports.updateStatus = async (req, res) => {
     }
     await purchase.product.save();
     if (rating) {
-      let product = await Auction.findById(purchase.product._id).populate('seller');
+      let product = await Auction.findById(purchase.product._id).populate(
+        "seller"
+      );
       product.rating = rating;
-      product.seller.rating = (product.seller.rating * product.seller.ratingCount + rating)/ (product.seller.ratingCount+1);
+      product.seller.rating =
+        (product.seller.rating * product.seller.ratingCount + rating) /
+        (product.seller.ratingCount + 1);
       product.seller.ratingCount++;
       await product.seller.save();
       await product.save();
     }
-    
+
     res.json(purchase);
   }
 };
@@ -62,10 +70,10 @@ module.exports.updateStatus = async (req, res) => {
 module.exports.updatePurchase = async (req, res) => {
   const purchaseId = req.params["purchaseId"];
 
-  const { fullname, phone, address1, address2, postcode, state } =
-    req.body;
+  const { fullname, phone, address1, address2, postcode, state } = req.body;
 
   let purchaseData = {
+    paidOn: new Date(),
     delivery: {
       fullname: fullname,
       phone: phone,
@@ -74,14 +82,14 @@ module.exports.updatePurchase = async (req, res) => {
       postcode: postcode,
       state: state,
       country: "Malaysia",
-    }
+    },
   };
 
   let purchase = await Purchase.findByIdAndUpdate(purchaseId, purchaseData, {
     useFindAndModify: false,
     new: true,
-  }).populate('product');
-  purchase.product.status = 'To Ship';
+  }).populate("product");
+  purchase.product.status = "To Ship";
   purchase.product.save();
   res.json(purchase);
 };

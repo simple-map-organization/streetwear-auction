@@ -9,11 +9,12 @@ class PurchaseViewModel extends Viewmodel {
   String dropdownValue = 'All';
   var selection = [
     'All',
-    'Completed',
     'To Pay',
     'To Ship',
     'To Receive',
-    'To Rate'
+    'To Rate',
+    'Completed',
+    'Cancelled'
   ];
   List<Purchase> purchaseList;
   List<Purchase> disaplayWinPurchaseList;
@@ -25,9 +26,6 @@ class PurchaseViewModel extends Viewmodel {
   get toPayPurchaseList => purchaseList
       .where((e) => e.won && e.product.status == 'Payment Pending')
       .toList();
-  get completedPurchaseList => purchaseList
-      .where((e) => e.won && e.product.status == 'Completed')
-      .toList();
   get toRatePurchaseList => purchaseList
       .where((e) => e.won && e.product.status == 'To Rate')
       .toList();
@@ -36,6 +34,12 @@ class PurchaseViewModel extends Viewmodel {
       .toList();
   get toReceievePurchaseList => purchaseList
       .where((e) => e.won && e.product.status == 'To Receieve')
+      .toList();
+   get completedPurchaseList => purchaseList
+      .where((e) => e.won && e.product.status == 'Completed')
+      .toList();
+   get cancelledPurchaseList => purchaseList
+      .where((e) => e.won && e.product.status.contains('Cancelled'))
       .toList();
 
   PurchaseViewModel();
@@ -68,6 +72,9 @@ class PurchaseViewModel extends Viewmodel {
         break;
       case 'To Rate':
         disaplayWinPurchaseList = toRatePurchaseList;
+        break;
+      case 'Cancelled':
+        disaplayWinPurchaseList = cancelledPurchaseList;
         break;
     }
     turnIdle();

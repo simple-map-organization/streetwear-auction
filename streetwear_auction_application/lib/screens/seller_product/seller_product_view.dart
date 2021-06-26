@@ -15,7 +15,7 @@ class SellerProductScreen extends StatelessWidget {
     return ConsumerView(
       viewmodel: dependency<SellerProductViewModel>()..getList(),
       builder: (context, viewmodel, _) => DefaultTabController(
-        length: 5,
+        length: 7,
         child: Scaffold(
           appBar: AppBar(
             title: TextFormField(
@@ -67,6 +67,14 @@ class SellerProductScreen extends StatelessWidget {
                     child: Text('Shipped',
                         style:
                             TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('Completed',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
+                Tab(
+                    child: Text('Cancelled',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor))),
               ],
             ),
           ),
@@ -116,6 +124,24 @@ class SellerProductScreen extends StatelessWidget {
                   itemCount: viewmodel.shippedAuctions.length,
                   itemBuilder: (context, index) =>
                       SellerProductCard(viewmodel.shippedAuctions[index]),
+                ),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView.builder(
+                  itemCount: viewmodel.completedAuctions.length,
+                  itemBuilder: (context, index) =>
+                      SellerProductCard(viewmodel.completedAuctions[index]),
+                ),
+              ),
+               Container(
+                decoration:
+                    BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                child: ListView.builder(
+                  itemCount: viewmodel.cancelledAuctions.length,
+                  itemBuilder: (context, index) =>
+                      SellerProductCard(viewmodel.cancelledAuctions[index]),
                 ),
               ),
             ],
