@@ -70,13 +70,13 @@ Route<dynamic> createRoute(settings) {
       return StartAuctionScreen.createRoute(settings.arguments);
 
     case SellerProductScreen.routeName:
-      return SellerProductScreen.createRoute();
+      return SellerProductScreen.createRoute(settings.arguments);
 
     case WatchListScreen.routeName:
       return WatchListScreen.createRoute();
 
     case PurchaseScreen.routeName:
-      return PurchaseScreen.createRoute();
+      return PurchaseScreen.createRoute(settings.arguments);
   }
   return null;
 }

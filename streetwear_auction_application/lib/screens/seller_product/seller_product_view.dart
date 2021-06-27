@@ -7,13 +7,17 @@ import 'widgets/seller_product_card.dart';
 
 class SellerProductScreen extends StatelessWidget {
   static const routeName = '/sellerProduct';
-  static Route<dynamic> createRoute() =>
-      MaterialPageRoute(builder: (_) => SellerProductScreen());
+  static Route<dynamic> createRoute(args) =>
+      MaterialPageRoute(builder: (_) => SellerProductScreen(args['arg']));
+
+  final int initialIndex;
+  SellerProductScreen(this.initialIndex);
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
       viewmodel: dependency<SellerProductViewModel>()..getList(),
       builder: (context, viewmodel, _) => DefaultTabController(
+        initialIndex: initialIndex,
         length: 7,
         child: Scaffold(
           appBar: AppBar(

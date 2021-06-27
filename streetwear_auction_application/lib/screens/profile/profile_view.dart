@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:streetwear_auction_application/screens/my_purchase/purchase_view.dart';
+import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
 
 import '../../app/dependencies.dart';
 import '../view.dart';
@@ -110,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                     ProfileListButton(
                       text: 'My Profile',
                       routeName: EditProfileScreen.routeName,
-                      user: viewmodel.user,
+                      arg: viewmodel.user,
                     ),
                     Padding(
                         padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
@@ -118,38 +120,78 @@ class ProfileScreen extends StatelessWidget {
                           'As Seller',
                           style: TextStyle(fontSize: 16),
                         )),
-                    ProfileListButton(text: 'Ongoing Bid'),
+                    ProfileListButton(
+                      text: 'Ongoing Bid',
+                      routeName: SellerProductScreen.routeName,
+                      arg: 1,
+                    ),
                     Divider(
                       height: 1,
                     ),
-                    ProfileListButton(text: 'Payment Pending'),
+                    ProfileListButton(
+                      text: 'Payment Pending',
+                      routeName: SellerProductScreen.routeName,
+                      arg: 2,
+                    ),
                     Divider(
                       height: 1,
                     ),
-                    ProfileListButton(text: 'To Ship'),
+                    ProfileListButton(
+                      text: 'To Ship',
+                      routeName: SellerProductScreen.routeName,
+                      arg: 3,
+                    ),
                     Padding(
                         padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
                         child: Text(
                           'As Buyer',
                           style: TextStyle(fontSize: 16),
                         )),
-                    ProfileListButton(text: 'Completed'),
+                    ProfileListButton(
+                      text: 'Completed',
+                      routeName: PurchaseScreen.routeName,
+                      arg: 'Completed',
+                    ),
                     Divider(
                       height: 1,
                     ),
-                    ProfileListButton(text: 'To Pay'),
+                    ProfileListButton(
+                      text: 'To Pay',
+                      routeName: PurchaseScreen.routeName,
+                      arg: 'To Pay',
+                    ),
                     Divider(
                       height: 1,
                     ),
-                    ProfileListButton(text: 'To Ship'),
+                    ProfileListButton(
+                      text: 'To Ship',
+                      routeName: PurchaseScreen.routeName,
+                      arg: 'To Ship',
+                    ),
                     Divider(
                       height: 1,
                     ),
-                    ProfileListButton(text: 'To Receive'),
+                    ProfileListButton(
+                      text: 'To Receive',
+                      routeName: PurchaseScreen.routeName,
+                      arg: 'To Receive',
+                    ),
                     Divider(
                       height: 1,
                     ),
-                    ProfileListButton(text: 'To Rate'),
+                    ProfileListButton(
+                      text: 'To Rate',
+                      routeName: PurchaseScreen.routeName,
+                      arg: 'To Rate',
+                    ),
+                    Divider(
+                      height: 1,
+                    ),
+                    ProfileListButton(
+                      text: 'Cancelled',
+                      routeName: PurchaseScreen.routeName,
+                      arg: 'Cancelled',
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 10),

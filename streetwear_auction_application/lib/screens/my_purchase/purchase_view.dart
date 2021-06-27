@@ -10,12 +10,15 @@ import 'widgets/product_card.dart';
 
 class PurchaseScreen extends StatelessWidget {
   static const routeName = '/purchase';
-  static MaterialPageRoute createRoute() =>
-      MaterialPageRoute(builder: (_) => PurchaseScreen());
+  static MaterialPageRoute createRoute(args) =>
+      MaterialPageRoute(builder: (_) => PurchaseScreen(args['arg']));
+
+  final String initialTab;
+  PurchaseScreen(this.initialTab);
 
   Widget build(BuildContext context) {
     return ConsumerView(
-      viewmodel: dependency<PurchaseViewModel>()..getPurchasedList(),
+      viewmodel: dependency<PurchaseViewModel>()..getPurchasedList(initialTab),
       builder: (context, viewmodel, _) => DefaultTabController(
         length: 2,
         child: Scaffold(

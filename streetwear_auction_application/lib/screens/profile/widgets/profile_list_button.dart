@@ -6,8 +6,8 @@ import '../edit_profile_view.dart';
 class ProfileListButton extends StatelessWidget {
   final String text;
   final String routeName;
-  final User user;
-  const ProfileListButton({Key key, this.text, this.routeName, this.user})
+  final arg;
+  const ProfileListButton({Key key, this.text, this.routeName, this.arg})
       : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class ProfileListButton extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(EditProfileScreen.routeName, arguments: {'user': user});
+            .pushNamed(routeName, arguments: {'arg': arg == null ? null : arg});
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(20, 8, 8, 8),

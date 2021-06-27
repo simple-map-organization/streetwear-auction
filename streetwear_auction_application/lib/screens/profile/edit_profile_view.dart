@@ -11,7 +11,7 @@ import 'widgets/dropdown_list.dart';
 class EditProfileScreen extends StatelessWidget {
   static const routeName = '/editprofilescreen';
   static Route<dynamic> createRoute(args) => MaterialPageRoute(
-      builder: (_) => EditProfileScreen(args == null ? null : args['user']));
+      builder: (_) => EditProfileScreen(args == null ? null : args['arg']));
 
   final User user;
   EditProfileScreen(this.user);

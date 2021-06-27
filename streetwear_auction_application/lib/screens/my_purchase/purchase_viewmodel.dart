@@ -6,7 +6,7 @@ import '../../services/purchase/purchase_service.dart';
 import '../viewmodel.dart';
 
 class PurchaseViewModel extends Viewmodel {
-  String dropdownValue = 'All';
+  String dropdownValue;
   var selection = [
     'All',
     'To Pay',
@@ -35,25 +35,37 @@ class PurchaseViewModel extends Viewmodel {
   get toReceievePurchaseList => purchaseList
       .where((e) => e.won && e.product.status == 'To Receieve')
       .toList();
-   get completedPurchaseList => purchaseList
+  get completedPurchaseList => purchaseList
       .where((e) => e.won && e.product.status == 'Completed')
       .toList();
-   get cancelledPurchaseList => purchaseList
+  get cancelledPurchaseList => purchaseList
       .where((e) => e.won && e.product.status.contains('Cancelled'))
       .toList();
 
   PurchaseViewModel();
 
-  Future<void> getPurchasedList() async {
+  void init(initialTab) {
+    dropdownValue = initialTab;
+    print(dropdownValue);
+    dropdownValue = initialTab;
+    this.getPurchasedList(initialTab);
+    this.setValue(dropdownValue);
+  }
+
+  Future<void> getPurchasedList(initialTab) async {
     turnBusy();
+    print(dropdownValue);
+    dropdownValue = initialTab;
     purchaseList = await purchaseService.getPurchasedList();
-    disaplayWinPurchaseList = winPurchaseList;
+    // disaplayWinPurchaseList = winPurchaseList;
+    this.setValue(dropdownValue);
     turnIdle();
   }
 
   void setValue(String newValue) {
     turnBusy();
     dropdownValue = newValue;
+    print(dropdownValue);
     switch (dropdownValue) {
       case 'All':
         disaplayWinPurchaseList = winPurchaseList;
