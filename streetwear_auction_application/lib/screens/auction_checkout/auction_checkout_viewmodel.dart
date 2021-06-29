@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
-import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
+import 'package:flutter/material.dart';
 
+import '../../models/purchase.dart';
+import '../../services/purchase/purchase_service.dart';
 import '../../app/dependencies.dart';
 import '../viewmodel.dart';
 

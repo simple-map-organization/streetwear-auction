@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-import 'package:streetwear_auction_application/screens/watchlist/watchlist_viewmodel.dart';
 
+import '../../app/dependencies.dart';
+import '../view.dart';
+import 'watchlist_viewmodel.dart';
 import 'widgets/watchlist_product_card.dart';
 
 class WatchListScreen extends StatelessWidget {

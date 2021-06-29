@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
+
+import '../../../models/purchase.dart';
 
 class ProductCard extends StatelessWidget {
   final Purchase purchase;

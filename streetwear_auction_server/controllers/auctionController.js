@@ -180,6 +180,7 @@ module.exports.bidAuction = async (req, res) => {
         user: bid.userId._id,
         won: false,
         payBefore: null,
+        paidOn: null,
         delivery: {
           fullname: "",
           phone: "",

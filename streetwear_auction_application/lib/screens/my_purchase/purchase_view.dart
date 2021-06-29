@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
-import 'package:streetwear_auction_application/screens/auction_checkout/auction_checkout_view.dart';
-import 'package:streetwear_auction_application/screens/my_purchase/purchase_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/my_purchase/widgets/rate_seller_dialog_box.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
 
+import '../../app/dependencies.dart';
+import '../../models/purchase.dart';
+import '../auction_checkout/auction_checkout_view.dart';
+import '../view.dart';
+import 'purchase_viewmodel.dart';
 import 'widgets/product_card.dart';
+import 'widgets/rate_seller_dialog_box.dart';
 
 class PurchaseScreen extends StatelessWidget {
   static const routeName = '/purchase';

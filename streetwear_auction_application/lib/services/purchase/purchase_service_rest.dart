@@ -1,8 +1,7 @@
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
-import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
-
+import '../../app/dependencies.dart';
+import '../../models/purchase.dart';
 import '../rest.dart';
+import 'purchase_service.dart';
 
 class PurchaseServiceRest implements PurchaseService {
   final rest = dependency<RestService>();
@@ -17,7 +16,7 @@ class PurchaseServiceRest implements PurchaseService {
 
   Future<Purchase> getUserPurchaseByAuctionId(String auctionId) async {
     var result = await rest.get('purchase/$auctionId');
-
+    if (result == null) return null;
     Purchase purchase = Purchase.fromJson(result);
     return purchase;
   }

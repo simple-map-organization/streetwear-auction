@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:streetwear_auction_application/models/user.dart';
+import '../../models/user.dart';
 
 abstract class UserService {
   Future<User> getUser();

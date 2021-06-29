@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
-import 'package:streetwear_auction_application/widgets/winner_profile.dart';
 
+import '../../app/dependencies.dart';
+import '../../models/auction.dart';
+import '../../models/purchase.dart';
 import '../../widgets/seller_profile.dart';
+import '../../widgets/winner_profile.dart';
 import '../auction_checkout/auction_checkout_view.dart';
 import '../auction_detail/widgets/image_carousel.dart';
-import '../../models/auction.dart';
-import './auction_detail_viewmodel.dart';
+import '../view.dart';
+import 'auction_detail_viewmodel.dart';
 
 class AuctionDetailScreen extends StatelessWidget {
   static const routeName = '/auctionDetail';
@@ -41,6 +41,7 @@ class AuctionDetailScreen extends StatelessWidget {
   void _openWinnerProfile(context, viewmodel) async {
     Purchase purchase =
         await viewmodel.getUserPurchaseByAuctionId(auction.auctionId);
+    if (purchase == null) return;
     showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.white,

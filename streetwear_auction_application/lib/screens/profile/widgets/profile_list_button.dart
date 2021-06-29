@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/user.dart';
-import '../edit_profile_view.dart';
-
 class ProfileListButton extends StatelessWidget {
   final String text;
   final String routeName;

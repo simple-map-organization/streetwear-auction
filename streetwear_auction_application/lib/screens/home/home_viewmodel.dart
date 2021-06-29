@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/auction_detail/auction_detail.dart';
 
-import '../search_auction/search_auction_view.dart';
 import '../../app/dependencies.dart';
 import '../../models/auction.dart';
-import '../viewmodel.dart';
 import '../../services/auction/auction_service.dart';
+import '../auction_detail/auction_detail.dart';
+import '../search_auction/search_auction_view.dart';
+import '../viewmodel.dart';
 
 class HomeViewModel extends Viewmodel {
   List<Auction> auctions;

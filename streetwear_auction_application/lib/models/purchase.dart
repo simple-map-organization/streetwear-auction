@@ -7,6 +7,7 @@ class Purchase {
   Auction product;
   bool won;
   DateTime payBefore; //1 week
+  DateTime paidOn;
   String fullname;
   String phone;
   String address1;
@@ -20,6 +21,7 @@ class Purchase {
     @required this.product,
     @required this.won,
     @required this.payBefore,
+    @required this.paidOn,
     @required this.fullname,
     @required this.phone,
     @required this.address1,
@@ -35,7 +37,10 @@ class Purchase {
           product: Auction.fromJson(json['product']),
           won: json['won'],
           payBefore: json['payBefore'] != null
-              ? DateTime.parse(json['payBefore'])
+              ? DateTime.parse(json['payBefore']).toLocal()
+              : null,
+          paidOn: json['paidOn'] != null
+              ? DateTime.parse(json['paidOn']).toLocal()
               : null,
           fullname: json['delivery']['fullname'],
           phone: json['delivery']['phone'],

@@ -1,5 +1,4 @@
-import 'package:streetwear_auction_application/app/dependencies.dart';
-
+import '../../app/dependencies.dart';
 import '../../models/watchlist.dart';
 import '../rest.dart';
 import 'watchlist_service.dart';
