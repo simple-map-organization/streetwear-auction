@@ -1,5 +1,4 @@
 const express = require("express");
-require("dotenv").config();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const app = express();
@@ -48,7 +47,6 @@ app.use("/notification", notificationRoute);
 app.use("/watchlist", watchlistRoute);
 app.use("/purchase", purchaseRoute);
 
-
 app.listen(port, () =>
-  console.log(`Server running at http://${process.env.IP}:${port}`)
+  console.log(`Server running at http://localhost:${port}`)
 );

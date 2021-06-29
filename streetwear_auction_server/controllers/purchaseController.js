@@ -4,6 +4,7 @@ const Purchase = require("../models/purchase");
 const Auction = require("../models/auction");
 
 module.exports.getPurchaseList = async (req, res) => {
+  const host = req.headers.host;
   const id = req.id;
   let purchase = await Purchase.find({ user: id }).populate({
     path: "product",
@@ -18,7 +19,7 @@ module.exports.getPurchaseList = async (req, res) => {
     for (let i = 0; i < purchase[index].product.photos.length; i++) {
       purchase[index].product.photos[
         i
-      ] = `http://${process.env.IP}:3000/images/${purchase[index].product.photos[i]}`;
+      ] = `http://${host}/images/${purchase[index].product.photos[i]}`;
     }
   }
 

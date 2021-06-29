@@ -1,11 +1,9 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
 const Auction = require("../models/auction");
 const Purchase = require("../models/purchase");
 var fs = require("fs");
-const { findOne } = require("../models/purchase");
 
 module.exports.getAuctionList = async (req, res) => {
+  const host = req.headers.host;
   const productName = req.query.productName;
   const category = req.query.category;
 
@@ -20,13 +18,14 @@ module.exports.getAuctionList = async (req, res) => {
     .populate("seller");
   auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
-      (name) => `http://${process.env.IP}:3000/images/${name}`
+      (name) => `http://${host}/images/${name}`
     );
   });
   res.json(auctions);
 };
 
 module.exports.getAuction = (req, res) => {
+  const host = req.headers.host;
   const id = req.params["id"];
   Auction.findById(id)
     .then((result) => {
@@ -38,6 +37,7 @@ module.exports.getAuction = (req, res) => {
 };
 
 module.exports.getSellerAuctionList = async (req, res) => {
+  const host = req.headers.host;
   const sellerId = req.id;
   const productName = req.query.productName;
 
@@ -50,7 +50,7 @@ module.exports.getSellerAuctionList = async (req, res) => {
     .populate("seller");
   auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
-      (name) => `http://${process.env.IP}:3000/images/${name}`
+      (name) => `http://${host}/images/${name}`
     );
   });
 
@@ -58,6 +58,7 @@ module.exports.getSellerAuctionList = async (req, res) => {
 };
 
 module.exports.createAuction = async (req, res) => {
+  const host = req.headers.host;
   const {
     productName,
     productSKU,
@@ -105,7 +106,7 @@ module.exports.createAuction = async (req, res) => {
     .populate("seller");
 
   newAuction.photos = newAuction.photos.map(
-    (name) => `http://${process.env.IP}:3000/images/${name}`
+    (name) => `http://${host}/images/${name}`
   );
 
   return res.json(newAuction);
