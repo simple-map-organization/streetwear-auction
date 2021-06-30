@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
-import 'package:streetwear_auction_application/screens/auction_checkout/auction_checkout_viewmodel.dart';
-import 'package:streetwear_auction_application/screens/view.dart';
+
+import '../../models/purchase.dart';
+import 'auction_checkout_viewmodel.dart';
+import '../view.dart';
 
 class AuctionCheckoutScreen extends StatelessWidget {
   static const routeName = '/auctionCheckout';

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Watchlist = require("../models/watchlist");
 
 module.exports.getWatchlistByUser = async (req, res) => {
+  const host = req.headers.host;
   const id = req.id;
   let watchlist = await Watchlist.findOne({ user: id })
     .populate({
@@ -21,20 +22,20 @@ module.exports.getWatchlistByUser = async (req, res) => {
     .populate("user");
   watchlist.auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
-      (name) => `http://${process.env.IP}:3000/images/${name}`
+      (name) => `http://${host}/images/${name}`
     );
   });
   res.json(watchlist);
 };
 
 module.exports.getFilteredWatchlistByUser = async (req, res) => {
+  const host = req.headers.host;
   const productName = req.params["productName"];
   const id = req.id;
   let filterQuery = {};
   filterQuery.user = id;
   productName &&
     (filterQuery.productName = { $regex: productName, $options: "i" });
-  console.log(filterQuery);
   let watchlist = await Watchlist.findOne(filterQuery)
     .populate({
       path: "auctions",
@@ -46,7 +47,7 @@ module.exports.getFilteredWatchlistByUser = async (req, res) => {
     .populate("user");
   watchlist.auctions.forEach((auction) => {
     auction.photos = auction.photos.map(
-      (name) => `http://${process.env.IP}:3000/images/${name}`
+      (name) => `http://${host}/images/${name}`
     );
   });
   res.json(watchlist);

@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-import 'package:streetwear_auction_application/models/watchlist.dart';
+
+import '../../../models/auction.dart';
+import '../../../models/watchlist.dart';
 
 class WatchlistProductCard extends StatelessWidget {
   final Watchlist watchlist;
@@ -23,7 +22,8 @@ class WatchlistProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(auction.bids.any((bid) => bid.user.userId == watchlist.user.userId));
+    Duration duration = auction.endTime.difference(DateTime.now());
+
     return Container(
       padding: EdgeInsets.only(right: 7.0),
       margin: EdgeInsets.only(top: 8, left: 8, right: 8),
@@ -48,19 +48,32 @@ class WatchlistProductCard extends StatelessWidget {
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(bottom: 10),
-              child: SlideCountdownClock(
-                duration: auction.endTime.difference(DateTime.now()),
-                slideDirection: SlideDirection.Up,
-                separator: ":",
-                textStyle: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-                onDone: () {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          'Auction for ${auction.productName} has ended!')));
-                },
+              child: Row(
+                children: [
+                  duration.inDays > 0
+                      ? Text(
+                          '${duration.inDays.toString()} day${duration.inDays > 1 ? "s " : " "}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : Text(''),
+                  SlideCountdownClock(
+                    duration: Duration(seconds: duration.inSeconds),
+                    slideDirection: SlideDirection.Up,
+                    separator: ":",
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onDone: () {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(
+                              'Auction for ${auction.productName} has ended!')));
+                    },
+                  ),
+                ],
               ),
             ),
             Container(

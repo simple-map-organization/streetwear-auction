@@ -1,8 +1,6 @@
 import '../../app/dependencies.dart';
 import '../../models/purchase.dart';
 import '../../services/purchase/purchase_service.dart';
-
-// import '../../app/dependencies.dart';
 import '../viewmodel.dart';
 
 class PurchaseViewModel extends Viewmodel {

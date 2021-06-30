@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/auction_detail/auction_detail.dart';
 
-import '../../models/auction.dart';
 import '../../app/dependencies.dart';
-import '../viewmodel.dart';
+import '../../models/auction.dart';
 import '../../services/auction/auction_service.dart';
+import '../auction_detail/auction_detail.dart';
+import '../viewmodel.dart';
 
 class SearchAuctionViewModel extends Viewmodel {
   //const here

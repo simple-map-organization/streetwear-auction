@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:streetwear_auction_application/screens/filter_auction/filter_auction.dart';
 
 import '../../app/dependencies.dart';
+import '../../widgets/auction_grid.dart';
+import '../view.dart';
 import 'search_auction_viewmodel.dart';
 import 'widgets/category_button.dart';
-import '../view.dart';
-import '../../widgets/auction_grid.dart';
 
 class SearchAuctionScreen extends StatelessWidget {
   static const routeName = '/searchAuction';

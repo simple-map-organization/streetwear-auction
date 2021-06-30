@@ -86,7 +86,7 @@ class Auction {
             minIncrement: json['minIncrement'],
             bin: json['bin'],
             deliveryFee: json['deliveryFee'],
-            endTime: DateTime.parse(json['endTime']),
+            endTime: DateTime.parse(json['endTime']).toLocal(),
             photos: List<String>.from(json['photos']),
             bids: json['bids'].length > 0
                 ? List<Bid>.from(json['bids'].map((bid) => Bid.fromJson(bid)))

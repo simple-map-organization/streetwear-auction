@@ -1,11 +1,10 @@
-import 'package:streetwear_auction_application/app/auth.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
-import 'package:streetwear_auction_application/models/purchase.dart';
-import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
-
+import '../../app/auth.dart';
 import '../../app/dependencies.dart';
-import '../viewmodel.dart';
+import '../../models/auction.dart';
+import '../../models/purchase.dart';
 import '../../services/auction/auction_service.dart';
+import '../../services/purchase/purchase_service.dart';
+import '../viewmodel.dart';
 
 class AuctionDetailViewModel extends Viewmodel {
   AuctionDetailViewModel();

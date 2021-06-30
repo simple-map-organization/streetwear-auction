@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:streetwear_auction_application/screens/my_purchase/purchase_view.dart';
-import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
 
 import '../../app/dependencies.dart';
+import '../my_purchase/purchase_view.dart';
+import '../seller_product/seller_product_view.dart';
 import '../view.dart';
 import 'edit_profile_view.dart';
 import 'profile_viewmodel.dart';

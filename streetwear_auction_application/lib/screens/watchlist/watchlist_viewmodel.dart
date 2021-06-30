@@ -1,8 +1,8 @@
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
-import 'package:streetwear_auction_application/models/watchlist.dart';
-import 'package:streetwear_auction_application/screens/viewmodel.dart';
-import 'package:streetwear_auction_application/services/watchlist/watchlist_service.dart';
+import '../../app/dependencies.dart';
+import '../../models/auction.dart';
+import '../../models/watchlist.dart';
+import '../../services/watchlist/watchlist_service.dart';
+import '../viewmodel.dart';
 
 class WatchlistViewModel extends Viewmodel {
   List<Auction> auctions;
