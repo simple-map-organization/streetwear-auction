@@ -176,7 +176,7 @@ class AuctionDetailScreen extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               iconTheme: IconThemeData(
-                color: Colors.black,
+                color: Colors.grey,
               ),
             ),
             body: ListView(
@@ -202,10 +202,13 @@ class AuctionDetailScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Image.network(
-                                'https://cdn2.iconfinder.com/data/icons/facebook-51/32/FACEBOOK_LINE-01-512.png',
-                                width: 30,
-                                height: 30,
+                              CircleAvatar(
+                                radius: 15.0,
+                                backgroundImage:
+                                    AssetImage('assets/img/profile.png'),
+                                // backgroundImage:
+                                //     AssetImage('assets/img/profile.png'),
+                                backgroundColor: Colors.transparent,
                               ),
                               SizedBox(width: 4.0),
                               Text(viewmodel.auction.seller.username),
@@ -395,10 +398,13 @@ class AuctionDetailScreen extends StatelessWidget {
                                 padding: EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [
-                                    Image.network(
-                                      'https://cdn2.iconfinder.com/data/icons/facebook-51/32/FACEBOOK_LINE-01-512.png',
-                                      width: 25,
-                                      height: 25,
+                                    CircleAvatar(
+                                      radius: 15.0,
+                                      backgroundImage:
+                                          AssetImage('assets/img/profile.png'),
+                                      // backgroundImage:
+                                      //     AssetImage('assets/img/profile.png'),
+                                      backgroundColor: Colors.transparent,
                                     ),
                                     SizedBox(width: 8.0),
                                     Text(

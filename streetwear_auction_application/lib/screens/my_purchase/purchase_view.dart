@@ -18,7 +18,8 @@ class PurchaseScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ConsumerView(
-      viewmodel: dependency<PurchaseViewModel>()..getPurchasedList(initialTab),
+      viewmodel: dependency<PurchaseViewModel>()
+        ..getPurchasedList(initialTab: initialTab),
       builder: (context, viewmodel, _) => DefaultTabController(
         length: 2,
         child: Scaffold(

@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/auction.dart';
+import '../../../widgets/custom_authetication_button.dart';
 import '../../auction_detail/auction_detail.dart';
 
 class SellerProductCard extends StatelessWidget {
@@ -85,17 +86,12 @@ class SellerProductCard extends StatelessWidget {
                                     left: 8.0, right: 8.0),
                                 width: double.infinity,
                                 height: 28,
-                                child: ElevatedButton(
+                                child: CustomAuthenticationButton(
                                   onPressed: () async {
                                     await onShip(
                                         auction.auctionId, 'To Receive');
                                   },
-                                  child: Text('Ship'),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Theme.of(context).primaryColor),
-                                  ),
+                                  text: 'Ship',
                                 ),
                               )
                             : SizedBox(

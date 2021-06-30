@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/purchase.dart';
+import '../../../widgets/custom_authetication_button.dart';
 
 class ProductCard extends StatelessWidget {
   final Purchase purchase;
@@ -81,14 +82,9 @@ class ProductCard extends StatelessWidget {
                           height: 28,
                           child: btnText[purchase.product.status] != null &&
                                   purchase.won
-                              ? ElevatedButton(
+                              ? CustomAuthenticationButton(
                                   onPressed: function,
-                                  child: Text(btnText[purchase.product.status]),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Theme.of(context).primaryColor),
-                                  ),
+                                  text: btnText[purchase.product.status],
                                 )
                               : Container(),
                         )

@@ -35,7 +35,14 @@ class SellerProfile extends StatelessWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          Icon(Icons.person),
+                          CircleAvatar(
+                            radius: 15.0,
+                            backgroundImage:
+                                AssetImage('assets/img/profile.png'),
+                            // backgroundImage:
+                            //     AssetImage('assets/img/profile.png'),
+                            backgroundColor: Colors.transparent,
+                          ),
                           Text(user.username),
                         ],
                       ),
@@ -79,6 +86,7 @@ class SellerProfile extends StatelessWidget {
               ),
               Container(height: 8.0, color: Colors.grey[300]),
               Container(
+                constraints: BoxConstraints(minHeight: 80.0),
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.all(8.0),
                 color: Colors.white,
@@ -107,7 +115,10 @@ class SellerProfile extends StatelessWidget {
                             ),
                             onPressed: () => _launchInBrowser(user.igLink)),
                         IconButton(
-                            icon: Icon(Icons.open_in_browser),
+                            icon: Icon(
+                              Icons.link,
+                              size: 34.0,
+                            ),
                             onPressed: () => _launchInBrowser(user.lcLink)),
                       ],
                     )

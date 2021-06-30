@@ -44,15 +44,12 @@ class PurchaseViewModel extends Viewmodel {
 
   void init(initialTab) {
     dropdownValue = initialTab;
-    print(dropdownValue);
-    dropdownValue = initialTab;
-    this.getPurchasedList(initialTab);
+    this.getPurchasedList(initialTab: initialTab);
     this.setValue(dropdownValue);
   }
 
-  Future<void> getPurchasedList(initialTab) async {
+  Future<void> getPurchasedList({initialTab = 'All'}) async {
     turnBusy();
-    print(dropdownValue);
     dropdownValue = initialTab;
     purchaseList = await purchaseService.getPurchasedList();
     // disaplayWinPurchaseList = winPurchaseList;
@@ -63,7 +60,6 @@ class PurchaseViewModel extends Viewmodel {
   void setValue(String newValue) {
     turnBusy();
     dropdownValue = newValue;
-    print(dropdownValue);
     switch (dropdownValue) {
       case 'All':
         disaplayWinPurchaseList = winPurchaseList;

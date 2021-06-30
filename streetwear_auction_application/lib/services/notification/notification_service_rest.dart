@@ -1,23 +1,17 @@
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/notification.dart';
-import 'package:streetwear_auction_application/services/notification/notification_service.dart';
-
+import '../../app/dependencies.dart';
+import '../../models/notification.dart';
 import '../rest.dart';
+import 'notification_service.dart';
 
 class NotificationServiceRest implements NotificationService {
   final rest = dependency<RestService>();
 
-  Future<void> createNotification() {}
-
   Future<List<Noti>> getAllNotifications() async {
     String endPoint = "notification";
     var jsonList = await rest.get(endPoint);
-    print(jsonList);
-    // if (jsonList != null) {
     List<Noti> notiList =
         (jsonList as List).map((json) => Noti.fromJson(json)).toList();
     return notiList;
-    // }
   }
 
   Future<String> getNotificationCount() async {

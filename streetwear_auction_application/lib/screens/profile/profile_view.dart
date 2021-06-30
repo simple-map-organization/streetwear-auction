@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../../app/dependencies.dart';
+import '../../widgets/custom_authetication_button.dart';
 import '../my_purchase/purchase_view.dart';
 import '../seller_product/seller_product_view.dart';
 import '../view.dart';
@@ -197,8 +198,8 @@ class ProfileScreen extends StatelessWidget {
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                      child: ElevatedButton(
-                        child: Text('Log Out'),
+                      child: CustomAuthenticationButton(
+                        text: 'Log Out',
                         onPressed: viewmodel.logOut,
                       ),
                     ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../models/purchase.dart';
-import 'auction_checkout_viewmodel.dart';
 import '../view.dart';
+import 'auction_checkout_viewmodel.dart';
 
 class AuctionCheckoutScreen extends StatelessWidget {
   static const routeName = '/auctionCheckout';
@@ -69,6 +69,8 @@ class AuctionCheckoutScreen extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: TextFormField(
                               validator: (value) {
+                                if (value.length == 0)
+                                  return 'Name cannot be empty';
                                 if (value.length < 5) return 'Name too short';
                                 return null;
                               },
@@ -89,6 +91,8 @@ class AuctionCheckoutScreen extends StatelessWidget {
                               validator: (value) {
                                 if (value.length < 10)
                                   return 'Phone number too short';
+                                if (value.length > 11)
+                                  return 'Invalid phone number';
                                 return null;
                               },
                               controller: viewmodel.phoneNumberController,

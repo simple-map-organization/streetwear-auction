@@ -1,10 +1,18 @@
 const Notification = require("../models/notification");
 
 module.exports.getNotificationList = async (req, res) => {
+  const host = req.headers.host;
   const userId = req.id;
   let notifications = await Notification.find({ userId: userId }, null, {
     sort: { dateTime: -1 },
   }).populate("auctionId");
+
+  notifications.forEach((notification) => {
+    notification.auctionId.photos = notification.auctionId.photos.map(
+      (name) => `http://${host}/images/${name}`
+    );
+  });
+
   res.json(notifications);
 };
 

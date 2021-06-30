@@ -44,21 +44,6 @@ class SearchAuctionScreen extends StatelessWidget {
               ),
             ),
           ),
-          actions: [
-            // IconButton(
-            //     icon: Icon(
-            //       Icons.filter_alt_sharp,
-            //       size: 28.0,
-            //     ),
-            //     onPressed: () async =>
-            //         Navigator.of(context).pushNamed(FilterAuction.routeName)),
-            IconButton(
-                icon: Icon(
-                  Icons.notifications,
-                  size: 28.0,
-                ),
-                onPressed: () {})
-          ],
         ),
         body: Column(
           children: [

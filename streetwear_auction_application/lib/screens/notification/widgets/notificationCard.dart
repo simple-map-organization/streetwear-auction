@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:streetwear_auction_application/app/dependencies.dart';
-import 'package:streetwear_auction_application/models/auction.dart';
-import 'package:streetwear_auction_application/models/notification.dart';
-import 'package:streetwear_auction_application/screens/auction_detail/auction_detail.dart';
-import 'package:streetwear_auction_application/screens/my_purchase/purchase_view.dart';
-import 'package:streetwear_auction_application/screens/seller_product/seller_product_view.dart';
-import 'package:streetwear_auction_application/services/auction/auction_service.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:streetwear_auction_application/services/notification/notification_service.dart';
+import 'package:intl/intl.dart';
+
+import '../../../models/notification.dart';
 
 class NotificationCard extends StatelessWidget {
-  Function navigate;
-  Function updateNotification;
+  final Function navigate;
+  final Function updateNotification;
   final Noti notification;
-  String content;
-  Function haha;
+  final Function haha;
 
   NotificationCard(
       {this.notification, this.navigate, this.updateNotification, this.haha});
@@ -102,7 +94,6 @@ class NotificationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        print(notification.dateTime);
         await updateNotification(notification);
         navigate();
       },

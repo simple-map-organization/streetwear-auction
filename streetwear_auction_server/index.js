@@ -40,12 +40,11 @@ app.use("/registration", registrationRoute);
 // AuctionScheduler.endBidScheduler;
 
 //protected routes
-app.use(UserAuthMiddleware);
-app.use("/auction", auctionRoute);
-app.use("/user", userRoute);
-app.use("/notification", notificationRoute);
-app.use("/watchlist", watchlistRoute);
-app.use("/purchase", purchaseRoute);
+app.use("/auction", UserAuthMiddleware, auctionRoute);
+app.use("/user", UserAuthMiddleware, userRoute);
+app.use("/notification", UserAuthMiddleware, notificationRoute);
+app.use("/watchlist", UserAuthMiddleware, watchlistRoute);
+app.use("/purchase", UserAuthMiddleware, purchaseRoute);
 
 app.listen(port, () =>
   console.log(`Server running at http://localhost:${port}`)

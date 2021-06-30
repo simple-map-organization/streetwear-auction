@@ -22,6 +22,7 @@ module.exports.getAuctionList = async (req, res) => {
       (name) => `http://${host}/images/${name}`
     );
   });
+
   res.json(auctions);
 };
 
@@ -34,7 +35,7 @@ module.exports.getAuction = async (req, res) => {
     .populate("seller");
 
   auction.photos = auction.photos.map(
-    (name) => `http://${process.env.IP}:3000/images/${name}`
+    (name) => `http://${host}/images/${name}`
   );
 
   res.json(auction);
@@ -227,7 +228,6 @@ module.exports.bidAuction = async (req, res) => {
   });
 
   if (updatedAuction.bids[0].price >= updatedAuction.bin) {
-
     //send notification to winner
 
     let notification1 = new Notification();
@@ -239,7 +239,7 @@ module.exports.bidAuction = async (req, res) => {
     notification1.read = false;
 
     notification1.save();
- 
+
     let notification2 = new Notification();
     //send notification to seller
     notification2.shortProductName = updatedAuction.shortProductName;

@@ -16,15 +16,12 @@ class CustomAuthenticationButton extends StatelessWidget {
                   side: BorderSide(color: Colors.transparent))),
           backgroundColor: MaterialStateProperty.all<Color>(
               Color.fromRGBO(118, 166, 208, 1))),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
       onPressed: onPressed,

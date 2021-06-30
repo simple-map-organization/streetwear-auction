@@ -4,7 +4,7 @@ const Purchase = require("../models/purchase");
 const Notification = require("../models/notification");
 const Watchlist = require("../models/watchlist");
 
-module.exports = cron.schedule("*/10 * * * * *", async () => {
+module.exports = cron.schedule("*/5 * * * *", async () => {
   // */5 * * * *
   await endBidScheduler();
   await endTimeScheduler();

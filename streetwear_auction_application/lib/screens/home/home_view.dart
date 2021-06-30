@@ -37,6 +37,8 @@ class HomeScreen extends StatelessWidget {
                             Image(image: AssetImage('assets/img/1.jpg')),
                             Image(image: AssetImage('assets/img/2.jpg')),
                             Image(image: AssetImage('assets/img/3.jpg')),
+                            Image(image: AssetImage('assets/img/4.jpg')),
+                            Image(image: AssetImage('assets/img/5.jpg')),
                           ].toList(),
                           autoPlay: true,
                         ),

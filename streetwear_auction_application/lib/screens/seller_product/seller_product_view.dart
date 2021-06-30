@@ -152,14 +152,20 @@ class SellerProductScreen extends StatelessWidget {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => viewmodel.onPressFloatButton(context),
-            child: Icon(
-              Icons.add,
-              size: 50,
-              color: Colors.white,
+          floatingActionButton: Container(
+            height: 45.0,
+            width: 45.0,
+            child: FittedBox(
+              child: FloatingActionButton(
+                onPressed: () => viewmodel.onPressFloatButton(context),
+                child: Icon(
+                  Icons.add,
+                  size: 35,
+                  color: Colors.white,
+                ),
+                backgroundColor: Color.fromRGBO(117, 168, 255, 1),
+              ),
             ),
-            backgroundColor: Colors.grey.withOpacity(0.5),
           ),
         ),
       ),
