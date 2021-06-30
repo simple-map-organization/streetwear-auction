@@ -44,6 +44,8 @@ class ProfileScreen extends StatelessWidget {
                                     ? NetworkImage(viewmodel.user.profilePhoto,
                                         scale: 40)
                                     : AssetImage('assets/img/profile.png'),
+                                // backgroundImage:
+                                //     AssetImage('assets/img/profile.png'),
                                 backgroundColor: Colors.transparent,
                               ),
                               Positioned(

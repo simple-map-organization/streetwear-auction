@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Auction = require("../models/auction");
 const Purchase = require("../models/purchase");
+const Notification = require("../models/notification");
 var fs = require("fs");
 const { findOne } = require("../models/purchase");
 
@@ -26,15 +27,17 @@ module.exports.getAuctionList = async (req, res) => {
   res.json(auctions);
 };
 
-module.exports.getAuction = (req, res) => {
+module.exports.getAuction = async (req, res) => {
   const id = req.params["id"];
-  Auction.findById(id)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  let auction = await Auction.findById(id)
+    .populate("bids.userId")
+    .populate("seller");
+
+  auction.photos = auction.photos.map(
+    (name) => `http://${process.env.IP}:3000/images/${name}`
+  );
+
+  res.json(auction);
 };
 
 module.exports.getSellerAuctionList = async (req, res) => {
@@ -111,9 +114,25 @@ module.exports.createAuction = async (req, res) => {
   return res.json(newAuction);
 };
 
-module.exports.updateAuction = (req, res) => {
+module.exports.updateAuction = async (req, res) => {
   const id = req.params["id"];
   const status = req.body;
+  //send notification to buyer
+  console.log(status.status);
+  let auction = await Auction.findById(id);
+
+  console.log(auction);
+  if (status.status == "To Receive") {
+    let notification = new Notification();
+    notification.shortProductName = auction.shortProductName;
+    notification.dateTime = Date.now();
+    notification.type = "shipout";
+    notification.userId = auction.bids[0].userId._id;
+    notification.auctionId = id;
+    notification.read = false;
+
+    notification.save();
+  }
   Auction.findByIdAndUpdate(id, status, function (err, doc) {
     if (err) {
       console.log(err);
@@ -128,6 +147,21 @@ module.exports.bidAuction = async (req, res) => {
   const { price } = req.body;
 
   let auction = await Auction.findById(auctionId);
+
+  //add notification to previous winner
+  if (auction.bids.length != 0) {
+    console.log("1");
+    previousWinnerId = auction.bids[0].userId;
+    let notification = new Notification();
+    notification.shortProductName = auction.shortProductName;
+    notification.dateTime = Date.now();
+    notification.type = "outbidded";
+    notification.userId = previousWinnerId;
+    notification.auctionId = auction._id;
+    notification.read = false;
+
+    notification.save();
+  }
 
   //bids already exists, update the price
   if (auction.bids.some((bid) => bid.userId == userId)) {
@@ -172,24 +206,48 @@ module.exports.bidAuction = async (req, res) => {
     .populate("bids.userId")
     .populate("seller");
 
+  let purchases = updatedAuction.bids.map((bid) => {
+    return {
+      product: updatedAuction._id,
+      user: bid.userId._id,
+      won: false,
+      payBefore: null,
+      delivery: {
+        fullname: "",
+        phone: "",
+        address1: "",
+        address2: "",
+        postcode: "",
+        state: "",
+        country: "",
+      },
+    };
+  });
+
   if (updatedAuction.bids[0].price >= updatedAuction.bin) {
-    let purchases = updatedAuction.bids.map((bid) => {
-      return {
-        product: updatedAuction._id,
-        user: bid.userId._id,
-        won: false,
-        payBefore: null,
-        delivery: {
-          fullname: "",
-          phone: "",
-          address1: "",
-          address2: "",
-          postcode: "",
-          state: "",
-          country: "",
-        },
-      };
-    });
+    //send notification to winner
+    console.log("2");
+    let notification1 = new Notification();
+    notification1.shortProductName = updatedAuction.shortProductName;
+    notification1.dateTime = Date.now();
+    notification1.type = "wonAnAuction";
+    notification1.userId = updatedAuction.bids[0].userId;
+    notification1.auctionId = updatedAuction._id;
+    notification1.read = false;
+
+    notification1.save();
+    console.log("3");
+    let notification2 = new Notification();
+    //send notification to seller
+    notification2.shortProductName = updatedAuction.shortProductName;
+    notification2.dateTime = Date.now();
+    notification2.type = "auctionEnded";
+    notification2.userId = updatedAuction.seller._id;
+    notification2.auctionId = updatedAuction._id;
+    notification2.read = false;
+
+    notification2.save();
+
     updatedAuction.status = "Payment Pending";
     updatedAuction.save();
     purchases[0].won = true;

@@ -1,5 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:streetwear_auction_application/screens/notification/notification_viewmodel.dart';
 import 'package:streetwear_auction_application/screens/watchlist/watchlist_viewmodel.dart';
+import 'package:streetwear_auction_application/services/notification/notification_service.dart';
+import 'package:streetwear_auction_application/services/notification/notification_service_rest.dart';
 import 'package:streetwear_auction_application/services/watchlist/watchlist_service.dart';
 import 'package:streetwear_auction_application/services/watchlist/watchlist_service_rest.dart';
 import 'package:streetwear_auction_application/services/purchase/purchase_service.dart';
@@ -32,6 +35,7 @@ void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
     () => RestService(baseUrl: 'http://192.168.0.115:3000'),
+    // () => RestService(baseUrl: 'http://192.168.0.179:3000'),
     // () => RestService(baseUrl: 'http://192.168.43.208:3000'),
   );
 
@@ -45,6 +49,8 @@ void init() {
       .registerLazySingleton<WatchlistService>(() => WatchlistServiceRest());
   dependency
       .registerLazySingleton<PurchaseService>(() => PurchaseServiceRest());
+  dependency.registerLazySingleton<NotificationService>(
+      () => NotificationServiceRest());
 
   // Viewmodels
   dependency.registerLazySingleton(() => HomeViewModel());
@@ -59,4 +65,5 @@ void init() {
 
   dependency.registerLazySingleton(() => PurchaseViewModel());
   dependency.registerLazySingleton(() => AuctionDetailViewModel());
+  dependency.registerLazySingleton(() => NotificationViewModel());
 }

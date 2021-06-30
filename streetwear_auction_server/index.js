@@ -48,7 +48,6 @@ app.use("/notification", notificationRoute);
 app.use("/watchlist", watchlistRoute);
 app.use("/purchase", purchaseRoute);
 
-
 app.listen(port, () =>
   console.log(`Server running at http://${process.env.IP}:${port}`)
 );

@@ -2,8 +2,35 @@ import 'package:flutter/material.dart';
 
 class SearchBar extends StatelessWidget {
   final Function(BuildContext) onPressSearchBar;
+  final Function init;
+  final String notificationCount;
 
-  const SearchBar({Key key, this.onPressSearchBar}) : super(key: key);
+  getNotificationCount() {
+    if (notificationCount != "0") {
+      return Positioned(
+        bottom: 5,
+        right: 5,
+        child: Container(
+          width: 15,
+          child: RawMaterialButton(
+            fillColor: Colors.red,
+            child: Text(
+              notificationCount,
+              style: TextStyle(color: Colors.white),
+            ),
+            padding: EdgeInsets.all(1),
+            shape: CircleBorder(),
+            onPressed: null,
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  SearchBar({Key key, this.onPressSearchBar, this.notificationCount, this.init})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +60,26 @@ class SearchBar extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(4.0),
-              child: IconButton(
-                icon: Icon(
-                  Icons.notifications,
-                  size: 20.0,
-                ),
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/notification');
+              child: GestureDetector(
+                onTap: () async {
+                  await Navigator.pushNamed(context, '/notificationscreen');
+                  init();
                 },
+                child: Container(
+                  child: Stack(
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.notifications,
+                          color: Colors.grey,
+                          size: 25.0,
+                        ),
+                        onPressed: null,
+                      ),
+                      getNotificationCount()
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
