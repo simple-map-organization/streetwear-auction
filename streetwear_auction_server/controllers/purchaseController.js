@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Purchase = require("../models/purchase");
 const Auction = require("../models/auction");
+const Notification = require("../models/notification");
 
 module.exports.getPurchaseList = async (req, res) => {
   const host = req.headers.host;
@@ -96,6 +97,19 @@ module.exports.updatePurchase = async (req, res) => {
   purchase.product.status = "To Ship";
   purchase.product.save();
   res.json(purchase);
+
+  //send notification to seller upon success payment
+  let notification = new Notification();
+  notification.shortProductName = purchase.product.shortProductName;
+  notification.dateTime = Date.now();
+  notification.type = "havePaid";
+  notification.userId = purchase.product.seller._id;
+  notification.auctionId = purchase.product._id;
+  notification.read = false;
+
+  console.log(purchase);
+
+  notification.save();
 };
 
 module.exports.getUserPurchaseByAuctionId = async (req, res) => {

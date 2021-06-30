@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streetwear_auction_application/screens/my_purchase/purchase_view.dart';
+import 'package:streetwear_auction_application/screens/notification/notification_view.dart';
 
 import '../auth_wrapper.dart';
 import '../screens/auction_checkout/auction_checkout_view.dart';
@@ -77,6 +78,9 @@ Route<dynamic> createRoute(settings) {
 
     case PurchaseScreen.routeName:
       return PurchaseScreen.createRoute(settings.arguments);
+
+    case NotificationScreen.routeName:
+      return NotificationScreen.createRoute(settings.arguments);
   }
   return null;
 }

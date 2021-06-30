@@ -31,7 +31,7 @@ class PurchaseViewModel extends Viewmodel {
       .where((e) => e.won && e.product.status == 'To Ship')
       .toList();
   get toReceievePurchaseList => purchaseList
-      .where((e) => e.won && e.product.status == 'To Receieve')
+      .where((e) => e.won && e.product.status == 'To Receive')
       .toList();
   get completedPurchaseList => purchaseList
       .where((e) => e.won && e.product.status == 'Completed')

@@ -21,6 +21,12 @@ class AuctionServiceRest implements AuctionService {
     return auctionList;
   }
 
+  Future<Auction> getAuction(String id) async {
+    String endPoint = "auction/" + id;
+    var json = await rest.get(endPoint);
+    return Auction.fromJson(json);
+  }
+
   Future<List<Auction>> getSellerAuctionList(
       [Map<String, String> filter]) async {
     String endPoint = filter == null

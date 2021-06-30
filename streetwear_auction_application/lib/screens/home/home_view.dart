@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   static Route<dynamic> createRoute(args) =>
       MaterialPageRoute(builder: (_) => HomeScreen());
 
+  HomeScreen();
   @override
   Widget build(BuildContext context) {
     return ConsumerView(
@@ -23,6 +24,8 @@ class HomeScreen extends StatelessWidget {
               children: [
                 SearchBar(
                   onPressSearchBar: viewmodel.onPressSearchBar,
+                  notificationCount: viewmodel.notificationCount,
+                  init: viewmodel.getList,
                 ),
                 Expanded(
                   child: SingleChildScrollView(
