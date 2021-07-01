@@ -61,41 +61,60 @@ class WatchListScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                       // color: Colors.black87,
                       color: Color.fromRGBO(235, 235, 235, 1)),
-                  child: ListView.builder(
-                    itemCount: viewmodel.auctions.length,
-                    itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist, viewmodel.auctions[index]),
-                  ),
+                  child: viewmodel.busy
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: viewmodel.auctions.length,
+                          itemBuilder: (context, index) => WatchlistProductCard(
+                              viewmodel.watchlist, viewmodel.auctions[index]),
+                        ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                       // color: Colors.black87,
                       color: Color.fromRGBO(235, 235, 235, 1)),
-                  child: ListView.builder(
-                    itemCount: viewmodel.winningAuctions.length,
-                    itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist, viewmodel.winningAuctions[index]),
-                  ),
+                  child: viewmodel.busy
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: viewmodel.winningAuctions.length,
+                          itemBuilder: (context, index) => WatchlistProductCard(
+                              viewmodel.watchlist,
+                              viewmodel.winningAuctions[index]),
+                        ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                       // color: Colors.black87,
                       color: Color.fromRGBO(235, 235, 235, 1)),
-                  child: ListView.builder(
-                    itemCount: viewmodel.losingAuctions.length,
-                    itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist, viewmodel.losingAuctions[index]),
-                  ),
+                  child: viewmodel.busy
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: viewmodel.losingAuctions.length,
+                          itemBuilder: (context, index) => WatchlistProductCard(
+                              viewmodel.watchlist,
+                              viewmodel.losingAuctions[index]),
+                        ),
                 ),
                 Container(
                   decoration: BoxDecoration(
                       // color: Colors.black87,
                       color: Color.fromRGBO(235, 235, 235, 1)),
-                  child: ListView.builder(
-                    itemCount: viewmodel.watchingAuctions.length,
-                    itemBuilder: (context, index) => WatchlistProductCard(
-                        viewmodel.watchlist, viewmodel.watchingAuctions[index]),
-                  ),
+                  child: viewmodel.busy
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : ListView.builder(
+                          itemCount: viewmodel.watchingAuctions.length,
+                          itemBuilder: (context, index) => WatchlistProductCard(
+                              viewmodel.watchlist,
+                              viewmodel.watchingAuctions[index]),
+                        ),
                 ),
               ],
             ),

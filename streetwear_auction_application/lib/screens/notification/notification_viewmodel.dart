@@ -11,7 +11,7 @@ import '../seller_product/seller_product_view.dart';
 import '../viewmodel.dart';
 
 class NotificationViewModel extends Viewmodel {
-  List<Noti> notifications;
+  List<Noti> notifications = [];
   NotificationService get notificationService => dependency();
   AuctionService get dataService => dependency();
 

@@ -5,7 +5,7 @@ import '../../services/watchlist/watchlist_service.dart';
 import '../viewmodel.dart';
 
 class WatchlistViewModel extends Viewmodel {
-  List<Auction> auctions;
+  List<Auction> auctions = [];
   Watchlist watchlist;
   WatchlistViewModel();
   WatchlistService get dataService => dependency();

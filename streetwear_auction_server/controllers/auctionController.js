@@ -121,10 +121,8 @@ module.exports.updateAuction = async (req, res) => {
   const id = req.params["id"];
   const status = req.body;
   //send notification to buyer
-  console.log(status.status);
   let auction = await Auction.findById(id);
 
-  console.log(auction);
   if (status.status == "To Receive") {
     let notification = new Notification();
     notification.shortProductName = auction.shortProductName;
@@ -153,7 +151,6 @@ module.exports.bidAuction = async (req, res) => {
 
   //add notification to previous winner
   if (auction.bids.length != 0) {
-    console.log("1");
     previousWinnerId = auction.bids[0].userId;
     let notification = new Notification();
     notification.shortProductName = auction.shortProductName;

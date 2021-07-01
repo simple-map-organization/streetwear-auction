@@ -32,6 +32,10 @@ class Auction {
     return bids[0].user.username;
   }
 
+  get minBid {
+    return bids.length > 0 ? bids[0].price + minIncrement : startingPrice;
+  }
+
   Auction({
     @required this.auctionId,
     @required this.productName,

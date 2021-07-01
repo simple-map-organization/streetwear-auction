@@ -35,13 +35,17 @@ class AuctionCard extends StatelessWidget {
                           child: Image.network(auction.photos[0]))),
                   Container(
                     margin: const EdgeInsets.all(4.0),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.star,
-                        size: 16.0,
-                        color: Colors.grey[400],
+                    child: GestureDetector(
+                      child: Container(
+                        height: 20.0,
+                        width: 20.0,
+                        child: Icon(
+                          Icons.star,
+                          size: 16.0,
+                          color: Colors.grey[400],
+                        ),
                       ),
-                      onPressed: () async {
+                      onTap: () async {
                         final status = await onPressStarIcon(auction.auctionId);
                         if (status == 'Updated') {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

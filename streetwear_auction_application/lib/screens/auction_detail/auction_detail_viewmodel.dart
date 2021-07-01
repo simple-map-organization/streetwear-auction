@@ -36,7 +36,7 @@ class AuctionDetailViewModel extends Viewmodel {
     this.auction = auction;
   }
 
-  Future<void> onPlaceBid(int price) async {
+  Future<void> onPlaceBid(int price, context) async {
     turnBusy();
     auction = await dataService.bidAuction(
         auctionID: auction.auctionId, price: price);
@@ -44,6 +44,8 @@ class AuctionDetailViewModel extends Viewmodel {
   }
 
   Future<Purchase> getUserPurchaseByAuctionId(String auctionId) {
-    return purchaseService.getUserPurchaseByAuctionId(auctionId);
+    var future = purchaseService.getUserPurchaseByAuctionId(auctionId);
+    this.update(() => future);
+    return future;
   }
 }

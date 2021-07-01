@@ -84,64 +84,75 @@ class PurchaseScreen extends StatelessWidget {
                               );
                             }).toList())),
                     Expanded(
-                      child: ListView.builder(
-                        padding: EdgeInsets.only(bottom: 15),
-                        itemCount: viewmodel.disaplayWinPurchaseList.length,
-                        itemBuilder: (context, index) => ProductCard(
-                            purchase: viewmodel.disaplayWinPurchaseList[index],
-                            function: () async {
-                              switch (viewmodel.disaplayWinPurchaseList[index]
-                                  .product.status) {
-                                case "Payment Pending":
-                                  await Navigator.pushNamed(
-                                      context, AuctionCheckoutScreen.routeName,
-                                      arguments: {
-                                        'processType': 'BID',
-                                        'purchase': viewmodel
-                                            .disaplayWinPurchaseList[index],
-                                        'price':
-                                            (viewmodel.disaplayWinPurchaseList[
+                      child: viewmodel.busy
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : ListView.builder(
+                              padding: EdgeInsets.only(bottom: 15),
+                              itemCount:
+                                  viewmodel.disaplayWinPurchaseList.length,
+                              itemBuilder: (context, index) => ProductCard(
+                                  purchase:
+                                      viewmodel.disaplayWinPurchaseList[index],
+                                  function: () async {
+                                    switch (viewmodel
+                                        .disaplayWinPurchaseList[index]
+                                        .product
+                                        .status) {
+                                      case "Payment Pending":
+                                        await Navigator.pushNamed(context,
+                                            AuctionCheckoutScreen.routeName,
+                                            arguments: {
+                                              'processType': 'BID',
+                                              'purchase': viewmodel
+                                                      .disaplayWinPurchaseList[
+                                                  index],
+                                              'price': (viewmodel
+                                                          .disaplayWinPurchaseList[
+                                                      index] as Purchase)
+                                                  .product
+                                                  .bids[0]
+                                                  .price,
+                                              'deliveryFee': (viewmodel
+                                                          .disaplayWinPurchaseList[
+                                                      index] as Purchase)
+                                                  .product
+                                                  .deliveryFee
+                                            });
+                                        viewmodel.getPurchasedList();
+                                        break;
+                                      case "To Rate":
+                                        viewmodel.sellerRating = 3.0;
+                                        final value = await showDialog<String>(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              RateSellerDialogBox(
+                                            seller: (viewmodel
+                                                        .disaplayWinPurchaseList[
                                                     index] as Purchase)
                                                 .product
-                                                .bids[0]
-                                                .price,
-                                        'deliveryFee':
-                                            (viewmodel.disaplayWinPurchaseList[
-                                                    index] as Purchase)
-                                                .product
-                                                .deliveryFee
-                                      });
-                                  viewmodel.getPurchasedList();
-                                  break;
-                                case "To Rate":
-                                  viewmodel.sellerRating = 3.0;
-                                  final value = await showDialog<String>(
-                                    context: context,
-                                    builder: (BuildContext context) =>
-                                        RateSellerDialogBox(
-                                      seller:
-                                          (viewmodel.disaplayWinPurchaseList[
-                                                  index] as Purchase)
-                                              .product
-                                              .seller
-                                              .username,
-                                      setRating: viewmodel.setRating,
-                                    ),
-                                  );
-                                  if (value == "Confirm") {
-                                    viewmodel.updateStatus(
-                                        purchase: viewmodel
-                                            .disaplayWinPurchaseList[index],
-                                        rating: viewmodel.sellerRating);
-                                  }
-                                  break;
-                                default:
-                                  viewmodel.updateStatus(
-                                      purchase: viewmodel
-                                          .disaplayWinPurchaseList[index]);
-                              }
-                            }),
-                      ),
+                                                .seller
+                                                .username,
+                                            setRating: viewmodel.setRating,
+                                          ),
+                                        );
+                                        if (value == "Confirm") {
+                                          viewmodel.updateStatus(
+                                              purchase: viewmodel
+                                                      .disaplayWinPurchaseList[
+                                                  index],
+                                              rating: viewmodel.sellerRating);
+                                        }
+                                        break;
+                                      default:
+                                        viewmodel.updateStatus(
+                                            purchase: viewmodel
+                                                    .disaplayWinPurchaseList[
+                                                index]);
+                                    }
+                                  }),
+                            ),
                     ),
                   ],
                 ),

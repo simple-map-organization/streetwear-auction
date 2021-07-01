@@ -150,7 +150,6 @@ async function reminderToShipScheduler() {
       type: "reminderToShip",
     });
     if (oldNotification.length == 0) {
-      console.log("added");
       let notification = new Notification();
       notification.shortProductName = purchase.product.shortProductName;
       notification.dateTime = Date.now();
@@ -180,7 +179,6 @@ async function reminderToPayScheduler() {
       type: "reminderToPay",
     });
     if (oldNotification.length == 0) {
-      console.log("added");
       let notification = new Notification();
       notification.shortProductName = purchase.product.shortProductName;
       notification.dateTime = Date.now();

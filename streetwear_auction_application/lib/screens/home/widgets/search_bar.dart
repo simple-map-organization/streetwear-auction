@@ -16,7 +16,7 @@ class SearchBar extends StatelessWidget {
             fillColor: Colors.red,
             child: Text(
               notificationCount,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.white, fontSize: 8.0),
             ),
             padding: EdgeInsets.all(1),
             shape: CircleBorder(),

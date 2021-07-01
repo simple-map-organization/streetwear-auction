@@ -7,7 +7,7 @@ import '../start_auction/start_auction_view.dart';
 import '../viewmodel.dart';
 
 class SellerProductViewModel extends Viewmodel {
-  List<Auction> auctions;
+  List<Auction> auctions = [];
 
   String searchProductName;
 
@@ -25,13 +25,13 @@ class SellerProductViewModel extends Viewmodel {
   get paymentPendingAuctions =>
       auctions.where((i) => i.status == "Payment Pending").toList();
   get toShipAuctions => auctions.where((i) => i.status == "To Ship").toList();
-  get shippedAuctions => auctions.where((i) => i.status == "To Receive").toList();
+  get shippedAuctions =>
+      auctions.where((i) => i.status == "To Receive").toList();
   get completedAuctions => auctions
       .where((i) => i.status == "Completed" || i.status == "To Rate")
       .toList();
-  get cancelledAuctions => auctions
-      .where((i) => i.status.contains('Cancelled'))
-      .toList();   
+  get cancelledAuctions =>
+      auctions.where((i) => i.status.contains('Cancelled')).toList();
 
   void onSearchProductName(String productName) async {
     if (productName == searchProductName) return;

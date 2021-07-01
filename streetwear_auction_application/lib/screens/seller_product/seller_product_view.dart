@@ -86,42 +86,58 @@ class SellerProductScreen extends StatelessWidget {
               Container(
                 decoration:
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
-                child: ListView.builder(
-                  itemCount: viewmodel.auctions.length,
-                  itemBuilder: (context, index) => SellerProductCard(
-                    viewmodel.auctions[index],
-                    onShip: viewmodel.onPressStatusButton,
-                  ),
-                ),
+                child: viewmodel.busy
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        itemCount: viewmodel.auctions.length,
+                        itemBuilder: (context, index) => SellerProductCard(
+                          viewmodel.auctions[index],
+                          onShip: viewmodel.onPressStatusButton,
+                        ),
+                      ),
               ),
               Container(
                 decoration:
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
-                child: ListView.builder(
-                  itemCount: viewmodel.ongoingAuctions.length,
-                  itemBuilder: (context, index) =>
-                      SellerProductCard(viewmodel.ongoingAuctions[index]),
-                ),
+                child: viewmodel.busy
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        itemCount: viewmodel.ongoingAuctions.length,
+                        itemBuilder: (context, index) =>
+                            SellerProductCard(viewmodel.ongoingAuctions[index]),
+                      ),
               ),
               Container(
                 decoration:
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
-                child: ListView.builder(
-                  itemCount: viewmodel.paymentPendingAuctions.length,
-                  itemBuilder: (context, index) => SellerProductCard(
-                      viewmodel.paymentPendingAuctions[index]),
-                ),
+                child: viewmodel.busy
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        itemCount: viewmodel.paymentPendingAuctions.length,
+                        itemBuilder: (context, index) => SellerProductCard(
+                            viewmodel.paymentPendingAuctions[index]),
+                      ),
               ),
               Container(
                 decoration:
                     BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
-                child: ListView.builder(
-                  itemCount: viewmodel.toShipAuctions.length,
-                  itemBuilder: (context, index) => SellerProductCard(
-                    viewmodel.auctions[index],
-                    onShip: viewmodel.onPressStatusButton,
-                  ),
-                ),
+                child: viewmodel.busy
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        itemCount: viewmodel.toShipAuctions.length,
+                        itemBuilder: (context, index) => SellerProductCard(
+                          viewmodel.auctions[index],
+                          onShip: viewmodel.onPressStatusButton,
+                        ),
+                      ),
               ),
               Container(
                 decoration:

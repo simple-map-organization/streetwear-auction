@@ -76,13 +76,17 @@ class SearchAuctionScreen extends StatelessWidget {
               child: Container(
                 color: Colors.grey[200],
                 padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: AuctionGrid(
-                    onPressStarIcon: viewmodel.onPressStarIcon,
-                    auctions: viewmodel.auctions,
-                    onCardPressed: viewmodel.onCardPressed,
-                  ),
-                ),
+                child: viewmodel.busy
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SingleChildScrollView(
+                        child: AuctionGrid(
+                          onPressStarIcon: viewmodel.onPressStarIcon,
+                          auctions: viewmodel.auctions,
+                          onCardPressed: viewmodel.onCardPressed,
+                        ),
+                      ),
               ),
             ),
           ],

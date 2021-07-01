@@ -45,11 +45,15 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(
                           height: 12.0,
                         ),
-                        AuctionGrid(
-                          auctions: viewmodel.auctions,
-                          onPressStarIcon: viewmodel.onPressStarIcon,
-                          onCardPressed: viewmodel.onCardPressed,
-                        ),
+                        viewmodel.busy
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : AuctionGrid(
+                                auctions: viewmodel.auctions,
+                                onPressStarIcon: viewmodel.onPressStarIcon,
+                                onCardPressed: viewmodel.onCardPressed,
+                              ),
                       ],
                     ),
                   ),

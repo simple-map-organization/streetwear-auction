@@ -14,8 +14,8 @@ class PurchaseViewModel extends Viewmodel {
     'Completed',
     'Cancelled'
   ];
-  List<Purchase> purchaseList;
-  List<Purchase> disaplayWinPurchaseList;
+  List<Purchase> purchaseList = [];
+  List<Purchase> disaplayWinPurchaseList = [];
   PurchaseService get purchaseService => dependency();
   double sellerRating;
 

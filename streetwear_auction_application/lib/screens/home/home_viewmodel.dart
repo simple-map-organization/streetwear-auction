@@ -9,11 +9,11 @@ import '../search_auction/search_auction_view.dart';
 import '../viewmodel.dart';
 
 class HomeViewModel extends Viewmodel {
-  List<Auction> auctions;
+  List<Auction> auctions = [];
   HomeViewModel();
   AuctionService get dataService => dependency();
   NotificationService get notificationService => dependency();
-  String notificationCount;
+  String notificationCount = '0';
 
   Future<void> getList() async {
     turnBusy();
@@ -23,9 +23,7 @@ class HomeViewModel extends Viewmodel {
   }
 
   Future<void> getNotificationCount() async {
-    notificationCount = await notificationService
-        .getNotificationCount()
-        .then((value) => notificationCount = value);
+    notificationCount = await notificationService.getNotificationCount();
   }
 
   void onPressSearchBar(context) async {

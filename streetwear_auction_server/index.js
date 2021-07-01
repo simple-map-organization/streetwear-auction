@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -13,10 +14,10 @@ const purchaseRoute = require("./routes/purchase");
 const UserAuthMiddleware = require("./middleware/authMiddleware");
 const watchlistRoute = require("./routes/watchlist");
 
-mongoose.connect(
-  "mongodb+srv://root:9Cs8v6FpAKmSuHF@cluster0.nebie.mongodb.net/test",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -36,10 +37,6 @@ app.get("/", (req, res) => res.send("Home Page!"));
 app.use("/login", loginRoute);
 app.use("/registration", registrationRoute);
 
-//backend running schedule
-// AuctionScheduler.endBidScheduler;
-
-//protected routes
 app.use("/auction", UserAuthMiddleware, auctionRoute);
 app.use("/user", UserAuthMiddleware, userRoute);
 app.use("/notification", UserAuthMiddleware, notificationRoute);
