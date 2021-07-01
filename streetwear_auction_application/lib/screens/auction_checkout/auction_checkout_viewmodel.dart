@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../app/dependencies.dart';
 import '../../models/purchase.dart';
 import '../../services/purchase/purchase_service.dart';
-import '../../app/dependencies.dart';
 import '../viewmodel.dart';
 
 class AuctionCheckoutViewModel extends Viewmodel {
@@ -17,6 +17,7 @@ class AuctionCheckoutViewModel extends Viewmodel {
   String state = 'Perak';
   TextEditingController postcodeController = TextEditingController();
   bool isChecked;
+
   void changeIsChecked() {
     isChecked = isChecked ? false : true;
     turnIdle();
@@ -28,7 +29,7 @@ class AuctionCheckoutViewModel extends Viewmodel {
   }
 
   Future<void> onPay() async {
-    print(purchase.purchaseId);
+    turnBusy();
     await dataService.updatePurchase(
       purchase.purchaseId,
       fullname: fullnameController.text,
@@ -38,5 +39,6 @@ class AuctionCheckoutViewModel extends Viewmodel {
       state: state,
       postcode: postcodeController.text,
     );
+    turnIdle();
   }
 }
