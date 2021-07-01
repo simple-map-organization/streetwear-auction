@@ -76,7 +76,7 @@ class StartAuctionViewModel extends Viewmodel {
         startingPrice: int.parse(startingPriceController.text),
         minIncrement: int.parse(minIncrementController.text),
         deliveryFee: int.parse(deliveryFeeController.text),
-        endTime: selectedDate,
+        endTime: selectedDate.toUtc(),
         listImageFile: fileImageArray);
     Navigator.of(context).pop(_auction);
     turnIdle();

@@ -14,6 +14,8 @@ module.exports.updateUser = async (req, res) => {
   const id = req.id;
   const newUserData = req.body;
 
+  delete newUserData.profilePhoto;
+
   const user = await User.findByIdAndUpdate(id, newUserData, {
     new: true,
     useFindAndModify: false,
