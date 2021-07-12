@@ -41,8 +41,10 @@ class AuctionDetailScreen extends StatelessWidget {
   }
 
   void _openWinnerProfile(context, viewmodel) async {
-    Purchase purchase =
-        await viewmodel.getUserPurchaseByAuctionId(auction.auctionId);
+    String winnerUserId = viewmodel.auction.bids[0].user.userId;
+    if (winnerUserId == null || winnerUserId == '') return;
+    Purchase purchase = await viewmodel.getUserPurchaseByUserIdAndAuctionId(
+        auction.auctionId, winnerUserId);
     if (purchase == null) return;
     showModalBottomSheet(
       isScrollControlled: true,

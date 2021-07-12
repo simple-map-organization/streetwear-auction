@@ -18,9 +18,7 @@ module.exports.getPurchaseList = async (req, res) => {
   for (let index = 0; index < purchase.length; index++) {
     purchase[index].product = { ...purchase[index].product };
     for (let i = 0; i < purchase[index].product.photos.length; i++) {
-      purchase[index].product.photos[
-        i
-      ] = `http://${host}/images/${purchase[index].product.photos[i]}`;
+      purchase[index].product.photos[i] = `http://${host}/images/${purchase[index].product.photos[i]}`;
     }
   }
 
@@ -56,13 +54,9 @@ module.exports.updateStatus = async (req, res) => {
     }
     await purchase.product.save();
     if (rating) {
-      let product = await Auction.findById(purchase.product._id).populate(
-        "seller"
-      );
+      let product = await Auction.findById(purchase.product._id).populate("seller");
       product.rating = rating;
-      product.seller.rating =
-        (product.seller.rating * product.seller.ratingCount + rating) /
-        (product.seller.ratingCount + 1);
+      product.seller.rating = (product.seller.rating * product.seller.ratingCount + rating) / (product.seller.ratingCount + 1);
       product.seller.ratingCount++;
       await product.seller.save();
       await product.save();
@@ -115,6 +109,29 @@ module.exports.updatePurchase = async (req, res) => {
 module.exports.getUserPurchaseByAuctionId = async (req, res) => {
   const userId = req.id;
   const auctionId = req.params["auctionId"];
+  let purchase = await Purchase.findOne({
+    $and: [{ user: userId }, { product: auctionId }],
+  })
+    .populate({
+      path: "product",
+      populate: {
+        path: "seller",
+        select: "username",
+      },
+    })
+    .populate({
+      path: "product",
+      populate: {
+        path: "bids.userId",
+        select: "username",
+      },
+    });
+  res.json(purchase);
+};
+
+module.exports.getPurchaseByUserIdAndAuctionId = async (req, res) => {
+  const userId = req.params["userId"];
+  const auctionId = req.query.auctionId;
   let purchase = await Purchase.findOne({
     $and: [{ user: userId }, { product: auctionId }],
   })
