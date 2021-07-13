@@ -37,6 +37,7 @@ module.exports.register = async (req, res) => {
   user.bio = "";
   user.totalDeal = 0;
   user.rating = 0;
+  user.rateCount = 0;
   user.address = {
     address1: "",
     address2: "",
