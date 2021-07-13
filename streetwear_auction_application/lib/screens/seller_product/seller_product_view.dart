@@ -134,7 +134,7 @@ class SellerProductScreen extends StatelessWidget {
                     : ListView.builder(
                         itemCount: viewmodel.toShipAuctions.length,
                         itemBuilder: (context, index) => SellerProductCard(
-                          viewmodel.auctions[index],
+                          viewmodel.toShipAuctions[index],
                           onShip: viewmodel.onPressStatusButton,
                         ),
                       ),
