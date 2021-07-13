@@ -21,6 +21,14 @@ class PurchaseServiceRest implements PurchaseService {
     return purchase;
   }
 
+  Future<Purchase> getUserPurchaseByUserIdAndAuctionId(
+      String auctionId, String userId) async {
+    var result = await rest.get('purchase/user/$userId?auctionId=$auctionId');
+    if (result == null) return null;
+    Purchase purchase = Purchase.fromJson(result);
+    return purchase;
+  }
+
   Future<Purchase> updateStatus(String purchaseId, double rating) async {
     var result = rating != -1
         ? await rest.put('purchase/updateStatus/' + purchaseId,

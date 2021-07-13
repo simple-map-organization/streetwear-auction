@@ -48,4 +48,12 @@ class AuctionDetailViewModel extends Viewmodel {
     this.update(() => future);
     return future;
   }
+
+  Future<Purchase> getUserPurchaseByUserIdAndAuctionId(
+      String auctionId, String userId) {
+    var future =
+        purchaseService.getUserPurchaseByUserIdAndAuctionId(auctionId, userId);
+    this.update(() => future);
+    return future;
+  }
 }
