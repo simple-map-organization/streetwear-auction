@@ -41,6 +41,7 @@ class AuctionDetailScreen extends StatelessWidget {
   }
 
   void _openWinnerProfile(context, viewmodel) async {
+    if (viewmodel.auction.winner.contains('No winner')) return;
     String winnerUserId = viewmodel.auction.bids[0].user.userId;
     if (winnerUserId == null || winnerUserId == '') return;
     Purchase purchase = await viewmodel.getUserPurchaseByUserIdAndAuctionId(
