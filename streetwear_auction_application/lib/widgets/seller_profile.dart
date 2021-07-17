@@ -108,18 +108,18 @@ class SellerProfile extends StatelessWidget {
                             icon: Image(
                               image: AssetImage('assets/img/facebook.png'),
                             ),
-                            onPressed: () => _launchInBrowser(user.fbLink)),
+                            onPressed: () => user.fbLink!=""?_launchInBrowser(user.fbLink):null),
                         IconButton(
                             icon: Image(
                               image: AssetImage('assets/img/instagram.png'),
                             ),
-                            onPressed: () => _launchInBrowser(user.igLink)),
+                            onPressed: () =>  user.igLink!=""?_launchInBrowser(user.igLink):null),
                         IconButton(
                             icon: Icon(
                               Icons.link,
                               size: 34.0,
                             ),
-                            onPressed: () => _launchInBrowser(user.lcLink)),
+                            onPressed: () =>  user.lcLink!=""?_launchInBrowser(user.lcLink):null),
                       ],
                     )
                   ],

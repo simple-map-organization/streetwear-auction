@@ -71,7 +71,7 @@ class ProductCard extends StatelessWidget {
                               'Condition: ${purchase.product.condition}\n' +
                               'Size :${purchase.product.size}\n' +
                               (purchase.won
-                                  ? 'Pay before :${DateFormat.yMd().add_jm().format(purchase.payBefore)}'
+                                  ? purchase.product.status=="To Pay"?'Pay before :${DateFormat.yMd().add_jm().format(purchase.payBefore)}':'Paid On :${DateFormat.yMd().add_jm().format(purchase.paidOn)}'
                                   : ''),
                           textAlign: TextAlign.left,
                         ),

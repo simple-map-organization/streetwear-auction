@@ -225,8 +225,8 @@ class AuctionCheckoutScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     color: Theme.of(context).primaryColor,
                     onPressed: () async {
-                      // if (!_formKey.currentState.validate() || !viewmodel.isChecked)
-                      //   return;
+                      if (!_formKey.currentState.validate() || !viewmodel.isChecked)
+                        return;
 
                       FocusScope.of(context).requestFocus(FocusNode());
 
@@ -242,7 +242,7 @@ class AuctionCheckoutScreen extends StatelessWidget {
                           context: context,
                           builder: (_) => CreditCardCheckout());
 
-                      if (isSuccess) {
+                      if (isSuccess!=null) {
                         await viewmodel.onPay();
                         final snackBar =
                             SnackBar(content: Text('Paid successful!'));

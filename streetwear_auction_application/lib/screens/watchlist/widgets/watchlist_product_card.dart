@@ -9,7 +9,8 @@ import '../../../models/watchlist.dart';
 class WatchlistProductCard extends StatelessWidget {
   final Watchlist watchlist;
   final Auction auction;
-  WatchlistProductCard(this.watchlist, this.auction);
+  final Function getWatchlist;
+  WatchlistProductCard(this.watchlist, this.auction, this.getWatchlist);
 
   get _isWinning =>
       auction.bids.length > 0 &&
@@ -26,9 +27,10 @@ class WatchlistProductCard extends StatelessWidget {
     Duration duration = auction.endTime.difference(DateTime.now());
 
     return InkWell(
-      onTap: () {
-        Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
+      onTap: () async {
+        await Navigator.of(context).pushNamed(AuctionDetailScreen.routeName,
             arguments: {'auction': auction});
+        getWatchlist();
       },
       child: Container(
         padding: EdgeInsets.only(right: 7.0),

@@ -68,7 +68,7 @@ class WatchListScreen extends StatelessWidget {
                       : ListView.builder(
                           itemCount: viewmodel.auctions.length,
                           itemBuilder: (context, index) => WatchlistProductCard(
-                              viewmodel.watchlist, viewmodel.auctions[index]),
+                              viewmodel.watchlist, viewmodel.auctions[index], viewmodel.getWatchlist),
                         ),
                 ),
                 Container(
@@ -83,7 +83,7 @@ class WatchListScreen extends StatelessWidget {
                           itemCount: viewmodel.winningAuctions.length,
                           itemBuilder: (context, index) => WatchlistProductCard(
                               viewmodel.watchlist,
-                              viewmodel.winningAuctions[index]),
+                              viewmodel.winningAuctions[index], viewmodel.getWatchlist),
                         ),
                 ),
                 Container(
@@ -98,7 +98,7 @@ class WatchListScreen extends StatelessWidget {
                           itemCount: viewmodel.losingAuctions.length,
                           itemBuilder: (context, index) => WatchlistProductCard(
                               viewmodel.watchlist,
-                              viewmodel.losingAuctions[index]),
+                              viewmodel.losingAuctions[index], viewmodel.getWatchlist),
                         ),
                 ),
                 Container(
@@ -113,7 +113,7 @@ class WatchListScreen extends StatelessWidget {
                           itemCount: viewmodel.watchingAuctions.length,
                           itemBuilder: (context, index) => WatchlistProductCard(
                               viewmodel.watchlist,
-                              viewmodel.watchingAuctions[index]),
+                              viewmodel.watchingAuctions[index], viewmodel.getWatchlist),
                         ),
                 ),
               ],

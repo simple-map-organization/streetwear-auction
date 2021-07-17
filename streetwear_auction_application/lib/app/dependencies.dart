@@ -35,6 +35,7 @@ void init() {
   // Services
   dependency.registerLazySingleton<RestService>(
     () => RestService(baseUrl: 'http://128.199.88.0'),
+    // () => RestService(baseUrl: 'http://192.168.1.103:3000'),
   );
 
   dependency.registerLazySingleton<AuthService>(() => AuthService());
